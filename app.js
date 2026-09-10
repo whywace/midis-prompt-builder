@@ -1,16 +1,16 @@
 /**
- * MIDIS JARVIS AI PROMPT ENGINE
- * Pure Vanilla JavaScript ES6+
+ * MIDIS JARVIS AI PROMPT ENGINE v3.0
+ * Complete Database of all MIDIS Majors, Sub-profiles and 14 Scenarios
  * Author: Melnikov Semen
- * Brand: International Institute of Design and Service (MIDIS)
+ * Official Website: midis.ru
  */
 
-// ==========================================
-// 1. DATASETS & SCENARIOS
-// ==========================================
+// ==========================================================================
+// 1. DATA DICTIONARIES (ALL MIDIS MAJORS & SUB-PROFILES)
+// ==========================================================================
 
-const MIDIS_DB = {
-  // 10 Use Cases grouped by categories
+const MIDIS_DATA = {
+  // 14 Specialized Scenarios
   scenarios: [
     {
       id: 'iot-roadmap',
@@ -18,21 +18,31 @@ const MIDIS_DB = {
       icon: '🧭',
       badge: 'МЕТОДИКА МИДиС',
       title: 'Индивидуальный трек обучения (ИОТ)',
-      desc: 'Пошаговый роадмап прокачки навыков по семестрам с учетом проектов МИДиС и баланса жизни.',
-      systemRole: 'Ты — опытный карьерный наставник и коуч по личностному развитию, эксперт по методике индивидуальных образовательных траекторий (ИОТ) МИДиС.',
-      goalSummary: 'Составить глубокий ориентировочный индивидуальный план развития на весь оставшийся срок обучения по годам (профессиональные навыки, софт-скиллы, проверка профессии, первые шаги на месяц).',
-      taskLabel: 'Твои сомнения, приоритеты или фокус на ближайший семестр:'
+      desc: 'Пошаговый план развития по семестрам с учетом проектного обучения, ОУП и баланса жизни.',
+      systemRole: 'Ты — опытный карьерный наставник и коуч по личностному развитию, эксперт по методике индивидуальных образовательных траекторий (ИОТ) Международного института дизайна и сервиса (МИДиС).',
+      goalSummary: 'Составить глубокий и честный ориентировочный индивидуальный план развития на весь оставшийся срок обучения по курсам/семестрам (профессиональные навыки, надпрофессиональные софт-скиллы, проверка правильности выбора профессии, конкретные первые шаги).',
+      taskLabel: 'Твои текущие сомнения, приоритеты или цели на семестр:',
+      quickTemplates: [
+        'Как с 1 курса совместить учебу, хакатоны и проектную работу с бизнесом в FDE Lab?',
+        'Хочу сфокусироваться на профильных навыках, но боюсь перегрузки и первой сессии.',
+        'Сомневаюсь, правильно ли выбрал специальность — как безопасно протестировать профессию?'
+      ]
     },
     {
       id: 'portfolio-pet-projects',
       category: 'creation',
       icon: '✨',
-      badge: 'ХИТ ДЛЯ BEHANCE',
+      badge: 'ХИТ ДЛЯ ПОРТФОЛИО',
       title: 'Идеи для пет-проектов и портфолио',
-      desc: 'Поиск нестандартных концепций на стыке твоей специальности и хобби с Wow-эффектом.',
-      systemRole: 'Ты — креативный директор и лид продуктовой разработки с опытом отбора сильных джуниор-портфолио, мастер генерации свежих гипотез.',
-      goalSummary: 'Сгенерировать 3–4 проработанные концепции пет-проектов с четким описанием проблемы, ЦА, стека инструментов и wow-эффекта для работодателей.',
-      taskLabel: 'Какую тему, проблему или хобби хочется развить в проекте?'
+      desc: 'Поиск нестандартных тем на стыке специальности и личных хобби с Wow-эффектом.',
+      systemRole: 'Ты — креативный директор и лид продуктовой разработки с опытом отбора сильных джуниор-портфолио на Behance, Dprofile и GitHub.',
+      goalSummary: 'Сгенерировать 3–4 проработанные концепции пет-проектов с четким описанием проблемы, ЦА, необходимого стека инструментов и wow-эффекта для работодателей.',
+      taskLabel: 'Какую тему, проблему или хобби хочется раскрыть в проекте?',
+      quickTemplates: [
+        'Идея пет-проекта на стыке моей специальности и локальной уральской культуры / стритфуда.',
+        'Концепт интерактивного мобильного сервиса с геймификацией отзывов и комьюнити.',
+        'Проект на стыке 3D-графики, генеративного AI и моушн-дизайна.'
+      ]
     },
     {
       id: 'exam-defense-prep',
@@ -40,21 +50,31 @@ const MIDIS_DB = {
       icon: '🛡️',
       badge: 'АНТИСТРЕСС',
       title: 'Подготовка к защите и сессии',
-      desc: 'Разбор сложной темы методом Фейнмана + 8-10 каверзных вопросов экзаменационной комиссии.',
+      desc: 'Разбор сложной темы методом Фейнмана + 8-10 каверзных вопросов экзаменационной комиссии МИДиС.',
       systemRole: 'Ты — академический наставник и строгий, но справедливый член государственной экзаменационной комиссии (ГЭК) МИДиС.',
-      goalSummary: 'Разложить сложную тему или курсовой проект на понятные тезисы и подготовить чек-лист уверенных ответов на каверзные вопросы защиты.',
-      taskLabel: 'Тема проекта, дисциплина или сложный вопрос к защите:'
+      goalSummary: 'Разложить сложную тему или курсовой проект на понятные смысловые блоки и подготовить чек-лист уверенных ответов на каверзные вопросы комиссии на защите.',
+      taskLabel: 'Тема проекта, сложный вопрос к защите или дисциплина:',
+      quickTemplates: [
+        'Защита курсового проекта по проектированию дизайн-системы сервиса доставки.',
+        'Разбор сложного теоретического вопроса простыми словами методом Фейнмана.',
+        'Подготовка к 7-минутной защите проекта перед заказчиком из бизнеса.'
+      ]
     },
     {
       id: 'case-presentation',
       category: 'creation',
       icon: '📐',
-      badge: 'BEHANCE & GITHUB',
+      badge: 'BEHANCE / GITHUB',
       title: 'Оформление кейса и презентации',
       desc: 'Покадровый сторителлинг: от исследований до визуала, бизнес-метрик и выводов автора.',
-      systemRole: 'Ты — арт-директор и специалист по сторителлингу продуктовых и дизайнерских кейсов для топовых студий и платформ (Behance, Dprofile, GitHub).',
-      goalSummary: 'Сформировать сценарий оформления кейса: структура экранов, акценты на трудностях и их преодолении, формулировка результатов.',
-      taskLabel: 'О каком проекте пишем кейс и для какой площадки?'
+      systemRole: 'Ты — арт-директор и специалист по сторителлингу продуктовых и дизайнерских кейсов для топовых агентств и международных площадок.',
+      goalSummary: 'Сформировать покадровый сценарий оформления кейса: структура экранов, акценты на трудностях и их преодолении, формулировка результатов.',
+      taskLabel: 'О каком проекте пишем кейс и для какой площадки?',
+      quickTemplates: [
+        'Лонгрид на Behance: айдентика, упаковка и мобильное приложение для бренда одежды.',
+        'Кейс разработки веб-сервиса на GitHub: архитектура, трудности и бенчмарки.',
+        'Структура финальной презентации дипломного проекта для комиссии МИДиС.'
+      ]
     },
     {
       id: 'internship-cover-letter',
@@ -63,20 +83,30 @@ const MIDIS_DB = {
       badge: 'ТРУДОУСТРОЙСТВО',
       title: 'Поиск стажировок и фриланс-старт',
       desc: 'Составление продающего сопроводительного письма и позиционирования студента без клише.',
-      systemRole: 'Ты — IT/Creative HR-директор и карьерный консультант, отбирающий стажеров и джунов в прогрессивные компании.',
-      goalSummary: 'Сформулировать яркое позиционирование (Elevator Pitch) и убедительное персонализированное сопроводительное письмо под вакансию или фриланс.',
-      taskLabel: 'Желаемая позиция, компания или сфера для фриланса:'
+      systemRole: 'Ты — IT/Creative HR-директор и карьерный консультант, отбирающий стажеров и джунов в прогрессивные компании и дизайн-агентства.',
+      goalSummary: 'Сформулировать яркое позиционирование (Elevator Pitch), структуру резюме и убедительное персонализированное сопроводительное письмо под вакансию или фриланс.',
+      taskLabel: 'Желаемая позиция, компания или сфера для фриланса:',
+      quickTemplates: [
+        'Отклик на оплачиваемую стажировку Junior-дизайнера без коммерческого опыта в штате.',
+        'Позиционирование фрилансера: как студенту находить первые реальные заказы.',
+        'Сопроводительное письмо на стажировку в IT-отдел банка или ритейлера.'
+      ]
     },
     {
       id: 'troubleshooting-review',
-      category: 'study',
+      category: 'skills',
       icon: '🔍',
       badge: 'ЭКСПЕРТИЗА',
       title: 'Код-ревью и дизайн-критика',
       desc: 'Объективный аудит решения: 3 достоинства, 3-5 критических ошибок и пошаговые исправления.',
-      systemRole: 'Ты — Senior-эксперт (Lead Architect & Principal Designer), проводящий детальное и конструктивное код-ревью и дизайн-критику.',
-      goalSummary: 'Проанализировать представленный макет или кусок кода, выделить критические ошибки и дать пошаговый план оптимизации.',
-      taskLabel: 'Что именно нужно отрецензировать? (опишите макет или логику кода):'
+      systemRole: 'Ты — Senior-эксперт (Lead Architect & Principal Designer), проводящий детальное, конструктивное и развивающее код-ревью и дизайн-критику.',
+      goalSummary: 'Проанализировать представленный макет или кусок кода, выделить критические ошибки по UX, архитектуре и типографике, дать пошаговый план оптимизации.',
+      taskLabel: 'Что именно нужно отрецензировать? (опишите макет или логику кода):',
+      quickTemplates: [
+        'Аудит UX/UI мобильного чекаута интернет-магазина, где пользователи бросают корзину.',
+        'Ревью фронтенд-компонента на React: читаемость, доступность (a11y) и оптимизация.',
+        'Критика типографики и иерархии в многостраничном интерфейсе веб-сервиса.'
+      ]
     },
     {
       id: 'time-management-balance',
@@ -85,31 +115,46 @@ const MIDIS_DB = {
       badge: 'БЕЗ ВЫГОРАНИЯ',
       title: 'Тайм-менеджмент и баланс жизни',
       desc: 'Недельный спринт совмещения пар в МИДиС, дедлайнов, спорта в бассейне и отдыха.',
-      systemRole: 'Ты — ментор по личной эффективности и здоровому тайм-менеджменту для студентов креативных и IT-профессий.',
-      goalSummary: 'Разработать сбалансированный недельный спринт без перегрузок с учетом пар, тренировок в бассейне МИДиС и отдыха.',
-      taskLabel: 'В чем главная сложность с расписанием и концентрацией?'
+      systemRole: 'Ты — ментор по продуктивности и коуч здорового тайм-менеджмента для студентов креативных и IT-профессий.',
+      goalSummary: 'Разработать сбалансированный недельный спринт без перегрузок с учетом расписания пар, тренировок в бассейне МИДиС, дедлайнов и качественного отдыха.',
+      taskLabel: 'В чем главная сложность с расписанием и концентрацией?',
+      quickTemplates: [
+        'Навалилось 3 проекта к сессии, прокрастинирую в рилсах и сплю по 5 часов.',
+        'Как совмещать очную учебу в институте и 15 часов коммерческого фриланса в неделю?',
+        'План внедрения блоков глубокой работы (Deep Work) без студенческого выгорания.'
+      ]
     },
     {
       id: 'design-concept-brainstorm',
       category: 'creation',
       icon: '💡',
-      badge: 'КРЕАТИВ',
+      badge: 'КРЕАТИВНЫЙ РЫВОК',
       title: 'Дизайн-концепты и брейншторм',
-      desc: '3 контрастных стилистических направления: метафоры, шрифты, цветовые палитры и референсы.',
-      systemRole: 'Ты — визионерский концепт-дизайнер и креативный фасилитатор, мастер генерации неожиданных визуальных ассоциаций.',
-      goalSummary: 'Предложить 3 принципиально разных концептуальных направления проекта (метафора, палитра, шрифтовая пара, референсы из искусства).',
-      taskLabel: 'Тема проекта, продукт или настроение, которое нужно передать:'
+      desc: '3 контрастных стилистических направления: метафоры, палитры, шрифты и референсы.',
+      systemRole: 'Ты — визионерский концепт-дизайнер и креативный фасилитатор, мастер генерации неожиданных визуальных ассоциаций и нестандартных стилей.',
+      goalSummary: 'Предложить 3 принципиально разных концептуальных направления проекта (смысловая метафора, палитра с HEX, типографическая пара, референсы из мирового искусства).',
+      taskLabel: 'Тема проекта, продукт или настроение, которое нужно передать:',
+      quickTemplates: [
+        'Концепция молодежного фестиваля уральской идентичности и цифрового медиа-арта.',
+        'Брендинг и интерфейс для кофейни третьей волны с крафтовым минимализмом.',
+        'Визуальный стиль финтех-сервиса нового поколения для зумеров.'
+      ]
     },
     {
       id: 'research-coursework-helper',
       category: 'study',
       icon: '📚',
       badge: 'ГОСТ & НАУКА',
-      title: 'Курсовая и дипломная работа',
-      desc: 'Формулирование актуальности, объекта, предмета, гипотез и структуры проекта на базе МИДиС.',
-      systemRole: 'Ты — научный руководитель и эксперт по академическим исследованиям в сфере дизайна, IT и сервиса.',
-      goalSummary: 'Сформулировать академический аппарат исследования (актуальность, объект, предмет, цель, гипотеза) и составить план практической части.',
-      taskLabel: 'Предварительная тема курсовой работы или диплома:'
+      title: 'Курсовая и дипломная работа (ВКР)',
+      desc: 'Формулирование актуальности, объекта, предмета, гипотез и структуры на базе МИДиС.',
+      systemRole: 'Ты — научный руководитель и эксперт по академическим исследованиям в сфере дизайна, IT и сервисной экономики.',
+      goalSummary: 'Сформулировать научный аппарат исследования (актуальность, объект, предмет, цель, гипотеза) и составить развернутое оглавление практической части работы.',
+      taskLabel: 'Предварительная тема курсовой работы или диплома:',
+      quickTemplates: [
+        'Применение генеративных нейросетей в процессе проектирования интерфейсов UX/UI.',
+        'Особенности продвижения региональных брендов гостеприимства в цифровой среде.',
+        'Разработка архитектуры масштабируемого веб-сервиса на современных фреймворках.'
+      ]
     },
     {
       id: 'interview-simulator',
@@ -118,76 +163,452 @@ const MIDIS_DB = {
       badge: 'ИНТЕРАКТИВ',
       title: 'Симулятор собеседования (Mock Interview)',
       desc: 'Режим живого диалога с тимлидом: задает по 1 вопросу, оценивает ответ по 10 баллам и тренирует.',
-      systemRole: 'Ты — ведущий тимлид и нанимающий менеджер. Ты проводишь реалистичное интерактивное собеседование на позицию Junior-специалиста.',
-      goalSummary: 'Провести интерактивное собеседование в режиме живого диалога (задавать ровно по одному вопросу за раз и давать развивающий фидбек).',
-      taskLabel: 'На какую позицию и уровень тренируем собеседование?'
+      systemRole: 'Ты — ведущий тимлид и нанимающий менеджер в технологической компании. Ты проводишь реалистичное интерактивное собеседование на позицию Junior-специалиста.',
+      goalSummary: 'Провести интерактивное тренировочное собеседование в режиме живого диалога (задавать ровно по одному вопросу за раз, оценивать глубину ответа и давать фидбек).',
+      taskLabel: 'На какую позицию и уровень тренируем собеседование?',
+      quickTemplates: [
+        'Собеседование на позицию Junior UI/UX Designer в продуктовую IT-компанию.',
+        'Интервью на позицию Junior Frontend Developer (React / JavaScript).',
+        'Собеседование на должность ассистента управляющего отелем / продюсера событий.'
+      ]
+    },
+    {
+      id: 'hackathon-pitch',
+      category: 'creation',
+      icon: '🚀',
+      badge: 'СТАРТАП-ПИТЧ',
+      title: 'Хакатоны и стартап-питч перед жюри',
+      desc: 'Упаковка идеи за 48 часов: ценностное предложение, MVP, питч-дек на 3 минуты и каверзные вопросы инвесторов.',
+      systemRole: 'Ты — стартап-трекер, венчурный ментор и опытный победитель федеральных хакатонов (Цифровой прорыв, Хакатоны ВКонтакте и Яндекса).',
+      goalSummary: 'Сформировать структуру победного 3-минутного питча проекта (проблема, решение, рынок, MVP, стек МИДиС, юнит-экономика и ответы на каверзные вопросы жюри).',
+      taskLabel: 'Тема хакатона, идея сервиса или прототипа:',
+      quickTemplates: [
+        'Питч сервиса на основе AI-агентов для автоматизации локального челябинского бизнеса.',
+        'Мобильное приложение для студентов МИДиС с геймификацией внеучебной активности.',
+        'Упаковка хакатон-проекта за 48 часов: структура 10 слайдов презентации.'
+      ]
+    },
+    {
+      id: 'ai-prompt-engineer',
+      category: 'skills',
+      icon: '🤖',
+      badge: 'AI-ИНЖИНИРИНГ',
+      title: 'Промпт-инженер для Midjourney, Flux & LLM',
+      desc: 'Генерация профессиональных промптов для создания арт-концептов, текстур, UI и 3D-ассетов.',
+      systemRole: 'Ты — сеньор-промпт-инженер и арт-директор генеративного ИИ, эксперт по параметрам Midjourney v6, Flux, Stable Diffusion и Claude 3.5 Sonnet.',
+      goalSummary: 'Сгенерировать серию точных, стилистически выверенных промптов на английском языке с правильными весами, модификаторами освещения, камер и стилистики.',
+      taskLabel: 'Какой визуальный ассет, сцену или концепт нужно сгенерировать?',
+      quickTemplates: [
+        'Промпты для генерации изометрической 3D-комнаты в стиле киберпанк / лоу-поли.',
+        'Генерация фотореалистичных мудбордов интерьера кофейни в теплом минимализме.',
+        'Серия промптов для генерации современных UI-экранов мобильного приложения.'
+      ]
+    },
+    {
+      id: 'team-conflict-resolver',
+      category: 'skills',
+      icon: '🤝',
+      badge: 'СОФТ-СКИЛЛЫ',
+      title: 'Командная работа и фасилитация в проекте',
+      desc: 'Решение разногласий с тиммейтами, распределение ролей в FDE Lab и защита дедлайнов.',
+      systemRole: 'Ты — эмпатичный аджайл-коуч, фасилитатор проектных команд и эксперт по софт-скиллам проектного обучения МИДиС.',
+      goalSummary: 'Дать практический алгоритм разрешения конфликта в студенческой команде, перераспределения задач и экологичной коммуникации без срыва сроков.',
+      taskLabel: 'Какая конфликтная ситуация или сложность возникла в команде?',
+      quickTemplates: [
+        'Тиммейт пропадает и не сдает свою часть дизайна / кода за 3 дня до сдачи проекта.',
+        'В команде спорят о концепции проекта и никто не готов идти на компромисс.',
+        'Как экологично распределить роли и зафиксировать договоренности в FDE Lab?'
+      ]
+    },
+    {
+      id: 'english-pro',
+      category: 'career',
+      icon: '🌐',
+      badge: 'АНГЛИЙСКИЙ',
+      title: 'Профессиональный английский для специальности',
+      desc: 'Индустриальный вокабуляр, разбор дизайн-систем, термины IT и международный нетворкинг.',
+      systemRole: 'Ты — преподаватель делового и профессионального английского языка (ESP) для специалистов в сфере дизайна, IT, гостеприимства и бизнеса.',
+      goalSummary: 'Составить подборку из 20 ключевых профильных терминов и фраз на английском с примерами из реальной практики и сценарием диалога с зарубежным клиентом.',
+      taskLabel: 'Какая тема в английском для специальности сейчас актуальна?',
+      quickTemplates: [
+        'Английский для продуктового дизайнера: термины UI/UX, проведение дизайн-критики.',
+        'IT-английский: формулировки задач в Jira, пулреквесты и стендапы с разработчиками.',
+        'Деловой английский для отельного и ресторанного менеджмента: решение жалоб гостей.'
+      ]
     }
   ],
 
-  // Specializations mapped to level
-  specializations: {
-    bachelor: [
-      { id: 'spec-fde-web', name: '🎨 Веб-дизайн и цифровые продукты (FDE)', defaultStack: ['Figma', 'React', 'HTML/CSS', 'Notion', 'Midjourney'] },
-      { id: 'spec-ai-pm', name: '⚡ Управление IT-проектами и искусственный интеллект (FDE)', defaultStack: ['Python', 'Cursor AI', 'ChatGPT', 'Git & GitHub', 'Notion'] },
-      { id: 'spec-3d-games', name: '🎮 3D-моделирование и игры', defaultStack: ['Blender', 'Unity', 'Photoshop', 'Unreal Engine'] },
-      { id: 'spec-graphic-brand', name: '✒️ Графический дизайн и брендинг', defaultStack: ['Adobe Illustrator', 'Photoshop', 'Figma'] },
-      { id: 'spec-web-dev', name: '💻 Разработка веб и мобильных приложений', defaultStack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker'] },
-      { id: 'spec-hotel-rest', name: '🛎️ Ресторанный и гостиничный менеджмент', defaultStack: ['Excel / Таблицы', 'Service Design', 'Notion'] },
-      { id: 'spec-business-marketing', name: '📈 Управление бизнесом и интернет-маркетинг', defaultStack: ['Яндекс.Метрика', 'VK Ads', 'Notion', 'Miro'] },
-      { id: 'spec-interior', name: '🏛️ Дизайн среды и интерьера', defaultStack: ['AutoCAD', '3ds Max', 'Photoshop', 'Revit'] },
-      { id: 'spec-fashion', name: '👗 Дизайн одежды и фэшн-бизнес', defaultStack: ['CLO 3D', 'Adobe Illustrator', 'Photoshop'] },
-      { id: 'spec-linguistics', name: '🌐 Международные бизнес-коммуникации (EN/CN)', defaultStack: ['Trados', 'DeepL Pro', 'Notion'] }
-    ],
-    college: [
-      { id: 'col-web-dev', name: '🎨 Веб-дизайн и разработка приложений (Колледж)', defaultStack: ['Figma', 'HTML/CSS', 'JavaScript', 'Tilda'] },
-      { id: 'col-3d-gamedev', name: '🎮 3D-моделирование и игровая графика (Колледж)', defaultStack: ['Blender', 'Photoshop', 'Unity'] },
-      { id: 'col-graphic', name: '✒️ Графический дизайн (Колледж)', defaultStack: ['Adobe Photoshop', 'Illustrator', 'Figma'] },
-      { id: 'col-it-dev', name: '💻 Разработка и администрирование ПО (Колледж)', defaultStack: ['Python', 'C#', 'SQL', 'Git & GitHub'] },
-      { id: 'col-tourism', name: '✈️ Туризм и индустрия гостеприимства (Колледж)', defaultStack: ['Excel / Таблицы', 'Системы бронирования'] },
-      { id: 'col-trade', name: '📦 Торговое дело и e-commerce (Колледж)', defaultStack: ['Маркетплейсы', 'SMM', 'Excel / Таблицы'] }
-    ],
-    master: [
-      { id: 'mast-creative', name: '👑 Креативное лидерство и арт-дирекшн (Магистратура)', defaultStack: ['Design Systems', 'Notion', 'Miro', 'Agile/Scrum', 'AI-workflow'] },
-      { id: 'mast-ai-biz', name: '🧠 Интеллектуальные информационные системы в бизнесе', defaultStack: ['Python', 'ML-pipelines', 'BigData', 'Enterprise Architecture'] }
-    ]
-  },
+  // CLUSTERS (Кафедры / Отрасли)
+  clusters: [
+    { id: 'all', name: 'Все отрасли' },
+    { id: 'design', name: '🎨 Дизайн и Мультимедиа' },
+    { id: 'it', name: '💻 IT и Программирование' },
+    { id: 'service', name: '🛎️ Сервис, Отели и Туризм' },
+    { id: 'business', name: '📊 Бизнес, Банки и Маркетинг' },
+    { id: 'law-ling', name: '⚖️ Право и Лингвистика' }
+  ],
 
+  // ALL OFFICIAL MIDIS MAJORS & SUB-PROFILES (WITH REAL CODES)
+  allSpecializations: [
+    // ================= КОЛЛЕДЖ (СПО) =================
+    // Дизайн СПО (54.02.01)
+    {
+      id: 'col-web-dev',
+      code: '54.02.01',
+      level: 'college',
+      cluster: 'design',
+      name: 'Веб-дизайн и разработка приложений (Колледж)',
+      desc: 'Интерфейсы, сайты, лендинги, Figma, фронтенд на HTML/CSS/JS',
+      defaultStack: ['Figma', 'HTML/CSS', 'JavaScript', 'Tilda', 'Notion']
+    },
+    {
+      id: 'col-3d-games',
+      code: '54.02.01',
+      level: 'college',
+      cluster: 'design',
+      name: '3Д-моделирование и игровая графика (Колледж)',
+      desc: 'Моделирование низко- и высокополигональных моделей, текстурирование, Unity',
+      defaultStack: ['Blender', 'Photoshop', 'Unity', 'ZBrush', 'Substance Painter']
+    },
+    {
+      id: 'col-graphic',
+      code: '54.02.01',
+      level: 'college',
+      cluster: 'design',
+      name: 'Графический дизайн (Колледж)',
+      desc: 'Айдентика, полиграфия, брендинг, логотипы, фирменный стиль',
+      defaultStack: ['Adobe Photoshop', 'Adobe Illustrator', 'Figma', 'InDesign']
+    },
+    {
+      id: 'col-fashion',
+      code: '54.02.01',
+      level: 'college',
+      cluster: 'design',
+      name: 'Дизайн и моделирование одежды (Колледж)',
+      desc: 'Конструирование одежды, эскизы, fashion-иллюстрация, лекала',
+      defaultStack: ['CLO 3D', 'Adobe Illustrator', 'Photoshop', 'Moodboard']
+    },
+    {
+      id: 'col-anim',
+      code: '54.02.01',
+      level: 'college',
+      cluster: 'design',
+      name: 'Цифровая анимация и компьютерная графика (Колледж)',
+      desc: '2D/3D анимация, видеомонтаж, эффекты, анимационные ролики',
+      defaultStack: ['After Effects', 'Blender', 'Premiere Pro', 'Photoshop']
+    },
+    {
+      id: 'col-interior',
+      code: '54.02.01',
+      level: 'college',
+      cluster: 'design',
+      name: 'Дизайн интерьера (Колледж)',
+      desc: 'Планировки, чертежи, 3D-визуализация жилых и общественных пространств',
+      defaultStack: ['AutoCAD', '3ds Max', 'Photoshop', 'SketchUp']
+    },
+    // IT СПО (09.02.11)
+    {
+      id: 'col-it-web-mob',
+      code: '09.02.11',
+      level: 'college',
+      cluster: 'it',
+      name: 'Разработка веб и мобильных приложений (Колледж)',
+      desc: 'Frontend/Backend, базы данных, клиент-серверные сервисы',
+      defaultStack: ['JavaScript', 'HTML/CSS', 'React', 'Node.js', 'PostgreSQL', 'Git']
+    },
+    {
+      id: 'col-it-software',
+      code: '09.02.11',
+      level: 'college',
+      cluster: 'it',
+      name: 'Разработка и управление ПО (Колледж)',
+      desc: 'Алгоритмы, прикладное программирование на Python и C#, базы данных',
+      defaultStack: ['Python', 'C#', 'SQL', 'Git & GitHub', 'Visual Studio']
+    },
+    // Торговое дело СПО (38.02.08)
+    {
+      id: 'col-trade-marketing',
+      code: '38.02.08',
+      level: 'college',
+      cluster: 'business',
+      name: 'Предпринимательство и интернет-маркетинг (Колледж)',
+      desc: 'E-commerce, воронки продаж, SMM, маркетплейсы, таргет',
+      defaultStack: ['Маркетплейсы', 'VK Ads', 'Excel / Таблицы', 'Tilda', 'Notion']
+    },
+    // Туризм и гостеприимство СПО (43.02.16)
+    {
+      id: 'col-tourism-hotel',
+      code: '43.02.16',
+      level: 'college',
+      cluster: 'service',
+      name: 'Гостиничный сервис и туризм (Колледж)',
+      desc: 'Управление номерным фондом, стандарты гостеприимства, сервис',
+      defaultStack: ['Excel / Таблицы', 'Системы бронирования', 'Service Design', 'Деловой этикет']
+    },
+    {
+      id: 'col-hotel-admin',
+      code: '43.02.16',
+      level: 'college',
+      cluster: 'service',
+      name: 'Администрирование отеля и экскурсионные услуги (Колледж)',
+      desc: 'Организация туров, экскурсионные маршруты, прием гостей',
+      defaultStack: ['Excel / Таблицы', 'Opera PMS', 'CRM', 'Презентации']
+    },
+    // Банковское дело СПО (38.02.07)
+    {
+      id: 'col-bank-products',
+      code: '38.02.07',
+      level: 'college',
+      cluster: 'business',
+      name: 'Управление банковскими продуктами и сервисами (Колледж)',
+      desc: 'Финансовые сервисы, кредитование, финтех, клиентские операции',
+      defaultStack: ['Excel / Таблицы', '1С:Предприятие', 'Финтех', 'Power BI']
+    },
+    // Право СПО (40.02.01)
+    {
+      id: 'col-law',
+      code: '40.02.01',
+      level: 'college',
+      cluster: 'law-ling',
+      name: 'Юриспруденция и цифровое право (Колледж)',
+      desc: 'Правовое обеспечение бизнеса, договорная работа, защита прав',
+      defaultStack: ['КонсультантПлюс', 'Гарант', 'Word / Документы', 'Деловая переписка']
+    },
+
+    // ================= БАКАЛАВРИАТ =================
+    // Дизайн ВО (54.03.01)
+    {
+      id: 'bac-fde-web',
+      code: '54.03.01',
+      level: 'bachelor',
+      cluster: 'design',
+      name: 'Веб-дизайн и проектирование цифровых продуктов (FDE)',
+      desc: 'Флагманская программа МИДиС: UI/UX, продуктовое мышление, дизайн-системы и фронтенд',
+      defaultStack: ['Figma', 'React', 'HTML/CSS', 'Midjourney', 'Design Systems', 'Notion']
+    },
+    {
+      id: 'bac-3d-games',
+      code: '54.03.01',
+      level: 'bachelor',
+      cluster: 'design',
+      name: '3Д-моделирование и проектирование игр и приложений',
+      desc: 'Игровые локации, персонажи, шейдеры, Unreal Engine и Unity',
+      defaultStack: ['Blender', 'Substance Painter', 'Unreal Engine', 'Unity', 'ZBrush']
+    },
+    {
+      id: 'bac-graphic-brand',
+      code: '54.03.01',
+      level: 'bachelor',
+      cluster: 'design',
+      name: 'Графический дизайн и брендинг',
+      desc: 'Визуальные коммуникации, брендинг, типографика, гайдлайны',
+      defaultStack: ['Adobe Illustrator', 'Adobe Photoshop', 'Figma', 'InDesign']
+    },
+    {
+      id: 'bac-interior-env',
+      code: '54.03.01',
+      level: 'bachelor',
+      cluster: 'design',
+      name: 'Дизайн интерьера и городской среды',
+      desc: 'Урбанистика, общественные и жилые пространства, эргономика',
+      defaultStack: ['AutoCAD', '3ds Max', 'Revit', 'Photoshop', 'SketchUp']
+    },
+    {
+      id: 'bac-fashion-mgmt',
+      code: '54.03.01',
+      level: 'bachelor',
+      cluster: 'design',
+      name: 'Дизайн одежды и управление модным брендом',
+      desc: 'Дропы коллекций, 3D-примерка, апсайклинг, fashion-маркетинг',
+      defaultStack: ['CLO 3D', 'Adobe Illustrator', 'Photoshop', 'Moodboard']
+    },
+    {
+      id: 'bac-motion-anim',
+      code: '54.03.01',
+      level: 'bachelor',
+      cluster: 'design',
+      name: 'Цифровая анимация и моушн-дизайн',
+      desc: 'Кинетическая типографика, 3D моушн, заставки, спецэффекты',
+      defaultStack: ['After Effects', 'Cinema 4D', 'Blender', 'Premiere Pro']
+    },
+    {
+      id: 'bac-industrial-design',
+      code: '54.03.01',
+      level: 'bachelor',
+      cluster: 'design',
+      name: 'Промышленный дизайн',
+      desc: 'Проектирование материальных объектов, эргономика, прототипирование',
+      defaultStack: ['SolidWorks', 'Rhinoceros', 'Keyshot', 'Photoshop']
+    },
+    // Прикладная информатика ВО (09.03.03)
+    {
+      id: 'bac-ai-pm',
+      code: '09.03.03',
+      level: 'bachelor',
+      cluster: 'it',
+      name: 'Управление ИТ-проектами и искусственный интеллект (FDE)',
+      desc: 'Внедрение ИИ-агентов, системный анализ, Agile/Scrum, продуктовый менеджмент',
+      defaultStack: ['Python', 'Cursor AI', 'ChatGPT', 'Git & GitHub', 'Notion', 'Agile/Scrum']
+    },
+    {
+      id: 'bac-web-mobile-dev',
+      code: '09.03.03',
+      level: 'bachelor',
+      cluster: 'it',
+      name: 'Проектирование и разработка веб и мобильных приложений',
+      desc: 'Fullstack-разработка, современные архитектуры, микросервисы',
+      defaultStack: ['React', 'TypeScript', 'Node.js', 'Next.js', 'PostgreSQL', 'Docker']
+    },
+    {
+      id: 'bac-gamedev-vr',
+      code: '09.03.03',
+      level: 'bachelor',
+      cluster: 'it',
+      name: 'Разработка игр и виртуальные технологии (VR/AR)',
+      desc: 'Игровая механика, C#, шейдеры, физика, виртуальная реальность',
+      defaultStack: ['C#', 'Unity', 'C++', 'Unreal Engine', 'Git & GitHub']
+    },
+    // Менеджмент ВО (38.03.02)
+    {
+      id: 'bac-biz-marketing',
+      code: '38.03.02',
+      level: 'bachelor',
+      cluster: 'business',
+      name: 'Управление бизнесом и интернет-маркетинг',
+      desc: 'Стратегический маркетинг, запуск стартапов, сквозная аналитика',
+      defaultStack: ['Яндекс.Метрика', 'VK Ads', 'Notion', 'Unit-экономика', 'Miro']
+    },
+    {
+      id: 'bac-hotel-rest-mgmt',
+      code: '38.03.02',
+      level: 'bachelor',
+      cluster: 'service',
+      name: 'Ресторанный и гостиничный менеджмент',
+      desc: 'Операционное управление ресторанами и отелями, HoReCa, сервисный аудит',
+      defaultStack: ['iiko / R-Keeper', 'Opera PMS', 'Excel / Таблицы', 'Service Design']
+    },
+    // Гостиничное дело ВО (43.03.03)
+    {
+      id: 'bac-intl-hospitality',
+      code: '43.03.03',
+      level: 'bachelor',
+      cluster: 'service',
+      name: 'Управление в международном гостиничном бизнесе',
+      desc: 'Международные стандарты, revenue management, сервисное лидерство',
+      defaultStack: ['Opera PMS', 'Excel / Таблицы', 'Revenue Management', 'English Business']
+    },
+    // Туризм ВО (43.03.02)
+    {
+      id: 'bac-tourism-digital',
+      code: '43.03.02',
+      level: 'bachelor',
+      cluster: 'service',
+      name: 'Управление цифровыми проектами и бизнес-аналитика в туризме',
+      desc: 'Цифровые экосистемы, гео-аналитика, разработка инновационных турмаршрутов',
+      defaultStack: ['Power BI', 'Google Analytics', 'Notion', 'CRM']
+    },
+    {
+      id: 'bac-tourism-prod',
+      code: '43.03.02',
+      level: 'bachelor',
+      cluster: 'service',
+      name: 'Продюсирование мероприятий и маркетинг в туризме',
+      desc: 'Создание масштабных турсобытий, продвижение территорий',
+      defaultStack: ['Miro', 'Notion', 'VK Ads', 'Excel / Таблицы']
+    },
+    // Сервис ВО (43.03.01)
+    {
+      id: 'bac-event-service',
+      code: '43.03.01',
+      level: 'bachelor',
+      cluster: 'service',
+      name: 'Ивент-менеджмент и продюсирование событий',
+      desc: 'Организация фестивалей, выставок, форумов, конференций, продюсирование',
+      defaultStack: ['Notion', 'Miro', 'Excel / Таблицы', 'Trello', 'Telegram Ads']
+    },
+    // Лингвистика ВО (45.03.02)
+    {
+      id: 'bac-linguistics',
+      code: '45.03.02',
+      level: 'bachelor',
+      cluster: 'law-ling',
+      name: 'Перевод и международные бизнес-коммуникации (EN / CN)',
+      desc: 'Деловой перевод, локализация, ВЭД с Китаем и Азией',
+      defaultStack: ['Trados', 'DeepL Pro', 'CAT-tools', 'Notion']
+    },
+
+    // ================= МАГИСТРАТУРА =================
+    {
+      id: 'mast-creative-art',
+      code: '54.04.01',
+      level: 'master',
+      cluster: 'design',
+      name: 'Креативное лидерство и арт-дирекшн (Магистратура)',
+      desc: 'Управление дизайн-студиями, стратегический дизайн, арт-дирекшн',
+      defaultStack: ['Design Systems', 'Notion', 'Miro', 'Agile/Scrum', 'AI-workflow']
+    },
+    {
+      id: 'mast-ai-business',
+      code: '09.04.03',
+      level: 'master',
+      cluster: 'it',
+      name: 'Интеллектуальные информационные системы и AI в бизнесе',
+      desc: 'Прикладной ML, проектирование больших корпоративных систем',
+      defaultStack: ['Python', 'ML-pipelines', 'BigData', 'Enterprise Architecture']
+    },
+    {
+      id: 'mast-strategy-mgmt',
+      code: '38.04.02',
+      level: 'master',
+      cluster: 'business',
+      name: 'Стратегическое управление и международное предпринимательство',
+      desc: 'Масштабирование бизнеса, управление инновациями, венчур',
+      defaultStack: ['Financial Modeling', 'Agile/Scrum', 'Notion', 'Unit-экономика']
+    }
+  ],
+
+  // Popular stack tools
   popularStacks: [
     'Figma', 'React', 'HTML/CSS', 'Python', 'Cursor AI', 'ChatGPT', 'Claude',
     'DeepSeek', 'Midjourney', 'Blender', 'Adobe Photoshop', 'Adobe Illustrator',
-    'Unity', 'TypeScript', 'Node.js', 'Notion', 'PostgreSQL'
+    'Unity', 'TypeScript', 'Node.js', 'Notion', 'PostgreSQL', 'Excel / Таблицы',
+    'AutoCAD', '3ds Max', 'After Effects', 'CLO 3D', 'Miro'
   ],
 
+  // Popular hobbies
   popularHobbies: [
     'Видеоигры и геймдев', 'Киберспорт', 'Музыка и саунд-дизайн', 'Фотография и стрит-арт',
     'Уличная мода и кастом', 'Урбанистика', 'Кофе и гастрономия', 'Фитнес и плавание в МИДиС',
-    'Психология и коучинг', 'Кинематограф', 'Настольные игры'
+    'Психология и коучинг', 'Кинематограф', 'Настольные игры', 'Путешествия и хайкинг'
   ]
 };
 
-// ==========================================
+// ==========================================================================
 // 2. STATE MANAGEMENT
-// ==========================================
+// ==========================================================================
 
 const state = {
   currentStep: 1,
   totalSteps: 6,
-  
+
   // Selections
   scenarioId: 'iot-roadmap',
   educationLevel: 'bachelor',
-  specializationName: 'Веб-дизайн и цифровые продукты (FDE)',
+  activeCluster: 'all',
+  specialization: null, // Full spec object
+  searchQuery: '',
   course: '1',
+  studyForm: 'full-time',
   skillLevel: 'beginner',
   perceptionFormat: 'structured-lists',
-  
+
   selectedSkills: ['Figma', 'HTML/CSS', 'Notion'],
   selectedHobbies: ['Видеоигры и геймдев', 'Кофе и гастрономия'],
-  
+
   taskInput: '',
   fearsInput: '',
   deadlineInput: '',
-  
+
   resources: {
     partnerProjects: true,
     paidInternships: true,
@@ -198,50 +619,71 @@ const state = {
   }
 };
 
-// ==========================================
-// 3. WIZARD STEP CONTROLLER
-// ==========================================
+// Default specialization
+state.specialization = MIDIS_DATA.allSpecializations.find(s => s.id === 'bac-fde-web');
+
+// ==========================================================================
+// 3. WIZARD STEP NAVIGATION
+// ==========================================================================
 
 function goToStep(targetStep) {
   if (targetStep < 1 || targetStep > state.totalSteps) return;
   state.currentStep = targetStep;
 
-  // Update step panes visibility
+  // Panes
   document.querySelectorAll('.wizard-step-pane').forEach((pane, idx) => {
     pane.classList.toggle('active', idx + 1 === targetStep);
   });
 
-  // Update progress bar fill & step navigation items
-  const progressPercent = ((targetStep - 1) / (state.totalSteps - 1)) * 100;
+  // Progress Bar
+  const progressPercent = Math.round(((targetStep - 1) / (state.totalSteps - 1)) * 100);
   document.getElementById('progress-bar-fill').style.width = `${Math.max(5, progressPercent)}%`;
 
+  // Progress meta text
+  const stepTitles = [
+    'ШАГ 1 ИЗ 5: ВЫБОР ЦЕЛИ НЕЙРОСЕТИ',
+    'ШАГ 2 ИЗ 5: ВЫБОР СПЕЦИАЛЬНОСТИ В МИДиС',
+    'ШАГ 3 ИЗ 5: КАЛИБРОВКА СТИЛЯ ВОСПРИЯТИЯ',
+    'ШАГ 4 ИЗ 5: СТЕК, ХОББИ И РЕСУРСЫ ИНСТИТУТА',
+    'ШАГ 5 ИЗ 5: СУТЬ ТВОЕЙ ЗАДАЧИ И ДЕДЛАЙН',
+    'ШАГ 6: СИНТЕЗ И РЕЗУЛЬТАТ JARVIS'
+  ];
+  document.getElementById('progress-step-info').textContent = stepTitles[targetStep - 1] || '';
+  document.getElementById('progress-percent-info').textContent = `${progressPercent}% ЗАВЕРШЕНО`;
+
+  // Step dots
   document.querySelectorAll('.step-nav-item').forEach(item => {
     const s = parseInt(item.dataset.step, 10);
     item.classList.toggle('active', s === targetStep);
     item.classList.toggle('completed', s < targetStep);
   });
 
-  // Smooth scroll to top of wizard
-  window.scrollTo({ top: 70, behavior: 'smooth' });
+  // Scroll to wizard top
+  window.scrollTo({ top: 60, behavior: 'smooth' });
 
-  // If reaching final step (Step 6), trigger JARVIS Synthesis animation!
+  // Update step 5 quick templates when landing on step 5
+  if (targetStep === 5) {
+    renderStep5Templates();
+  }
+
+  // Synthesis on step 6
   if (targetStep === 6) {
     runJarvisSynthesis();
   }
 }
 
-// ==========================================
-// 4. RENDERING & UI GENERATION
-// ==========================================
+// ==========================================================================
+// 4. RENDERING FUNCTIONS
+// ==========================================================================
 
-// Render Step 1 Scenarios
+// Step 1: Render 14 Scenarios
 function renderScenarios(filterCat = 'all') {
   const container = document.getElementById('scenarios-hud-container');
   container.innerHTML = '';
 
-  const list = filterCat === 'all' 
-    ? MIDIS_DB.scenarios 
-    : MIDIS_DB.scenarios.filter(s => s.category === filterCat);
+  const list = filterCat === 'all'
+    ? MIDIS_DATA.scenarios
+    : MIDIS_DATA.scenarios.filter(s => s.category === filterCat);
 
   list.forEach(sc => {
     const card = document.createElement('div');
@@ -266,37 +708,95 @@ function renderScenarios(filterCat = 'all') {
   });
 }
 
-// Populate Specializations select based on education level
-function updateSpecializationsDropdown() {
-  const select = document.getElementById('select-spec-hud');
-  select.innerHTML = '';
+// Step 2: Render Cluster Pills
+function renderClusterPills() {
+  const container = document.getElementById('cluster-pills-container');
+  container.innerHTML = '';
 
-  const specs = MIDIS_DB.specializations[state.educationLevel] || MIDIS_DB.specializations.bachelor;
-  specs.forEach(spec => {
-    const opt = document.createElement('option');
-    opt.value = spec.name;
-    opt.textContent = spec.name;
-    select.appendChild(opt);
-  });
+  MIDIS_DATA.clusters.forEach(cl => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `cluster-pill ${state.activeCluster === cl.id ? 'active' : ''}`;
+    btn.textContent = cl.name;
 
-  state.specializationName = specs[0].name;
-  select.value = state.specializationName;
-
-  // Auto-sync default stacks
-  if (specs[0].defaultStack) {
-    specs[0].defaultStack.forEach(s => {
-      if (!state.selectedSkills.includes(s)) state.selectedSkills.push(s);
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cluster-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.activeCluster = cl.id;
+      document.getElementById('cluster-hint').textContent = cl.name;
+      renderSpecializations();
     });
-    renderChips();
-  }
+
+    container.appendChild(btn);
+  });
 }
 
-// Render Interactive Chips for Stack and Hobbies
+// Step 2: Render Specialization Cards (filtered by Level, Cluster & Search Query)
+function renderSpecializations() {
+  const container = document.getElementById('specs-cards-container');
+  container.innerHTML = '';
+
+  let list = MIDIS_DATA.allSpecializations.filter(s => s.level === state.educationLevel);
+
+  if (state.activeCluster !== 'all') {
+    list = list.filter(s => s.cluster === state.activeCluster);
+  }
+
+  if (state.searchQuery.trim()) {
+    const q = state.searchQuery.trim().toLowerCase();
+    list = list.filter(s => s.name.toLowerCase().includes(q) || s.code.includes(q) || s.desc.toLowerCase().includes(q));
+  }
+
+  if (list.length === 0) {
+    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 24px; color: var(--text-muted); font-size: 13px;">Ничего не найдено по вашему запросу. Попробуйте очистить фильтр.</div>`;
+    return;
+  }
+
+  // Ensure an active spec is selected
+  if (!state.specialization || state.specialization.level !== state.educationLevel) {
+    state.specialization = list[0];
+  }
+
+  list.forEach(spec => {
+    const isSelected = state.specialization && state.specialization.id === spec.id;
+    const card = document.createElement('div');
+    card.className = `spec-card-item ${isSelected ? 'active' : ''}`;
+    card.innerHTML = `
+      <div>
+        <div class="spec-item-top">
+          <span class="spec-code-tag">${spec.code}</span>
+        </div>
+        <h4 class="spec-item-name">${spec.name}</h4>
+      </div>
+      <p class="spec-item-cluster">${spec.desc}</p>
+    `;
+
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.spec-card-item').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      state.specialization = spec;
+
+      // Auto-suggest stack tools for selected major
+      if (spec.defaultStack) {
+        spec.defaultStack.forEach(st => {
+          if (!state.selectedSkills.includes(st)) state.selectedSkills.push(st);
+        });
+        renderChips();
+      }
+
+      showToast(`Выбрано: ${spec.name}`);
+    });
+
+    container.appendChild(card);
+  });
+}
+
+// Step 4: Render Chips Cloud
 function renderChips() {
   // Stacks
   const stackBox = document.getElementById('hud-stack-chips');
   stackBox.innerHTML = '';
-  const allStacks = Array.from(new Set([...MIDIS_DB.popularStacks, ...state.selectedSkills]));
+  const allStacks = Array.from(new Set([...MIDIS_DATA.popularStacks, ...state.selectedSkills]));
 
   allStacks.forEach(tag => {
     const chip = document.createElement('div');
@@ -320,7 +820,7 @@ function renderChips() {
   // Hobbies
   const hobbyBox = document.getElementById('hud-hobby-chips');
   hobbyBox.innerHTML = '';
-  const allHobbies = Array.from(new Set([...MIDIS_DB.popularHobbies, ...state.selectedHobbies]));
+  const allHobbies = Array.from(new Set([...MIDIS_DATA.popularHobbies, ...state.selectedHobbies]));
 
   allHobbies.forEach(tag => {
     const chip = document.createElement('div');
@@ -342,12 +842,39 @@ function renderChips() {
   document.getElementById('hud-hobby-count').textContent = `${state.selectedHobbies.length} выбрано`;
 }
 
-// ==========================================
+// Step 5: Render Quick Templates based on chosen scenario
+function renderStep5Templates() {
+  const bar = document.getElementById('quick-templates-bar');
+  bar.innerHTML = '<span class="qt-title">Быстрые примеры в 1 клик:</span>';
+
+  const sc = MIDIS_DATA.scenarios.find(s => s.id === state.scenarioId) || MIDIS_DATA.scenarios[0];
+  const templates = sc.quickTemplates || [
+    'Сформулируй пошаговый план прокачки с нарастающей сложностью.',
+    'Выдели 3 ключевые ошибки и дай пошаговые рекомендации по исправлению.'
+  ];
+
+  templates.forEach(text => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'qt-btn';
+    btn.textContent = text.length > 55 ? text.substring(0, 52) + '...' : text;
+    btn.title = text;
+    btn.addEventListener('click', () => {
+      document.getElementById('hud-task-input').value = text;
+      state.taskInput = text;
+      showToast('Шаблон вставлен');
+    });
+    bar.appendChild(btn);
+  });
+}
+
+// ==========================================================================
 // 5. PROMPT GENERATION ENGINE
-// ==========================================
+// ==========================================================================
 
 function compileMidisPrompt() {
-  const sc = MIDIS_DB.scenarios.find(s => s.id === state.scenarioId) || MIDIS_DB.scenarios[0];
+  const sc = MIDIS_DATA.scenarios.find(s => s.id === state.scenarioId) || MIDIS_DATA.scenarios[0];
+  const spec = state.specialization || MIDIS_DATA.allSpecializations[0];
 
   const levelLabels = {
     bachelor: 'Высшее образование (Бакалавриат МИДиС)',
@@ -355,17 +882,23 @@ function compileMidisPrompt() {
     master: 'Высшее образование (Магистратура МИДиС)'
   };
 
+  const studyFormLabels = {
+    'full-time': 'Очная форма',
+    'part-time': 'Очно-заочная форма',
+    'extramural': 'Заочная форма'
+  };
+
   const skillLevelLabels = {
     beginner: 'Новичок (1 курс / погружение в специальность)',
     junior: 'Junior (знаю базовую теорию, создаю первые учебные проекты)',
     'junior-plus': 'Junior+ / Pre-Middle (уверенно владею инструментами)',
-    freelancer: 'Практик / Фрилансер (совмещаю учебу с реальными заказами)'
+    freelancer: 'Практик / Фрилансер (совмещаю учебу с коммерческими заказами)'
   };
 
   const perceptionFormatDescriptions = {
     'structured-lists': 'Структурированные чек-листы: без длинных вводных и канцелярита, четкие короткие буллеты, готовые к внедрению.',
-    'step-by-step': 'Пошаговый гайд (1-2-3): последовательный четкий алгоритм действий с контрольными точками готовности каждого этапа.',
-    'analogies': 'Объяснение через аналогии: проводи параллели с видеоиграми, поп-культурой или бытовыми ситуациями для наглядности.',
+    'step-by-step': 'Пошаговый алгоритмический гайд (1-2-3): последовательная четкая инструкция с контрольными точками готовности каждого шага.',
+    'analogies': 'Объяснение через аналогии: проводи параллели с видеоиграми, поп-культурой или бытовыми ситуациями для моментального понимания.',
     'strict-code': 'Инженерный строгий стиль: упор на стандарты индустрии, паттерны проектирования, чистые термины и код.',
     'mentor-dialogue': 'Тон заботливого наставника: общайся со мной на равных, подбадривай, задавай открытые развивающие вопросы.'
   };
@@ -374,10 +907,10 @@ function compileMidisPrompt() {
   const currentCourse = parseInt(state.course, 10) || 1;
   const yearsLeft = Math.max(1, yearsTotal - currentCourse + 1);
 
-  // Collect active MIDIS institutional resources
+  // Active institutional resources
   const activeResources = [];
   if (state.resources.partnerProjects) {
-    activeResources.push('- Проектное обучение с реальными компаниями-партнерами с 1-2 курса (портфолио кейсов)');
+    activeResources.push('- Проектное обучение с реальными компаниями-партнерами с 1-2 курса (наработка портфолио кейсов в FDE Lab)');
   }
   if (state.resources.paidInternships) {
     activeResources.push('- Оплачиваемые профильные стажировки в индустрии');
@@ -403,12 +936,13 @@ ${sc.systemRole}
 ### КОНТЕКСТ ОБО МНЕ (СТУДЕНТ МИДиС)
 - Учебное заведение: Международный институт дизайна и сервиса (МИДиС, г. Челябинск)
 - Уровень образования: ${levelLabels[state.educationLevel]}
-- Направление: ${state.specializationName}
+- Специальность / Профиль: [${spec.code}] ${spec.name}
 - Курс: ${state.course} курс (впереди обучения: примерно ${yearsLeft} ${yearsLeft === 1 ? 'год' : yearsLeft < 5 ? 'года' : 'лет'})
+- Форма обучения: ${studyFormLabels[state.studyForm]}
 - Текущий уровень практических навыков: ${skillLevelLabels[state.skillLevel]}
-${state.selectedSkills.length > 0 ? `- Мой стек и инструменты: ${state.selectedSkills.join(', ')}` : ''}
+${state.selectedSkills.length > 0 ? `- Мой стек и используемый софт: ${state.selectedSkills.join(', ')}` : ''}
 ${state.selectedHobbies.length > 0 ? `- Мои увлечения и сильные стороны: ${state.selectedHobbies.join(', ')}` : ''}
-${state.fearsInput.trim() ? `- Мои сомнения и сложности (честно): "${state.fearsInput.trim()}"` : ''}
+${state.fearsInput.trim() ? `- Мои сомнения, сложности и страхи (честно): "${state.fearsInput.trim()}"` : ''}
 
 ---
 
@@ -419,8 +953,8 @@ ${activeResources.length > 0 ? activeResources.join('\n') : '- Проектны�
 
 ### ЗАДАЧА
 ${sc.goalSummary}
-${state.taskInput.trim() ? `\nМой персональный запрос / контекст:\n«${state.taskInput.trim()}»` : ''}
-${state.deadlineInput.trim() ? `\nДедлайн / рамки: ${state.deadlineInput.trim()}` : ''}
+${state.taskInput.trim() ? `\nМой персональный запрос / контекст задачи:\n«${state.taskInput.trim()}»` : ''}
+${state.deadlineInput.trim() ? `\nДедлайн / рамки времени: ${state.deadlineInput.trim()}` : ''}
 
 ---
 
@@ -436,16 +970,16 @@ ${perceptionFormatDescriptions[state.perceptionFormat]}
     case 'iot-roadmap':
       prompt += `1. Разбей ориентировочный план по оставшимся годам обучения ([${yearsLeft} года/лет]).
 2. Для каждого года обучения укажи:
-   - 2-3 профессиональные цели по направлению (${state.specializationName});
+   - 2-3 профессиональные цели по направлению (${spec.name});
    - 1-2 надпрофессиональные цели (ИИ, управление проектами, физическая энергия, софт-скиллы);
    - конкретные действия внутри института МИДиС (партнерские проекты, элективы, хакатоны);
    - 1 «точку сверки» — контрольный вопрос самому себе, чтобы проверить, туда ли я иду.
 3. В конце сформируй список из 5–7 конкретных первых шагов на ближайший месяц.
-4. Если в моих ответах есть сомнения — включи безопасные «пробы пера» (разговор с практиком, мини-проект).`;
+4. Если в моих ответах есть сомнения — прямо включи безопасные «пробы пера» (разговор с практиком, мини-проект).`;
       break;
 
     case 'portfolio-pet-projects':
-      prompt += `1. Предложи 3–4 уникальные концепции проектов на стыке моей специальности (${state.specializationName}) и моих увлечений (${state.selectedHobbies.join(', ') || 'технологии и творчество'}).
+      prompt += `1. Предложи 3–4 уникальные концепции проектов на стыке моей специальности (${spec.name}) и моих увлечений (${state.selectedHobbies.join(', ') || 'технологии и творчество'}).
 2. Для каждой идеи распиши:
    - Проблему пользователей и формулировку ценности;
    - Целевую аудиторию (ЦА);
@@ -455,7 +989,7 @@ ${perceptionFormatDescriptions[state.perceptionFormat]}
       break;
 
     case 'exam-defense-prep':
-      prompt += `1. Объясни ключевую суть темы максимально доходчиво (методом Фейнмана).
+      prompt += `1. Объясни ключевую суть темы максимально доходчиво простыми словами (методом Фейнмана).
 2. Составь список из 8–10 самых вероятных и каверзных вопросов экзаменационной комиссии МИДиС на защите.
 3. Для каждого вопроса дай:
    - В чем истинный подвох вопроса комиссии;
@@ -488,7 +1022,7 @@ ${perceptionFormatDescriptions[state.perceptionFormat]}
       break;
 
     case 'time-management-balance':
-      prompt += `1. Составь недельный спринт-график с учетом пар, блоков глубокой работы (Deep Work), отдыха и бассейна/спорта.
+      prompt += `1. Составь недельный спринт-график с учетом пар, блоков глубокой работы (Deep Work), отдыха и бассейна/спорта МИДиС.
 2. Внедри технику преодоления прокрастинации, подходящую под мой профиль.
 3. Сформулируй 3 правила защиты личных границ и предотвращения студенческого выгорания.`;
       break;
@@ -522,6 +1056,35 @@ ${perceptionFormatDescriptions[state.perceptionFormat]}
    - Задай следующий вопрос с постепенным повышением сложности.`;
       break;
 
+    case 'hackathon-pitch':
+      prompt += `1. Сформируй структуру 3-минутного питч-дека (10 слайдов) для жюри хакатона:
+   - Проблема и масштабы боли пользователей;
+   - Наше решение и технологическая фишка;
+   - Демонстрация MVP;
+   - Бизнес-модель и экономика проекта;
+   - Команда и дорожная карта развития.
+2. Подготовь 5 самых каверзных вопросов жюри и формулы уверенных ответов.`;
+      break;
+
+    case 'ai-prompt-engineer':
+      prompt += `1. Напиши 3 детальных промпта на английском языке для Midjourney / Flux / SDXL:
+   - Первый: общий атмосферный мастер-шот (Master Shot);
+   - Второй: детальный макро/крупный план ключевого элемента (Close-up Detail);
+   - Третий: контекстная интеграция в интерфейс / мокап реального продукта.
+2. В каждом промпте укажи рекомендованные параметры (--ar, --v, --style, camera lens, lighting).`;
+      break;
+
+    case 'team-conflict-resolver':
+      prompt += `1. Проанализируй ситуацию в команде с точки зрения ролей и ожиданий.
+2. Предложи пошаговый сценарий 15-минутного командного созвона / встречи для решения разногласий.
+3. Сформулируй 3 правила фиксации договоренностей в командном Notion/Trello.`;
+      break;
+
+    case 'english-pro':
+      prompt += `1. Составь глоссарий из 20 самых актуальных терминов по моей специальности (${spec.name}) на английском языке с примерами в контексте.
+2. Напиши сценарий профессионального диалога (10 реплик) для обсуждения рабочего проекта с англоязычным коллегой.`;
+      break;
+
     default:
       prompt += `Дай структурированный, детальный ответ с практическими рекомендациями, готовыми к применению.`;
   }
@@ -529,14 +1092,14 @@ ${perceptionFormatDescriptions[state.perceptionFormat]}
   prompt += `\n\n---
 ### ВАЖНО:
 - Пиши на русском языке, живо, авторитетно, без шаблонного канцелярита.
-- Не выдумывай названия сторонних курсов или партнеров, которых я не указывал — используй только ресурсы МИДиС и логику профессионального роста.`;
+- Не выдумывай названия сторонних курсов или партнеров, которых я не указал — используй только ресурсы МИДиС и логику профессионального роста.`;
 
   return prompt;
 }
 
-// ==========================================
-// 6. JARVIS SYNTHESIS ANIMATION
-// ==========================================
+// ==========================================================================
+// 6. JARVIS SYNTHESIS ANIMATION SEQUENCE
+// ==========================================================================
 
 function runJarvisSynthesis() {
   const loader = document.getElementById('synthesis-loader');
@@ -547,11 +1110,13 @@ function runJarvisSynthesis() {
   loader.style.display = 'flex';
   resultPanel.style.display = 'none';
 
+  const spec = state.specialization || MIDIS_DATA.allSpecializations[0];
+
   const sequence = [
-    { delay: 100, status: 'СКАНИРОВАНИЕ ПРОФИЛЯ СТУДЕНТА МИДиС...', log: '[0.10s] Анализ курса, формы обучения и специальности...' },
-    { delay: 500, status: 'ИНТЕГРАЦИЯ ИНСТИТУТСКИХ ВОЗМОЖНОСТЕЙ...', log: '[0.45s] Подключение проектного обучения, ОУП и ИИ-модулей...' },
-    { delay: 900, status: 'КАЛИБРОВКА СИСТЕМНОЙ РОЛИ И ОГРАНИЧЕНИЙ...', log: '[0.85s] Оптимизация структуры под LLM (ChatGPT / Claude / DeepSeek)...' },
-    { delay: 1300, status: 'СИНТЕЗ ЗАВЕРШЕН // РЕЗУЛЬТАТ ГОТОВ', log: '[1.25s] Вывод скомпилированного промпта в терминал...' }
+    { delay: 100, status: 'СКАНИРОВАНИЕ ПРОФИЛЯ СТУДЕНТА МИДиС...', log: `[0.10s] Анализ профиля: [${spec.code}] ${spec.name}...` },
+    { delay: 450, status: 'ИНТЕГРАЦИЯ ИНСТИТУТСКИХ ВОЗМОЖНОСТЕЙ...', log: '[0.45s] Подключение FDE Lab, ОУП, бассейна и ИИ-модулей МИДиС...' },
+    { delay: 850, status: 'КАЛИБРОВКА СИСТЕМНОЙ РОЛИ И ОГРАНИЧЕНИЙ...', log: '[0.85s] Оптимизация структуры под LLM (ChatGPT / Claude / DeepSeek)...' },
+    { delay: 1250, status: 'СИНТЕЗ ЗАВЕРШЕН // РЕЗУЛЬТАТ ГОТОВ', log: '[1.25s] Вывод скомпилированного промпта в терминал...' }
   ];
 
   sequence.forEach(step => {
@@ -573,6 +1138,16 @@ function runJarvisSynthesis() {
     const tokens = Math.round(promptText.length / 3.4);
     document.getElementById('term-stat-words').textContent = `${words} слов`;
     document.getElementById('term-stat-tokens').textContent = `~${tokens} токенов`;
+    document.getElementById('term-file-name').textContent = `MIDIS_${spec.code}_${state.scenarioId.toUpperCase()}.PROMPT`;
+
+    // Summary pills
+    const summaryBar = document.getElementById('terminal-summary-bar');
+    summaryBar.innerHTML = `
+      <span class="term-pill">🎓 ${spec.name}</span>
+      <span class="term-pill">📌 Курс: ${state.course}</span>
+      <span class="term-pill">⚙️ Стек: ${state.selectedSkills.slice(0, 3).join(', ')}${state.selectedSkills.length > 3 ? '...' : ''}</span>
+      <span class="term-pill">🎯 Сценарий: ${state.scenarioId}</span>
+    `;
 
     // Direct Links
     const encoded = encodeURIComponent(promptText);
@@ -580,13 +1155,13 @@ function runJarvisSynthesis() {
     document.getElementById('term-link-claude').href = `https://claude.ai/new?q=${encoded}`;
     document.getElementById('term-link-deepseek').href = `https://chat.deepseek.com/`;
 
-    showToast('⚡ Промпт успешно синтезирован!');
-  }, 1600);
+    showToast('⚡ Промпт успешно скомпилирован!');
+  }, 1500);
 }
 
-// ==========================================
+// ==========================================================================
 // 7. EVENT LISTENERS
-// ==========================================
+// ==========================================================================
 
 function attachEvents() {
   // Step Navigation Top Bar clicks
@@ -625,14 +1200,18 @@ function attachEvents() {
       document.querySelectorAll('#level-options-grid .big-option-card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
       state.educationLevel = card.dataset.level;
-      updateSpecializationsDropdown();
+      renderSpecializations();
     });
   });
 
-  // Specialization dropdown
-  document.getElementById('select-spec-hud').addEventListener('change', (e) => {
-    state.specializationName = e.target.value;
-  });
+  // Specialization live search input
+  const searchInput = document.getElementById('input-spec-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      state.searchQuery = e.target.value;
+      renderSpecializations();
+    });
+  }
 
   // Course Pills
   document.querySelectorAll('#course-selector .pill-btn').forEach(btn => {
@@ -640,6 +1219,15 @@ function attachEvents() {
       document.querySelectorAll('#course-selector .pill-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       state.course = btn.dataset.val;
+    });
+  });
+
+  // Form Pills (full-time, part-time, extramural)
+  document.querySelectorAll('#form-selector .pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#form-selector .pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.studyForm = btn.dataset.val;
     });
   });
 
@@ -701,24 +1289,6 @@ function attachEvents() {
     }
   });
 
-  // Step 5 Quick Templates
-  document.getElementById('btn-qt-portfolio').addEventListener('click', () => {
-    document.getElementById('hud-task-input').value = 'Идея пет-проекта: сервис на стыке моей специальности и локальной городской культуры с геймификацией.';
-    state.taskInput = document.getElementById('hud-task-input').value;
-  });
-  document.getElementById('btn-qt-defense').addEventListener('click', () => {
-    document.getElementById('hud-task-input').value = 'Подготовка к защите курсового проекта: объясни ключевую суть простыми словами и выдели 8 главных вопросов комиссии.';
-    state.taskInput = document.getElementById('hud-task-input').value;
-  });
-  document.getElementById('btn-qt-roadmap').addEventListener('click', () => {
-    document.getElementById('hud-task-input').value = 'Построить ориентировочный план развития на 4 года: как совместить проектную практику в МИДиС, хакатоны и отдых.';
-    state.taskInput = document.getElementById('hud-task-input').value;
-  });
-  document.getElementById('btn-qt-internship').addEventListener('click', () => {
-    document.getElementById('hud-task-input').value = 'Составить позиционирование и сильное сопроводительное письмо для отклика на стажировку по моей специальности.';
-    state.taskInput = document.getElementById('hud-task-input').value;
-  });
-
   // Text inputs
   document.getElementById('hud-task-input').addEventListener('input', (e) => state.taskInput = e.target.value);
   document.getElementById('hud-fears-input').addEventListener('input', (e) => state.fearsInput = e.target.value);
@@ -756,13 +1326,13 @@ function attachEvents() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('Файл .md сохранен на устройство');
+    showToast('Файл .md сохранен');
   });
 
   // Restart wizard
   document.getElementById('btn-term-restart').addEventListener('click', () => {
     goToStep(1);
-    showToast('Переход к началу конструктора');
+    showToast('Переход к шагу 1');
   });
 
   // Guide Modal
@@ -792,7 +1362,8 @@ function showToast(msg) {
 // Initial Boot
 document.addEventListener('DOMContentLoaded', () => {
   renderScenarios('all');
-  updateSpecializationsDropdown();
+  renderClusterPills();
+  renderSpecializations();
   renderChips();
   attachEvents();
   goToStep(1);

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MIDIS JARVIS // Нейросетевой Конструктор Промптов</title>
-  <meta name="description" content="Интеллектуальная система синтеза персонализированных AI-промптов для студентов института и колледжа МИДиС.">
+  <title>MIDIS JARVIS // Нейросетевой Конструктор Промптов МИДиС</title>
+  <meta name="description" content="Интеллектуальная система синтеза персонализированных AI-промптов для всех направлений института и колледжа МИДиС.">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,20 +24,20 @@
   <header class="hud-header">
     <div class="container hud-header-container">
       <div class="hud-brand">
-        <a href="https://midis.ru" target="_blank" rel="noopener" class="hud-logo" title="МИДиС">
-          <img src="logo.svg" alt="МИДиС" width="120" height="26" class="hud-logo-img">
+        <a href="https://midis.ru" target="_blank" rel="noopener" class="hud-logo" title="Официальный сайт МИДиС">
+          <img src="logo.svg" alt="МИДиС" width="124" height="26" class="hud-logo-img">
         </a>
         <div class="hud-separator"></div>
         <div class="hud-core-status">
           <span class="hud-status-led"></span>
-          <span class="hud-system-title">JARVIS CORE <span class="hud-version">v2.5</span></span>
-          <span class="hud-status-text">[НЕЙРОСЕТЬ ОНЛАЙН]</span>
+          <span class="hud-system-title">JARVIS CORE <span class="hud-version">v3.0</span></span>
+          <span class="hud-status-text">[НЕЙРОСЕТЬ МИДиС ОНЛАЙН]</span>
         </div>
       </div>
 
       <div class="hud-controls">
         <button type="button" id="btn-open-guide" class="hud-btn hud-btn-ghost">
-          <span class="hud-icon">ℹ️</span>
+          <span class="hud-icon">💡</span>
           <span>Инструкция</span>
         </button>
         <div class="hud-author-pill">
@@ -54,6 +54,10 @@
 
       <!-- Progress Navigation Bar -->
       <div class="hud-progress-card">
+        <div class="progress-meta-row">
+          <span class="progress-step-info" id="progress-step-info">ШАГ 1 ИЗ 5: ВЫБОР ЦЕЛИ НЕЙРОСЕТИ</span>
+          <span class="progress-percent-info" id="progress-percent-info">20% ЗАВЕРШЕНО</span>
+        </div>
         <div class="progress-track-wrapper">
           <div class="progress-bar-fill" id="progress-bar-fill"></div>
         </div>
@@ -64,7 +68,7 @@
           </button>
           <button class="step-nav-item" data-step="2">
             <span class="step-nav-dot">02</span>
-            <span class="step-nav-label">Профиль</span>
+            <span class="step-nav-label">Направление</span>
           </button>
           <button class="step-nav-item" data-step="3">
             <span class="step-nav-dot">03</span>
@@ -85,79 +89,102 @@
         </div>
       </div>
 
-      <!-- STEP 1: SCENARIO SELECTION -->
+      <!-- STEP 1: SCENARIO SELECTION (14 Use Cases) -->
       <section class="wizard-step-pane active" id="step-pane-1">
         <div class="step-banner">
-          <span class="step-badge">ШАГ 1 ИЗ 5 • АКТИВАЦИЯ ЦЕЛИ</span>
+          <span class="step-badge">ШАГ 1 • АКТИВАЦИЯ ЦЕЛИ</span>
           <h2 class="step-headline">Что именно должна решить нейросеть?</h2>
-          <p class="step-subline">Выберите ключевую задачу. Система автоматически настроит системную роль и логику ответа.</p>
+          <p class="step-subline">Выберите ключевой сценарий. Система откалибрует роль ИИ и структуру генерации.</p>
         </div>
 
         <!-- Filter tabs for quick sorting -->
         <div class="category-tabs" id="scenario-category-tabs">
-          <button type="button" class="cat-tab active" data-cat="all">Все сценарии (10)</button>
-          <button type="button" class="cat-tab" data-cat="study">Учеба и Сессия</button>
-          <button type="button" class="cat-tab" data-cat="career">Карьера и Стажировки</button>
+          <button type="button" class="cat-tab active" data-cat="all">Все сценарии (14)</button>
+          <button type="button" class="cat-tab" data-cat="study">Учёба и Сессия</button>
+          <button type="button" class="cat-tab" data-cat="career">Карьера и Стажировка</button>
           <button type="button" class="cat-tab" data-cat="creation">Проекты и Творчество</button>
+          <button type="button" class="cat-tab" data-cat="skills">Hard & Soft Skills</button>
         </div>
 
-        <!-- 10 High-Tech Scenarios Cards -->
+        <!-- 14 High-Tech Scenarios Cards -->
         <div class="scenarios-hud-grid" id="scenarios-hud-container">
           <!-- Populated by JS -->
         </div>
 
         <div class="wizard-footer-nav">
-          <div class="footer-hint">Выберите задачу кликом по карточке и двигайтесь дальше</div>
+          <div class="footer-hint">Кликните по подходящему сценарию и переходите к выбору специальности</div>
           <button type="button" class="hud-btn hud-btn-primary btn-next-step" data-next="2">
-            <span>Продолжить к профилю</span>
+            <span>Продолжить к выбору специальности</span>
             <span class="hud-arrow">→</span>
           </button>
         </div>
       </section>
 
-      <!-- STEP 2: STUDENT PROFILE -->
+      <!-- STEP 2: ALL MAJORS & PROFILES (КОЛЛЕДЖ + БАКАЛАВРИАТ + МАГИСТРАТУРА) -->
       <section class="wizard-step-pane" id="step-pane-2">
         <div class="step-banner">
-          <span class="step-badge">ШАГ 2 ИЗ 5 • ТВОЙ СТАТУС В МИДиС</span>
-          <h2 class="step-headline">Кто ты в экосистеме института?</h2>
-          <p class="step-subline">Нейросеть адаптирует глубину формулировок под твой уровень и специальность.</p>
+          <span class="step-badge">ШАГ 2 • СПЕЦИАЛЬНОСТЬ В МИДиС</span>
+          <h2 class="step-headline">Выбери свой уровень и направление</h2>
+          <p class="step-subline">Интегрированы абсолютно все специальности и суб-профили института и колледжа МИДиС с официального сайта midis.ru.</p>
         </div>
 
         <div class="step-form-wrapper">
-          <!-- 1. Education Level Big Buttons -->
+          <!-- 1. Education Level Big Interactive Selector -->
           <div class="form-block">
             <label class="block-label">1. Твой уровень образования:</label>
             <div class="big-options-grid" id="level-options-grid">
-              <button type="button" class="big-option-card active" data-level="bachelor">
-                <span class="opt-icon">🎓</span>
-                <span class="opt-title">Бакалавриат</span>
-                <span class="opt-desc">Высшее образование (4 года)</span>
-              </button>
               <button type="button" class="big-option-card" data-level="college">
                 <span class="opt-icon">⚡</span>
-                <span class="opt-title">Колледж (СПО)</span>
-                <span class="opt-desc">Практика и быстрый старт</span>
+                <div class="opt-text-wrap">
+                  <span class="opt-title">Колледж (СПО)</span>
+                  <span class="opt-desc">Дизайн, IT, Сервис, Банки, Торговля, Право</span>
+                </div>
+              </button>
+              <button type="button" class="big-option-card active" data-level="bachelor">
+                <span class="opt-icon">🎓</span>
+                <div class="opt-text-wrap">
+                  <span class="opt-title">Бакалавриат</span>
+                  <span class="opt-desc">Высшая школа дизайна, IT, туризма, бизнеса</span>
+                </div>
               </button>
               <button type="button" class="big-option-card" data-level="master">
                 <span class="opt-icon">🚀</span>
-                <span class="opt-title">Магистратура</span>
-                <span class="opt-desc">Управление и глубокий R&D</span>
+                <div class="opt-text-wrap">
+                  <span class="opt-title">Магистратура</span>
+                  <span class="opt-desc">Креативное лидерство, AI в бизнесе, управление</span>
+                </div>
               </button>
             </div>
           </div>
 
-          <!-- 2. Department & Specialization -->
+          <!-- 2. Cluster / Department Filter Pills -->
           <div class="form-block">
-            <label class="block-label" for="select-spec-hud">2. Направление обучения в МИДиС:</label>
-            <select id="select-spec-hud" class="hud-select-big">
-              <!-- Populated dynamically based on level -->
-            </select>
+            <div class="block-header-row">
+              <label class="block-label">2. Выберите кафедру / отрасль:</label>
+              <span class="selected-counter" id="cluster-hint">Все отрасли</span>
+            </div>
+            <div class="cluster-pills-row" id="cluster-pills-container">
+              <!-- Rendered dynamically -->
+            </div>
           </div>
 
-          <!-- 3. Course and Skill Level (Compact pills) -->
+          <!-- 3. Visual Grid of All Sub-directions with Official Codes -->
+          <div class="form-block">
+            <div class="block-header-row">
+              <label class="block-label">3. Выберите точный профиль обучения:</label>
+              <div class="spec-search-box">
+                <input type="text" id="input-spec-search" class="spec-search-input" placeholder="🔍 Быстрый поиск (напр. 3D, веб, отель, банк)...">
+              </div>
+            </div>
+            <div class="specs-cards-grid" id="specs-cards-container">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 4. Course, Form & Skill Level (Compact & clear) -->
           <div class="form-split-row">
             <div class="form-block flex-1">
-              <label class="block-label">3. Какой курс?</label>
+              <label class="block-label">4. Курс обучения:</label>
               <div class="pills-selector" id="course-selector">
                 <button type="button" class="pill-btn active" data-val="1">1 курс</button>
                 <button type="button" class="pill-btn" data-val="2">2 курс</button>
@@ -167,12 +194,21 @@
             </div>
 
             <div class="form-block flex-1">
-              <label class="block-label">4. Уровень в профессии:</label>
+              <label class="block-label">5. Форма обучения:</label>
+              <div class="pills-selector" id="form-selector">
+                <button type="button" class="pill-btn active" data-val="full-time">Очная</button>
+                <button type="button" class="pill-btn" data-val="part-time">Очно-заочная</button>
+                <button type="button" class="pill-btn" data-val="extramural">Заочная</button>
+              </div>
+            </div>
+
+            <div class="form-block flex-1">
+              <label class="block-label">6. Уровень навыков:</label>
               <div class="pills-selector" id="skill-level-selector">
                 <button type="button" class="pill-btn active" data-val="beginner">Новичок</button>
                 <button type="button" class="pill-btn" data-val="junior">Junior</button>
                 <button type="button" class="pill-btn" data-val="junior-plus">Pre-Middle</button>
-                <button type="button" class="pill-btn" data-val="freelancer">Фрилансер</button>
+                <button type="button" class="pill-btn" data-val="freelancer">Практик</button>
               </div>
             </div>
           </div>
@@ -183,7 +219,7 @@
             <span class="hud-arrow">←</span> Назад
           </button>
           <button type="button" class="hud-btn hud-btn-primary btn-next-step" data-next="3">
-            <span>Далее: Стиль ответа</span>
+            <span>Далее: Стиль восприятия</span>
             <span class="hud-arrow">→</span>
           </button>
         </div>
@@ -192,9 +228,9 @@
       <!-- STEP 3: FORMAT OF PERCEPTION -->
       <section class="wizard-step-pane" id="step-pane-3">
         <div class="step-banner">
-          <span class="step-badge">ШАГ 3 ИЗ 5 • КАЛИБРОВКА ВОСПРИЯТИЯ</span>
-          <h2 class="step-headline">Как нейросеть должна подать материал?</h2>
-          <p class="step-subline">Выберите формат, который легче всего усваивается вашим мозгом.</p>
+          <span class="step-badge">ШАГ 3 • СТИЛЬ И ФОРМАТ ПОДАЧИ</span>
+          <h2 class="step-headline">Как нейросеть должна формулировать ответ?</h2>
+          <p class="step-subline">Выберите формат, который легче всего воспринимается вашим мозгом.</p>
         </div>
 
         <div class="formats-hud-grid" id="formats-hud-container">
@@ -213,7 +249,7 @@
               <span class="f-tag">АЛГОРИТМ</span>
             </div>
             <h3 class="f-title">Пошаговый гайд (1-2-3)</h3>
-            <p class="f-desc">Чёткая пошаговая инструкция с контрольными точками и критериями успешности каждого шага.</p>
+            <p class="f-desc">Чёткая пошаговая инструкция с контрольными точками и критериями готовности каждого шага.</p>
           </div>
 
           <div class="format-hud-card" data-format="analogies">
@@ -222,7 +258,7 @@
               <span class="f-tag">НАГЛЯДНО</span>
             </div>
             <h3 class="f-title">Яркие аналогии</h3>
-            <p class="f-desc">Объяснение через видеоигры, кино, сериалы или бытовые параллели для моментального понимания.</p>
+            <p class="f-desc">Объяснение через видеоигры, поп-культуру, кино или бытовые параллели для моментального понимания.</p>
           </div>
 
           <div class="format-hud-card" data-format="strict-code">
@@ -258,23 +294,23 @@
       <!-- STEP 4: TOOLS & HOBBIES -->
       <section class="wizard-step-pane" id="step-pane-4">
         <div class="step-banner">
-          <span class="step-badge">ШАГ 4 ИЗ 5 • ТВОЙ СТЕК И ХОББИ</span>
-          <h2 class="step-headline">Что ты используешь и чем горишь?</h2>
-          <p class="step-subline">Система подобрала популярные теги. Кликните на нужные или добавьте свой.</p>
+          <span class="step-badge">ШАГ 4 • СТЕК, ХОББИ И РЕСУРСЫ</span>
+          <h2 class="step-headline">Твой рабочий софт и увлечения</h2>
+          <p class="step-subline">Система автоматически предложила стек под твоё направление. Кликни для выбора или добавь своё.</p>
         </div>
 
         <div class="step-form-wrapper">
           <!-- Stack Chips -->
           <div class="form-block">
             <div class="block-header-row">
-              <label class="block-label">Инструменты и технологии (кликните, чтобы выбрать):</label>
+              <label class="block-label">Софт, технологии и инструменты (клик для выбора):</label>
               <span class="selected-counter" id="hud-stack-count">0 выбрано</span>
             </div>
             <div class="chips-hud-row" id="hud-stack-chips">
               <!-- Rendered by JS -->
             </div>
             <div class="add-tag-inline">
-              <input type="text" id="hud-custom-stack-input" class="hud-input-tag" placeholder="+ Добавить софт (напр. Blender, Figma, React)...">
+              <input type="text" id="hud-custom-stack-input" class="hud-input-tag" placeholder="+ Добавить свой софт / инструмент...">
               <button type="button" id="hud-btn-add-stack" class="hud-btn hud-btn-sm hud-btn-outline">Добавить</button>
             </div>
           </div>
@@ -282,51 +318,69 @@
           <!-- Hobby Chips -->
           <div class="form-block">
             <div class="block-header-row">
-              <label class="block-label">Увлечения и сильные стороны:</label>
+              <label class="block-label">Хобби, личные интересы и сильные стороны:</label>
               <span class="selected-counter" id="hud-hobby-count">0 выбрано</span>
             </div>
             <div class="chips-hud-row" id="hud-hobby-chips">
               <!-- Rendered by JS -->
             </div>
             <div class="add-tag-inline">
-              <input type="text" id="hud-custom-hobby-input" class="hud-input-tag" placeholder="+ Добавить увлечение (напр. Геймдев, Музыка)...">
+              <input type="text" id="hud-custom-hobby-input" class="hud-input-tag" placeholder="+ Добавить увлечение...">
               <button type="button" id="hud-btn-add-hobby" class="hud-btn hud-btn-sm hud-btn-outline">Добавить</button>
             </div>
           </div>
 
           <!-- MIDIS Resources Smart Activation -->
           <div class="form-block">
-            <label class="block-label">Ресурсы МИДиС для включения в промпт:</label>
+            <label class="block-label">Институтские ресурсы МИДиС для внедрения в ответ ИИ:</label>
             <div class="resources-quick-grid">
               <label class="res-check-item">
                 <input type="checkbox" id="chk-partnerProjects" checked>
                 <span class="res-box"></span>
-                <span class="res-title">Проектное обучение с бизнесом</span>
+                <span class="res-meta">
+                  <span class="res-title">Проектное обучение с бизнесом</span>
+                  <small class="res-desc">Реальные кейсы от партнеров с 1-2 курса</small>
+                </span>
               </label>
               <label class="res-check-item">
                 <input type="checkbox" id="chk-paidInternships" checked>
                 <span class="res-box"></span>
-                <span class="res-title">Оплачиваемые стажировки</span>
+                <span class="res-meta">
+                  <span class="res-title">Оплачиваемые стажировки</span>
+                  <small class="res-desc">Практика в профильных компаниях</small>
+                </span>
               </label>
               <label class="res-check-item">
                 <input type="checkbox" id="chk-oupLeadership" checked>
                 <span class="res-box"></span>
-                <span class="res-title">ОУП (управленческая подготовка)</span>
+                <span class="res-meta">
+                  <span class="res-title">Общая управленческая подготовка (ОУП)</span>
+                  <small class="res-desc">Проектно-аналитические сессии и мышление</small>
+                </span>
               </label>
               <label class="res-check-item">
                 <input type="checkbox" id="chk-aiMastery" checked>
                 <span class="res-box"></span>
-                <span class="res-title">Обучение работе с ИИ</span>
+                <span class="res-meta">
+                  <span class="res-title">Обучение работе с ИИ</span>
+                  <small class="res-desc">Промпт-инжиниринг и агенты по профилю</small>
+                </span>
               </label>
               <label class="res-check-item">
                 <input type="checkbox" id="chk-newSpecialistWellness" checked>
                 <span class="res-box"></span>
-                <span class="res-title">Бассейн и спорт МИДиС</span>
+                <span class="res-meta">
+                  <span class="res-title">Специалист нового типа</span>
+                  <small class="res-desc">Бассейн/спортклуб МИДиС, психология</small>
+                </span>
               </label>
               <label class="res-check-item">
                 <input type="checkbox" id="chk-hackathonsAndEvents" checked>
                 <span class="res-box"></span>
-                <span class="res-title">Хакатоны и выставки</span>
+                <span class="res-meta">
+                  <span class="res-title">Хакатоны и стартап-питчи</span>
+                  <small class="res-desc">Участие в биеннале, конкурсах и выставках</small>
+                </span>
               </label>
             </div>
           </div>
@@ -346,35 +400,32 @@
       <!-- STEP 5: SPECIFIC TASK & CONTEXT -->
       <section class="wizard-step-pane" id="step-pane-5">
         <div class="step-banner">
-          <span class="step-badge">ШАГ 5 ИЗ 5 • СУТЬ ТВОЕЙ ЗАДАЧИ</span>
+          <span class="step-badge">ШАГ 5 • СУТЬ ЗАДАЧИ И КОНТЕКСТ</span>
           <h2 class="step-headline">Опиши текущий фокус своими словами</h2>
-          <p class="step-subline">Можно нажать готовый быстрый шаблон или написать пару предложений о дедлайне и сложностях.</p>
+          <p class="step-subline">Кликни готовый шаблон или введи свой запрос. Система откалибрует промпт под детали.</p>
         </div>
 
         <div class="step-form-wrapper">
           <!-- Quick Templates for 1-click text insertion -->
-          <div class="quick-templates-bar">
-            <span class="qt-title">Быстрые примеры:</span>
-            <button type="button" class="qt-btn" id="btn-qt-portfolio">💡 Идея для портфолио</button>
-            <button type="button" class="qt-btn" id="btn-qt-defense">🛡️ Защита проекта / сессия</button>
-            <button type="button" class="qt-btn" id="btn-qt-roadmap">🧭 План на 4 года</button>
-            <button type="button" class="qt-btn" id="btn-qt-internship">💼 Поиск стажировки</button>
+          <div class="quick-templates-bar" id="quick-templates-bar">
+            <span class="qt-title">Быстрые примеры в 1 клик:</span>
+            <!-- Rendered by JS based on chosen scenario -->
           </div>
 
           <div class="form-block">
             <label class="block-label" for="hud-task-input" id="hud-task-label">Тема, задача или вопрос к нейросети:</label>
-            <textarea id="hud-task-input" class="hud-textarea" rows="3" placeholder="Например: хочу пет-проект на стыке веб-дизайна и настольных игр, либо подготовиться к защите курсовой по дизайн-системам..."></textarea>
+            <textarea id="hud-task-input" class="hud-textarea" rows="3" placeholder="Опиши задачу, тему курсовой, пет-проект или вопрос..."></textarea>
           </div>
 
           <div class="form-split-row">
             <div class="form-block flex-1">
-              <label class="block-label" for="hud-fears-input">Сомнения или слабые места <span class="label-opt">(необязательно)</span>:</label>
-              <input type="text" id="hud-fears-input" class="hud-input" placeholder="Например: боюсь публичных защит, плаваю в коде...">
+              <label class="block-label" for="hud-fears-input">Сомнения, страхи или слабые места <span class="label-opt">(необязательно)</span>:</label>
+              <input type="text" id="hud-fears-input" class="hud-input" placeholder="Например: боюсь защиты, плаваю в коде, не уверен в выборе...">
             </div>
 
             <div class="form-block flex-1">
-              <label class="block-label" for="hud-deadline-input">Дедлайн / ограничения <span class="label-opt">(необязательно)</span>:</label>
-              <input type="text" id="hud-deadline-input" class="hud-input" placeholder="Например: дедлайн 3 недели, до 8 часов в неделю...">
+              <label class="block-label" for="hud-deadline-input">Дедлайн / рамки времени <span class="label-opt">(необязательно)</span>:</label>
+              <input type="text" id="hud-deadline-input" class="hud-input" placeholder="Например: 3 недели, до конца семестра...">
             </div>
           </div>
         </div>
@@ -415,13 +466,18 @@
             </div>
             <div class="terminal-title">
               <span class="term-icon">⚡</span>
-              <span>MIDIS_PROMPT_OPTIMIZED.PROMPT</span>
+              <span id="term-file-name">MIDIS_PROMPT_OPTIMIZED.PROMPT</span>
             </div>
             <div class="terminal-stats">
               <span id="term-stat-words">0 слов</span>
               <span class="term-sep">|</span>
               <span id="term-stat-tokens">~0 токенов</span>
             </div>
+          </div>
+
+          <!-- Quick Summary Bar of Applied Settings -->
+          <div class="terminal-summary-pill-bar" id="terminal-summary-bar">
+            <!-- Rendered by JS -->
           </div>
 
           <!-- Prompt Text Output Area -->
@@ -467,7 +523,7 @@
                   <span class="ai-circle">🔵</span>
                   <div class="ai-meta">
                     <strong>DeepSeek</strong>
-                    <small>Reasoning</small>
+                    <small>Reasoning R1</small>
                   </div>
                   <span class="ai-external-arrow">↗</span>
                 </a>
@@ -480,7 +536,7 @@
                 <span>⬇️ Скачать как .md файл</span>
               </button>
               <button type="button" class="hud-btn hud-btn-sm hud-btn-ghost btn-prev-step" data-prev="5">
-                <span>✏️ Вернуться и изменить параметры</span>
+                <span>✏️ Скорректировать задачу</span>
               </button>
               <button type="button" class="hud-btn hud-btn-sm hud-btn-ghost" id="btn-term-restart">
                 <span>🔄 Начать заново</span>
@@ -503,7 +559,7 @@
         <div class="modal-status-chip">МЕТОДИКА МИДиС</div>
         <button type="button" class="hud-modal-close" id="btn-close-modal">✕</button>
       </div>
-      <h3 class="hud-modal-title">Как скормить этот промпт нейросети</h3>
+      <h3 class="hud-modal-title">Как получить максимум от нейросети в МИДиС</h3>
       
       <div class="hud-modal-steps">
         <div class="m-step">
@@ -517,8 +573,8 @@
         <div class="m-step">
           <span class="m-num">02</span>
           <div>
-            <strong>Вставьте в начало диалога</strong>
-            <p>Всегда отправляйте промпт новым чатом, чтобы контекст модели был чистым от предыдущих тем.</p>
+            <strong>Вставьте в начало нового чата</strong>
+            <p>Всегда отправляйте промпт новым диалогом, чтобы контекст модели был чистым от предыдущих тем.</p>
           </div>
         </div>
 
@@ -541,9 +597,9 @@
 
       <div class="hud-modal-footer">
         <div class="author-credits">
-          Разработка системы: <strong>Мельников Семён</strong> • Специально для студентов МИДиС (<a href="https://midis.ru" target="_blank">midis.ru</a>)
+          Разработка сервиса: <strong>Мельников Семён</strong> • Специально для студентов института и колледжа МИДиС (<a href="https://midis.ru" target="_blank" rel="noopener">midis.ru</a>)
         </div>
-        <button type="button" class="hud-btn hud-btn-primary hud-btn-block" id="btn-modal-ok">Понятно, активировать JARVIS</button>
+        <button type="button" class="hud-btn hud-btn-primary hud-btn-block" id="btn-modal-ok">Понятно, к конструктору</button>
       </div>
     </div>
   </div>
