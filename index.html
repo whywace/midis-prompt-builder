@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=Unbounded:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="midis-dark">
@@ -24,7 +24,7 @@
     <div class="container header-container">
       <div class="header-left">
         <a href="https://midis.ru" target="_blank" rel="noopener" class="header-logo-link" title="Официальный сайт МИДиС">
-          <img src="logo.svg" alt="МИДиС" width="135" height="28" class="header-logo-img">
+          <img src="logo.svg" alt="МИДиС" width="140" height="30" class="header-logo-img">
         </a>
         <div class="header-sep"></div>
         <div class="header-subtext">
@@ -35,7 +35,12 @@
 
       <div class="header-right">
         <button type="button" id="btn-open-guide" class="pill-btn-outline">
-          <span class="pill-icon">💡</span>
+          <span class="pill-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18h6"></path><path d="M10 22h4"></path>
+              <path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path>
+            </svg>
+          </span>
           <span>Инструкция</span>
         </button>
 
@@ -75,7 +80,7 @@
           </div>
           <div class="hero-stat-item">
             <span class="stat-num">1 клик</span>
-            <span class="stat-label">экспорт в ChatGPT/Claude</span>
+            <span class="stat-label">экспорт в ChatGPT/Claude/DeepSeek</span>
           </div>
         </div>
       </section>
@@ -134,7 +139,7 @@
 
         <!-- Scenarios Grid -->
         <div class="midis-cards-grid" id="scenarios-container">
-          <!-- Populated by JS -->
+          <!-- Populated by JS with clean custom SVG icons -->
         </div>
 
         <div class="step-footer-actions">
@@ -147,7 +152,7 @@
       </section>
 
       <!-- ===================================================================
-           STEP 2: ALL MIDIS MAJORS & SUB-PROFILES (Like midis.ru screenshot)
+           STEP 2: ALL MIDIS MAJORS & SUB-PROFILES (Redesigned like Screenshot 2)
            =================================================================== -->
       <section class="step-section" id="step-pane-2">
         <div class="section-heading">
@@ -159,17 +164,33 @@
         <!-- Level Selector: СПО (Колледж) vs Бакалавриат vs Магистратура -->
         <div class="midis-level-switch-box">
           <button type="button" class="level-switch-btn active" data-level="bachelor">
-            <span class="lvl-icon">🎓</span>
+            <span class="lvl-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </span>
             <span class="lvl-title">Бакалавриат</span>
             <span class="lvl-badge">Высшее образование</span>
           </button>
           <button type="button" class="level-switch-btn" data-level="college">
-            <span class="lvl-icon">⚡</span>
+            <span class="lvl-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </span>
             <span class="lvl-title">Колледж МИДиС (СПО)</span>
             <span class="lvl-badge">База 9 и 11 классов</span>
           </button>
           <button type="button" class="level-switch-btn" data-level="master">
-            <span class="lvl-icon">🚀</span>
+            <span class="lvl-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+              </svg>
+            </span>
             <span class="lvl-title">Магистратура</span>
             <span class="lvl-badge">R&D и Управление</span>
           </button>
@@ -185,7 +206,7 @@
           </div>
         </div>
 
-        <!-- Big Majors & Profiles Grid (Styled cleanly like Screenshot 2) -->
+        <!-- Big Majors & Profiles Grid (Redesigned interactive cards) -->
         <div class="midis-majors-grid" id="majors-cards-container">
           <!-- Populated by JS with official codes and sub-directions -->
         </div>
@@ -234,7 +255,7 @@
       </section>
 
       <!-- ===================================================================
-           STEP 3: FORMAT OF PERCEPTION
+           STEP 3: FORMAT OF PERCEPTION (With Custom SVG Icons)
            =================================================================== -->
       <section class="step-section" id="step-pane-3">
         <div class="section-heading">
@@ -246,7 +267,11 @@
         <div class="format-cards-grid" id="format-cards-container">
           <div class="format-tile active" data-format="structured-lists">
             <div class="format-tile-header">
-              <span class="format-tile-icon">📋</span>
+              <span class="format-tile-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 6h9M11 12h9M11 18h9M4 6h1v4H4M4 10h2M3.5 14h2.5L4 18h2"></path>
+                </svg>
+              </span>
               <span class="format-tile-badge">БЕЗ ВОДЫ</span>
             </div>
             <h3 class="format-tile-title">Чек-листы и структура</h3>
@@ -255,7 +280,14 @@
 
           <div class="format-tile" data-format="step-by-step">
             <div class="format-tile-header">
-              <span class="format-tile-icon">🪜</span>
+              <span class="format-tile-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="6" height="6" rx="1.5"></rect>
+                  <rect x="15" y="9" width="6" height="6" rx="1.5"></rect>
+                  <rect x="9" y="15" width="6" height="6" rx="1.5"></rect>
+                  <path d="M9 6h3a3 3 0 0 1 3 3v0M15 15v-3"></path>
+                </svg>
+              </span>
               <span class="format-tile-badge">АЛГОРИТМ</span>
             </div>
             <h3 class="format-tile-title">Пошаговый гайд (1-2-3)</h3>
@@ -264,7 +296,11 @@
 
           <div class="format-tile" data-format="analogies">
             <div class="format-tile-header">
-              <span class="format-tile-icon">💡</span>
+              <span class="format-tile-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </span>
               <span class="format-tile-badge">НАГЛЯДНО</span>
             </div>
             <h3 class="format-tile-title">Яркие аналогии</h3>
@@ -273,7 +309,12 @@
 
           <div class="format-tile" data-format="strict-code">
             <div class="format-tile-header">
-              <span class="format-tile-icon">⚙️</span>
+              <span class="format-tile-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </span>
               <span class="format-tile-badge">ПРОФИ</span>
             </div>
             <h3 class="format-tile-title">Инженерный стиль</h3>
@@ -282,7 +323,12 @@
 
           <div class="format-tile" data-format="mentor-dialogue">
             <div class="format-tile-header">
-              <span class="format-tile-icon">🤝</span>
+              <span class="format-tile-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  <path d="M8 10h.01M12 10h.01M16 10h.01"></path>
+                </svg>
+              </span>
               <span class="format-tile-badge">ЭМПАТИЯ</span>
             </div>
             <h3 class="format-tile-title">Заботливый наставник</h3>
@@ -455,7 +501,11 @@
           </button>
           <button type="button" class="btn-midis-generate" id="btn-trigger-generation">
             <span>Сгенерировать промпт МИДиС</span>
-            <span class="btn-sparkle">✨</span>
+            <span class="btn-sparkle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+              </svg>
+            </span>
           </button>
         </div>
       </section>
@@ -512,7 +562,12 @@
               <span class="launchers-label">Открыть напрямую в нейросети:</span>
               <div class="launchers-row">
                 <a id="link-chatgpt" href="#" target="_blank" rel="noopener" class="llm-btn llm-chatgpt">
-                  <span class="llm-icon">🟢</span>
+                  <span class="llm-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10a37f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10a10 10 0 0 1-10-10A10 10 0 0 1 12 2z"></path>
+                      <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                  </span>
                   <div class="llm-info">
                     <strong>ChatGPT</strong>
                     <small>OpenAI</small>
@@ -521,7 +576,11 @@
                 </a>
 
                 <a id="link-claude" href="#" target="_blank" rel="noopener" class="llm-btn llm-claude">
-                  <span class="llm-icon">🟣</span>
+                  <span class="llm-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  </span>
                   <div class="llm-info">
                     <strong>Claude</strong>
                     <small>Anthropic</small>
@@ -530,7 +589,12 @@
                 </a>
 
                 <a id="link-deepseek" href="#" target="_blank" rel="noopener" class="llm-btn llm-deepseek">
-                  <span class="llm-icon">🔵</span>
+                  <span class="llm-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polygon points="12 8 8 12 12 16 16 12 12 8"></polygon>
+                    </svg>
+                  </span>
                   <div class="llm-info">
                     <strong>DeepSeek</strong>
                     <small>Reasoning</small>
@@ -542,13 +606,16 @@
 
             <div class="result-sub-actions">
               <button type="button" class="btn-sub-action" id="btn-download-markdown">
-                <span>⬇️ Скачать как .md файл</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Скачать .md файл</span>
               </button>
               <button type="button" class="btn-sub-action btn-prev" data-prev="5">
-                <span>✏️ Изменить задачу</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                <span>Изменить задачу</span>
               </button>
               <button type="button" class="btn-sub-action" id="btn-restart-flow">
-                <span>🔄 Начать заново</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                <span>Начать заново</span>
               </button>
             </div>
           </div>

@@ -6,16 +6,16 @@
  */
 
 // ==========================================================================
-// 1. БАЗА ДАННЫХ: 14 СЦЕНАРИЕВ, КАФЕДРЫ, НАПРАВЛЕНИЯ И ПРОФИЛИ МИДиС
+// 1. БАЗА ДАННЫХ: 14 СЦЕНАРИЕВ С ВЕКТОРНЫМИ SVG ИКОНКАМИ, КАФЕДРЫ И ПРОФИЛИ
 // ==========================================================================
 
 const MIDIS_DATA = {
-  // 14 ЦЕЛЕВЫХ СЦЕНАРИЕВ
+  // 14 ЦЕЛЕВЫХ СЦЕНАРИЕВ (С КАСТОМНЫМИ SVG ИКОНКАМИ)
   scenarios: [
     {
       id: 'iot-roadmap',
       category: 'study',
-      icon: '🧭',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>`,
       badge: 'МЕТОДИКА МИДиС',
       title: 'Индивидуальный трек обучения (ИОТ)',
       desc: 'Пошаговый план развития по курсам с учетом проектного обучения, ОУП и баланса жизни.',
@@ -31,7 +31,7 @@ const MIDIS_DATA = {
     {
       id: 'portfolio-pet-projects',
       category: 'creation',
-      icon: '✨',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path></svg>`,
       badge: 'ХИТ ДЛЯ ПОРТФОЛИО',
       title: 'Идеи для пет-проектов и портфолио',
       desc: 'Поиск нестандартных тем на стыке специальности и личных хобби с Wow-эффектом.',
@@ -47,7 +47,7 @@ const MIDIS_DATA = {
     {
       id: 'exam-defense-prep',
       category: 'study',
-      icon: '🛡️',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>`,
       badge: 'АНТИСТРЕСС',
       title: 'Подготовка к защите и сессии',
       desc: 'Разбор сложной темы методом Фейнмана + 8-10 каверзных вопросов экзаменационной комиссии МИДиС.',
@@ -63,7 +63,7 @@ const MIDIS_DATA = {
     {
       id: 'case-presentation',
       category: 'creation',
-      icon: '📐',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line><path d="M7 8h10M7 12h5"></path></svg>`,
       badge: 'BEHANCE / GITHUB',
       title: 'Оформление кейса и презентации',
       desc: 'Покадровый сторителлинг: от исследований до визуала, бизнес-метрик и выводов автора.',
@@ -79,7 +79,7 @@ const MIDIS_DATA = {
     {
       id: 'internship-cover-letter',
       category: 'career',
-      icon: '💼',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`,
       badge: 'ТРУДОУСТРОЙСТВО',
       title: 'Поиск стажировок и фриланс-старт',
       desc: 'Составление продающего сопроводительного письма и позиционирования студента без клише.',
@@ -95,7 +95,7 @@ const MIDIS_DATA = {
     {
       id: 'troubleshooting-review',
       category: 'skills',
-      icon: '🔍',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><path d="m8 11 2 2 4-4"></path></svg>`,
       badge: 'ЭКСПЕРТИЗА',
       title: 'Код-ревью и дизайн-критика',
       desc: 'Объективный аудит решения: 3 достоинства, 3-5 критических ошибок и пошаговые исправления.',
@@ -111,7 +111,7 @@ const MIDIS_DATA = {
     {
       id: 'time-management-balance',
       category: 'study',
-      icon: '⏳',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`,
       badge: 'БЕЗ ВЫГОРАНИЯ',
       title: 'Тайм-менеджмент и баланс жизни',
       desc: 'Недельный спринт совмещения пар в МИДиС, дедлайнов, спорта в бассейне и качественного отдыха.',
@@ -127,7 +127,7 @@ const MIDIS_DATA = {
     {
       id: 'design-concept-brainstorm',
       category: 'creation',
-      icon: '💡',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>`,
       badge: 'КРЕАТИВНЫЙ РЫВОК',
       title: 'Дизайн-концепты и брейншторм',
       desc: '3 контрастных стилистических направления: метафоры, палитры, шрифты и референсы.',
@@ -143,7 +143,7 @@ const MIDIS_DATA = {
     {
       id: 'research-coursework-helper',
       category: 'study',
-      icon: '📚',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="9" y1="7" x2="15" y2="7"></line><line x1="9" y1="11" x2="13" y2="11"></line></svg>`,
       badge: 'ГОСТ & НАУКА',
       title: 'Курсовая и дипломная работа (ВКР)',
       desc: 'Формулирование актуальности, объекта, предмета, гипотез и структуры на базе МИДиС.',
@@ -159,7 +159,7 @@ const MIDIS_DATA = {
     {
       id: 'interview-simulator',
       category: 'career',
-      icon: '🎯',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`,
       badge: 'ИНТЕРАКТИВ',
       title: 'Симулятор собеседования (Mock Interview)',
       desc: 'Режим живого диалога с тимлидом: задает по 1 вопросу, оценивает ответ по 10 баллам и тренирует.',
@@ -175,7 +175,7 @@ const MIDIS_DATA = {
     {
       id: 'hackathon-pitch',
       category: 'creation',
-      icon: '🚀',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path></svg>`,
       badge: 'СТАРТАП-ПИТЧ',
       title: 'Хакатоны и стартап-питч перед жюри',
       desc: 'Упаковка идеи за 48 часов: ценностное предложение, MVP, питч-дек на 3 минуты и каверзные вопросы инвесторов.',
@@ -191,7 +191,7 @@ const MIDIS_DATA = {
     {
       id: 'ai-prompt-engineer',
       category: 'skills',
-      icon: '🤖',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8.01" y2="16"></line><line x1="16" y1="16" x2="16.01" y2="16"></line></svg>`,
       badge: 'AI-ИНЖИНИРИНГ',
       title: 'Промпт-инженер для Midjourney, Flux & LLM',
       desc: 'Генерация профессиональных промптов для создания арт-концептов, текстур, UI и 3D-ассетов.',
@@ -207,7 +207,7 @@ const MIDIS_DATA = {
     {
       id: 'team-conflict-resolver',
       category: 'skills',
-      icon: '🤝',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
       badge: 'СОФТ-СКИЛЛЫ',
       title: 'Командная работа и фасилитация в проекте',
       desc: 'Решение разногласий с тиммейтами, распределение ролей в FDE Lab и защита дедлайнов.',
@@ -223,7 +223,7 @@ const MIDIS_DATA = {
     {
       id: 'english-pro',
       category: 'career',
-      icon: '🌐',
+      iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`,
       badge: 'АНГЛИЙСКИЙ',
       title: 'Профессиональный английский для специальности',
       desc: 'Индустриальный вокабуляр, разбор дизайн-систем, термины IT и международный нетворкинг.',
@@ -248,7 +248,7 @@ const MIDIS_DATA = {
     { id: 'law-ling', name: '⚖️ Право и Лингвистика' }
   ],
 
-  // ГРУППЫ НАПРАВЛЕНИЙ ПО КОДАМ (как на midis.ru)
+  // ГРУППЫ НАПРАВЛЕНИЙ ПО КОДАМ (в точности со скриншота midis.ru)
   majorGroups: [
     // --- КОЛЛЕДЖ (СПО) ---
     {
@@ -687,7 +687,7 @@ function goToStep(targetStep) {
 // 4. ОТРИСОВКА ИНТЕРФЕЙСА (RENDERERS)
 // ==========================================================================
 
-// Шаг 1: 14 Сценариев
+// Шаг 1: 14 Сценариев (с кастомными SVG иконками и без левой полоски!)
 function renderScenarios(filterCat = 'all') {
   const container = document.getElementById('scenarios-container');
   if (!container) return;
@@ -702,7 +702,7 @@ function renderScenarios(filterCat = 'all') {
     card.className = `scenario-tile ${state.scenarioId === sc.id ? 'active' : ''}`;
     card.innerHTML = `
       <div class="sc-tile-top">
-        <span class="sc-tile-icon">${sc.icon}</span>
+        <div class="sc-icon-wrap">${sc.iconSvg}</div>
         <span class="sc-tile-badge">${sc.badge}</span>
       </div>
       <h3 class="sc-tile-title">${sc.title}</h3>
@@ -747,7 +747,7 @@ function renderClusterPills() {
   });
 }
 
-// Шаг 2: Карточки направлений и суб-профилей (по образцу midis.ru)
+// Шаг 2: Карточки направлений и суб-профилей (Стильный редизайн)
 function renderMajorsGrid() {
   const container = document.getElementById('majors-cards-container');
   if (!container) return;
@@ -780,7 +780,7 @@ function renderMajorsGrid() {
 
   if (groups.length === 0) {
     container.innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; padding: 36px 20px; color: var(--text-muted); font-size: 14px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--border-card);">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 15px; background: var(--bg-card); border-radius: var(--radius-xl); border: 1.5px dashed var(--border-card);">
         По запросу ничего не найдено. Попробуйте сбросить поисковую строку или выбрать другой кластер.
       </div>
     `;
@@ -807,14 +807,17 @@ function renderMajorsGrid() {
     };
   }
 
-  // Отрисовка карточек с кодом и списком профилей (по образцу сайта МИДиС)
+  // Отрисовка карточек с кодом и красивым интерактивным списком профилей
   groups.forEach(group => {
     const card = document.createElement('div');
     card.className = 'major-card';
 
     const header = document.createElement('div');
-    header.className = 'major-card-code';
-    header.textContent = `${group.code} ${group.title}`;
+    header.className = 'major-card-header';
+    header.innerHTML = `
+      <span class="major-code-pill">${group.code}</span>
+      <h3 class="major-card-title">${group.title}</h3>
+    `;
     card.appendChild(header);
 
     const ul = document.createElement('ul');
@@ -826,8 +829,18 @@ function renderMajorsGrid() {
       btn.type = 'button';
       const isSelected = state.specialization.id === prof.id;
       btn.className = `subprofile-item-btn ${isSelected ? 'active' : ''}`;
-      btn.textContent = prof.name;
       btn.title = prof.desc;
+      btn.innerHTML = `
+        <div class="subprofile-left">
+          <span class="subprofile-name">${prof.name}</span>
+          ${prof.desc ? `<span class="subprofile-desc">${prof.desc}</span>` : ''}
+        </div>
+        <div class="subprofile-radio">
+          <svg class="subprofile-radio-svg" viewBox="0 0 16 16" fill="none">
+            <path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      `;
 
       btn.addEventListener('click', () => {
         document.querySelectorAll('.subprofile-item-btn').forEach(b => b.classList.remove('active'));
@@ -938,7 +951,7 @@ function renderStep5Templates() {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'example-chip-btn';
-    btn.textContent = text.length > 60 ? text.substring(0, 58) + '...' : text;
+    btn.textContent = text.length > 62 ? text.substring(0, 60) + '...' : text;
     btn.title = text;
 
     btn.addEventListener('click', () => {
@@ -1235,10 +1248,10 @@ function runPromptGeneration() {
     const summaryBar = document.getElementById('applied-summary-bar');
     if (summaryBar) {
       summaryBar.innerHTML = `
-        <span class="summary-pill">🎓 ${spec.name}</span>
-        <span class="summary-pill">📌 ${state.course} курс</span>
-        <span class="summary-pill">⚙️ ${state.selectedSkills.slice(0, 3).join(', ')}${state.selectedSkills.length > 3 ? '...' : ''}</span>
-        <span class="summary-pill">🎯 ${MIDIS_DATA.scenarios.find(s => s.id === state.scenarioId)?.title || 'Сценарий'}</span>
+        <span class="summary-pill">Профиль: ${spec.name}</span>
+        <span class="summary-pill">${state.course} курс</span>
+        <span class="summary-pill">Стек: ${state.selectedSkills.slice(0, 3).join(', ')}${state.selectedSkills.length > 3 ? '...' : ''}</span>
+        <span class="summary-pill">Сценарий: ${MIDIS_DATA.scenarios.find(s => s.id === state.scenarioId)?.title || 'Сценарий'}</span>
       `;
     }
 
@@ -1252,7 +1265,7 @@ function runPromptGeneration() {
     if (linkClaude) linkClaude.href = `https://claude.ai/new?q=${encoded}`;
     if (linkDeepSeek) linkDeepSeek.href = `https://chat.deepseek.com/`;
 
-    showToast('✨ Персонализированный промпт готов!');
+    showToast('Персонализированный промпт готов!');
   }, 1000);
 }
 
@@ -1423,7 +1436,7 @@ function attachEvents() {
         const copyText = document.getElementById('copy-btn-text');
         if (copyText) copyText.textContent = '✓ Скопировано в буфер!';
         btnCopy.style.backgroundColor = '#10B981';
-        showToast('✅ Промпт скопирован в буфер обмена!');
+        showToast('Промпт скопирован в буфер обмена!');
         setTimeout(() => {
           if (copyText) copyText.textContent = 'Скопировать промпт';
           btnCopy.style.backgroundColor = '';
@@ -1446,7 +1459,7 @@ function attachEvents() {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('📄 Файл .md сохранен на устройство');
+      showToast('Файл .md сохранен на устройство');
     });
   }
 
