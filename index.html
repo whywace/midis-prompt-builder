@@ -3,546 +3,554 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MIDIS JARVIS // Нейросетевой Конструктор Промптов МИДиС</title>
-  <meta name="description" content="Интеллектуальная система синтеза персонализированных AI-промптов для всех направлений института и колледжа МИДиС.">
+  <title>MIDIS Prompt Builder — Интеллектуальный конструктор промптов МИДиС</title>
+  <meta name="description" content="Официальный сервис генерации персонализированных AI-промптов для студентов института и колледжа МИДиС.">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="hud-body">
-  <!-- Futuristic Background Grid & Ambient Glows -->
-  <div class="hud-background">
-    <div class="hud-glow hud-glow-orange"></div>
-    <div class="hud-glow hud-glow-cyan"></div>
-    <div class="hud-grid-overlay"></div>
-    <div class="hud-scanline"></div>
+<body class="midis-dark">
+  <!-- Subtle MIDIS Graphic Background Accents -->
+  <div class="bg-decorations" aria-hidden="true">
+    <div class="midis-circle-arc"></div>
+    <div class="midis-dots-grid"></div>
+    <div class="midis-ambient-glow"></div>
   </div>
 
-  <!-- HUD Top Bar -->
-  <header class="hud-header">
-    <div class="container hud-header-container">
-      <div class="hud-brand">
-        <a href="https://midis.ru" target="_blank" rel="noopener" class="hud-logo" title="Официальный сайт МИДиС">
-          <img src="logo.svg" alt="МИДиС" width="124" height="26" class="hud-logo-img">
+  <!-- Header: Faithful to midis.ru structure, adapted to Dark Theme -->
+  <header class="site-header">
+    <div class="container header-container">
+      <div class="header-left">
+        <a href="https://midis.ru" target="_blank" rel="noopener" class="header-logo-link" title="Официальный сайт МИДиС">
+          <img src="logo.svg" alt="МИДиС" width="135" height="28" class="header-logo-img">
         </a>
-        <div class="hud-separator"></div>
-        <div class="hud-core-status">
-          <span class="hud-status-led"></span>
-          <span class="hud-system-title">JARVIS CORE <span class="hud-version">v3.0</span></span>
-          <span class="hud-status-text">[НЕЙРОСЕТЬ МИДиС ОНЛАЙН]</span>
+        <div class="header-sep"></div>
+        <div class="header-subtext">
+          <span class="subtext-title">Международный Институт Дизайна и Сервиса</span>
+          <span class="subtext-badge">AI Prompt Builder</span>
         </div>
       </div>
 
-      <div class="hud-controls">
-        <button type="button" id="btn-open-guide" class="hud-btn hud-btn-ghost">
-          <span class="hud-icon">💡</span>
+      <div class="header-right">
+        <button type="button" id="btn-open-guide" class="pill-btn-outline">
+          <span class="pill-icon">💡</span>
           <span>Инструкция</span>
         </button>
-        <div class="hud-author-pill">
-          <span class="hud-author-label">РАЗРАБОТКА:</span>
-          <span class="hud-author-name">Мельников Семён</span>
+
+        <div class="header-author-pill">
+          <span class="author-dot"></span>
+          <span class="author-text">Разработка: <strong>Мельников Семён</strong></span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Main Wizard Interface -->
-  <main class="hud-main">
-    <div class="container wizard-container">
+  <!-- Main Container -->
+  <main class="site-main">
+    <div class="container">
 
-      <!-- Progress Navigation Bar -->
-      <div class="hud-progress-card">
-        <div class="progress-meta-row">
-          <span class="progress-step-info" id="progress-step-info">ШАГ 1 ИЗ 5: ВЫБОР ЦЕЛИ НЕЙРОСЕТИ</span>
-          <span class="progress-percent-info" id="progress-percent-info">20% ЗАВЕРШЕНО</span>
-        </div>
-        <div class="progress-track-wrapper">
-          <div class="progress-bar-fill" id="progress-bar-fill"></div>
-        </div>
-        <div class="progress-steps-row" id="progress-steps-row">
-          <button class="step-nav-item active" data-step="1">
-            <span class="step-nav-dot">01</span>
-            <span class="step-nav-label">Цель</span>
-          </button>
-          <button class="step-nav-item" data-step="2">
-            <span class="step-nav-dot">02</span>
-            <span class="step-nav-label">Направление</span>
-          </button>
-          <button class="step-nav-item" data-step="3">
-            <span class="step-nav-dot">03</span>
-            <span class="step-nav-label">Стиль</span>
-          </button>
-          <button class="step-nav-item" data-step="4">
-            <span class="step-nav-dot">04</span>
-            <span class="step-nav-label">Инструменты</span>
-          </button>
-          <button class="step-nav-item" data-step="5">
-            <span class="step-nav-dot">05</span>
-            <span class="step-nav-label">Задача</span>
-          </button>
-          <button class="step-nav-item" data-step="6">
-            <span class="step-nav-dot">06</span>
-            <span class="step-nav-label">Синтез</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- STEP 1: SCENARIO SELECTION (14 Use Cases) -->
-      <section class="wizard-step-pane active" id="step-pane-1">
-        <div class="step-banner">
-          <span class="step-badge">ШАГ 1 • АКТИВАЦИЯ ЦЕЛИ</span>
-          <h2 class="step-headline">Что именно должна решить нейросеть?</h2>
-          <p class="step-subline">Выберите ключевой сценарий. Система откалибрует роль ИИ и структуру генерации.</p>
+      <!-- Hero Header Card -->
+      <section class="hero-card">
+        <div class="hero-content">
+          <div class="hero-tag">ОБРАЗОВАТЕЛЬНЫЙ AI-КОНСТРУКТОР</div>
+          <h1 class="hero-title">
+            МИДиС: генератор промптов <br>
+            для <span class="text-orange">студентов института и колледжа</span>
+          </h1>
+          <p class="hero-subtitle">
+            Персонализированная настройка нейросетей под твою специальность, проектное обучение в FDE Lab, курсовые и стажировки.
+          </p>
         </div>
 
-        <!-- Filter tabs for quick sorting -->
-        <div class="category-tabs" id="scenario-category-tabs">
-          <button type="button" class="cat-tab active" data-cat="all">Все сценарии (14)</button>
-          <button type="button" class="cat-tab" data-cat="study">Учёба и Сессия</button>
-          <button type="button" class="cat-tab" data-cat="career">Карьера и Стажировка</button>
-          <button type="button" class="cat-tab" data-cat="creation">Проекты и Творчество</button>
-          <button type="button" class="cat-tab" data-cat="skills">Hard & Soft Skills</button>
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <span class="stat-num">14</span>
+            <span class="stat-label">целевых сценариев</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="stat-num">24+</span>
+            <span class="stat-label">направления МИДиС</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="stat-num">1 клик</span>
+            <span class="stat-label">экспорт в ChatGPT/Claude</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stepper Progress Pill Navigation -->
+      <nav class="stepper-nav-container" aria-label="Шаги конструктора">
+        <div class="stepper-track">
+          <div class="stepper-bar-fill" id="stepper-bar-fill"></div>
+        </div>
+        <div class="stepper-buttons" id="stepper-buttons">
+          <button type="button" class="step-btn active" data-step="1">
+            <span class="step-num">01</span>
+            <span class="step-name">Цель</span>
+          </button>
+          <button type="button" class="step-btn" data-step="2">
+            <span class="step-num">02</span>
+            <span class="step-name">Специальность</span>
+          </button>
+          <button type="button" class="step-btn" data-step="3">
+            <span class="step-num">03</span>
+            <span class="step-name">Стиль</span>
+          </button>
+          <button type="button" class="step-btn" data-step="4">
+            <span class="step-num">04</span>
+            <span class="step-name">Инструменты</span>
+          </button>
+          <button type="button" class="step-btn" data-step="5">
+            <span class="step-num">05</span>
+            <span class="step-name">Задача</span>
+          </button>
+          <button type="button" class="step-btn" data-step="6">
+            <span class="step-num">06</span>
+            <span class="step-name">Промпт</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- ===================================================================
+           STEP 1: 14 TARGET SCENARIOS
+           =================================================================== -->
+      <section class="step-section active" id="step-pane-1">
+        <div class="section-heading">
+          <span class="section-step-num">ШАГ 1 ИЗ 5</span>
+          <h2 class="section-title">Какую задачу нужно решить?</h2>
+          <p class="section-desc">Выберите подходящую цель. Промпт автоматически перестроит системную роль и требования к ответу.</p>
         </div>
 
-        <!-- 14 High-Tech Scenarios Cards -->
-        <div class="scenarios-hud-grid" id="scenarios-hud-container">
+        <!-- Filter tabs -->
+        <div class="filter-pills-row" id="scenario-filter-row">
+          <button type="button" class="pill-filter-btn active" data-cat="all">Все сценарии (14)</button>
+          <button type="button" class="pill-filter-btn" data-cat="study">Учёба и Сессия</button>
+          <button type="button" class="pill-filter-btn" data-cat="career">Карьера и Стажировка</button>
+          <button type="button" class="pill-filter-btn" data-cat="creation">Проекты и Портфолио</button>
+          <button type="button" class="pill-filter-btn" data-cat="skills">Hard & Soft Skills</button>
+        </div>
+
+        <!-- Scenarios Grid -->
+        <div class="midis-cards-grid" id="scenarios-container">
           <!-- Populated by JS -->
         </div>
 
-        <div class="wizard-footer-nav">
-          <div class="footer-hint">Кликните по подходящему сценарию и переходите к выбору специальности</div>
-          <button type="button" class="hud-btn hud-btn-primary btn-next-step" data-next="2">
-            <span>Продолжить к выбору специальности</span>
-            <span class="hud-arrow">→</span>
+        <div class="step-footer-actions">
+          <div class="actions-hint">Выберите карточку цели и переходите к следующему шагу</div>
+          <button type="button" class="btn-midis-primary btn-next" data-next="2">
+            <span>Выбрать специальность</span>
+            <span class="btn-arrow">→</span>
           </button>
         </div>
       </section>
 
-      <!-- STEP 2: ALL MAJORS & PROFILES (КОЛЛЕДЖ + БАКАЛАВРИАТ + МАГИСТРАТУРА) -->
-      <section class="wizard-step-pane" id="step-pane-2">
-        <div class="step-banner">
-          <span class="step-badge">ШАГ 2 • СПЕЦИАЛЬНОСТЬ В МИДиС</span>
-          <h2 class="step-headline">Выбери свой уровень и направление</h2>
-          <p class="step-subline">Интегрированы абсолютно все специальности и суб-профили института и колледжа МИДиС с официального сайта midis.ru.</p>
+      <!-- ===================================================================
+           STEP 2: ALL MIDIS MAJORS & SUB-PROFILES (Like midis.ru screenshot)
+           =================================================================== -->
+      <section class="step-section" id="step-pane-2">
+        <div class="section-heading">
+          <span class="section-step-num">ШАГ 2 ИЗ 5</span>
+          <h2 class="section-title">Специальности института и колледжа МИДиС</h2>
+          <p class="section-desc">Все направления, кафедры и суб-профили с официального сайта midis.ru.</p>
         </div>
 
-        <div class="step-form-wrapper">
-          <!-- 1. Education Level Big Interactive Selector -->
-          <div class="form-block">
-            <label class="block-label">1. Твой уровень образования:</label>
-            <div class="big-options-grid" id="level-options-grid">
-              <button type="button" class="big-option-card" data-level="college">
-                <span class="opt-icon">⚡</span>
-                <div class="opt-text-wrap">
-                  <span class="opt-title">Колледж (СПО)</span>
-                  <span class="opt-desc">Дизайн, IT, Сервис, Банки, Торговля, Право</span>
-                </div>
-              </button>
-              <button type="button" class="big-option-card active" data-level="bachelor">
-                <span class="opt-icon">🎓</span>
-                <div class="opt-text-wrap">
-                  <span class="opt-title">Бакалавриат</span>
-                  <span class="opt-desc">Высшая школа дизайна, IT, туризма, бизнеса</span>
-                </div>
-              </button>
-              <button type="button" class="big-option-card" data-level="master">
-                <span class="opt-icon">🚀</span>
-                <div class="opt-text-wrap">
-                  <span class="opt-title">Магистратура</span>
-                  <span class="opt-desc">Креативное лидерство, AI в бизнесе, управление</span>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <!-- 2. Cluster / Department Filter Pills -->
-          <div class="form-block">
-            <div class="block-header-row">
-              <label class="block-label">2. Выберите кафедру / отрасль:</label>
-              <span class="selected-counter" id="cluster-hint">Все отрасли</span>
-            </div>
-            <div class="cluster-pills-row" id="cluster-pills-container">
-              <!-- Rendered dynamically -->
-            </div>
-          </div>
-
-          <!-- 3. Visual Grid of All Sub-directions with Official Codes -->
-          <div class="form-block">
-            <div class="block-header-row">
-              <label class="block-label">3. Выберите точный профиль обучения:</label>
-              <div class="spec-search-box">
-                <input type="text" id="input-spec-search" class="spec-search-input" placeholder="🔍 Быстрый поиск (напр. 3D, веб, отель, банк)...">
-              </div>
-            </div>
-            <div class="specs-cards-grid" id="specs-cards-container">
-              <!-- Rendered dynamically -->
-            </div>
-          </div>
-
-          <!-- 4. Course, Form & Skill Level (Compact & clear) -->
-          <div class="form-split-row">
-            <div class="form-block flex-1">
-              <label class="block-label">4. Курс обучения:</label>
-              <div class="pills-selector" id="course-selector">
-                <button type="button" class="pill-btn active" data-val="1">1 курс</button>
-                <button type="button" class="pill-btn" data-val="2">2 курс</button>
-                <button type="button" class="pill-btn" data-val="3">3 курс</button>
-                <button type="button" class="pill-btn" data-val="4">4 курс</button>
-              </div>
-            </div>
-
-            <div class="form-block flex-1">
-              <label class="block-label">5. Форма обучения:</label>
-              <div class="pills-selector" id="form-selector">
-                <button type="button" class="pill-btn active" data-val="full-time">Очная</button>
-                <button type="button" class="pill-btn" data-val="part-time">Очно-заочная</button>
-                <button type="button" class="pill-btn" data-val="extramural">Заочная</button>
-              </div>
-            </div>
-
-            <div class="form-block flex-1">
-              <label class="block-label">6. Уровень навыков:</label>
-              <div class="pills-selector" id="skill-level-selector">
-                <button type="button" class="pill-btn active" data-val="beginner">Новичок</button>
-                <button type="button" class="pill-btn" data-val="junior">Junior</button>
-                <button type="button" class="pill-btn" data-val="junior-plus">Pre-Middle</button>
-                <button type="button" class="pill-btn" data-val="freelancer">Практик</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="wizard-footer-nav">
-          <button type="button" class="hud-btn hud-btn-outline btn-prev-step" data-prev="1">
-            <span class="hud-arrow">←</span> Назад
+        <!-- Level Selector: СПО (Колледж) vs Бакалавриат vs Магистратура -->
+        <div class="midis-level-switch-box">
+          <button type="button" class="level-switch-btn active" data-level="bachelor">
+            <span class="lvl-icon">🎓</span>
+            <span class="lvl-title">Бакалавриат</span>
+            <span class="lvl-badge">Высшее образование</span>
           </button>
-          <button type="button" class="hud-btn hud-btn-primary btn-next-step" data-next="3">
-            <span>Далее: Стиль восприятия</span>
-            <span class="hud-arrow">→</span>
+          <button type="button" class="level-switch-btn" data-level="college">
+            <span class="lvl-icon">⚡</span>
+            <span class="lvl-title">Колледж МИДиС (СПО)</span>
+            <span class="lvl-badge">База 9 и 11 классов</span>
+          </button>
+          <button type="button" class="level-switch-btn" data-level="master">
+            <span class="lvl-icon">🚀</span>
+            <span class="lvl-title">Магистратура</span>
+            <span class="lvl-badge">R&D и Управление</span>
+          </button>
+        </div>
+
+        <!-- Cluster & Search Bar -->
+        <div class="cluster-search-bar">
+          <div class="cluster-pills" id="cluster-pills-bar">
+            <!-- Populated by JS -->
+          </div>
+          <div class="search-input-wrap">
+            <input type="text" id="input-spec-search" class="midis-search-input" placeholder="🔍 Найти специальность (3D, веб, отель, банк)...">
+          </div>
+        </div>
+
+        <!-- Big Majors & Profiles Grid (Styled cleanly like Screenshot 2) -->
+        <div class="midis-majors-grid" id="majors-cards-container">
+          <!-- Populated by JS with official codes and sub-directions -->
+        </div>
+
+        <!-- Course, Form & Skill Level -->
+        <div class="meta-selectors-card">
+          <div class="meta-col">
+            <label class="meta-label">Курс:</label>
+            <div class="segmented-pill-group" id="course-selector">
+              <button type="button" class="seg-pill active" data-val="1">1 курс</button>
+              <button type="button" class="seg-pill" data-val="2">2 курс</button>
+              <button type="button" class="seg-pill" data-val="3">3 курс</button>
+              <button type="button" class="seg-pill" data-val="4">4 курс</button>
+            </div>
+          </div>
+
+          <div class="meta-col">
+            <label class="meta-label">Форма обучения:</label>
+            <div class="segmented-pill-group" id="form-selector">
+              <button type="button" class="seg-pill active" data-val="full-time">Очная</button>
+              <button type="button" class="seg-pill" data-val="part-time">Очно-заочная</button>
+              <button type="button" class="seg-pill" data-val="extramural">Заочная</button>
+            </div>
+          </div>
+
+          <div class="meta-col">
+            <label class="meta-label">Уровень подготовки:</label>
+            <div class="segmented-pill-group" id="skill-selector">
+              <button type="button" class="seg-pill active" data-val="beginner">Новичок</button>
+              <button type="button" class="seg-pill" data-val="junior">Junior</button>
+              <button type="button" class="seg-pill" data-val="junior-plus">Pre-Middle</button>
+              <button type="button" class="seg-pill" data-val="freelancer">Практик</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-footer-actions">
+          <button type="button" class="btn-midis-outline btn-prev" data-prev="1">
+            <span class="btn-arrow">←</span> Назад
+          </button>
+          <button type="button" class="btn-midis-primary btn-next" data-next="3">
+            <span>Далее: Стиль ответа</span>
+            <span class="btn-arrow">→</span>
           </button>
         </div>
       </section>
 
-      <!-- STEP 3: FORMAT OF PERCEPTION -->
-      <section class="wizard-step-pane" id="step-pane-3">
-        <div class="step-banner">
-          <span class="step-badge">ШАГ 3 • СТИЛЬ И ФОРМАТ ПОДАЧИ</span>
-          <h2 class="step-headline">Как нейросеть должна формулировать ответ?</h2>
-          <p class="step-subline">Выберите формат, который легче всего воспринимается вашим мозгом.</p>
+      <!-- ===================================================================
+           STEP 3: FORMAT OF PERCEPTION
+           =================================================================== -->
+      <section class="step-section" id="step-pane-3">
+        <div class="section-heading">
+          <span class="section-step-num">ШАГ 3 ИЗ 5</span>
+          <h2 class="section-title">Формат восприятия информации</h2>
+          <p class="section-desc">В каком виде нейросеть должна формулировать свои рекомендации?</p>
         </div>
 
-        <div class="formats-hud-grid" id="formats-hud-container">
-          <div class="format-hud-card active" data-format="structured-lists">
-            <div class="f-header">
-              <span class="f-icon">📋</span>
-              <span class="f-tag">БЕЗ ВОДЫ</span>
+        <div class="format-cards-grid" id="format-cards-container">
+          <div class="format-tile active" data-format="structured-lists">
+            <div class="format-tile-header">
+              <span class="format-tile-icon">📋</span>
+              <span class="format-tile-badge">БЕЗ ВОДЫ</span>
             </div>
-            <h3 class="f-title">Чек-листы и структура</h3>
-            <p class="f-desc">Короткие ёмкие буллеты, готовые к внедрению. Без долгих предисловий и лишнего текста.</p>
+            <h3 class="format-tile-title">Чек-листы и структура</h3>
+            <p class="format-tile-desc">Короткие ёмкие буллеты, готовые к внедрению. Без долгих предисловий и лишнего текста.</p>
           </div>
 
-          <div class="format-hud-card" data-format="step-by-step">
-            <div class="f-header">
-              <span class="f-icon">🪜</span>
-              <span class="f-tag">АЛГОРИТМ</span>
+          <div class="format-tile" data-format="step-by-step">
+            <div class="format-tile-header">
+              <span class="format-tile-icon">🪜</span>
+              <span class="format-tile-badge">АЛГОРИТМ</span>
             </div>
-            <h3 class="f-title">Пошаговый гайд (1-2-3)</h3>
-            <p class="f-desc">Чёткая пошаговая инструкция с контрольными точками и критериями готовности каждого шага.</p>
+            <h3 class="format-tile-title">Пошаговый гайд (1-2-3)</h3>
+            <p class="format-tile-desc">Чёткая пошаговая инструкция с контрольными точками и критериями завершения каждого этапа.</p>
           </div>
 
-          <div class="format-hud-card" data-format="analogies">
-            <div class="f-header">
-              <span class="f-icon">💡</span>
-              <span class="f-tag">НАГЛЯДНО</span>
+          <div class="format-tile" data-format="analogies">
+            <div class="format-tile-header">
+              <span class="format-tile-icon">💡</span>
+              <span class="format-tile-badge">НАГЛЯДНО</span>
             </div>
-            <h3 class="f-title">Яркие аналогии</h3>
-            <p class="f-desc">Объяснение через видеоигры, поп-культуру, кино или бытовые параллели для моментального понимания.</p>
+            <h3 class="format-tile-title">Яркие аналогии</h3>
+            <p class="format-tile-desc">Объяснение через видеоигры, кино, сериалы или бытовые параллели для моментального понимания.</p>
           </div>
 
-          <div class="format-hud-card" data-format="strict-code">
-            <div class="f-header">
-              <span class="f-icon">⚙️</span>
-              <span class="f-tag">ПРОФИ</span>
+          <div class="format-tile" data-format="strict-code">
+            <div class="format-tile-header">
+              <span class="format-tile-icon">⚙️</span>
+              <span class="format-tile-badge">ПРОФИ</span>
             </div>
-            <h3 class="f-title">Инженерный стиль</h3>
-            <p class="f-desc">Отраслевые стандарты, паттерны проектирования, чистые термины индустрии и строгий код.</p>
+            <h3 class="format-tile-title">Инженерный стиль</h3>
+            <p class="format-tile-desc">Отраслевые стандарты, паттерны проектирования, чистые термины индустрии и строгий код.</p>
           </div>
 
-          <div class="format-hud-card" data-format="mentor-dialogue">
-            <div class="f-header">
-              <span class="f-icon">🤝</span>
-              <span class="f-tag">ЭМПАТИЯ</span>
+          <div class="format-tile" data-format="mentor-dialogue">
+            <div class="format-tile-header">
+              <span class="format-tile-icon">🤝</span>
+              <span class="format-tile-badge">ЭМПАТИЯ</span>
             </div>
-            <h3 class="f-title">Заботливый наставник</h3>
-            <p class="f-desc">Диалог на равных, поддержка, развивающие коучинговые вопросы для раскрытия потенциала.</p>
+            <h3 class="format-tile-title">Заботливый наставник</h3>
+            <p class="format-tile-desc">Диалог на равных, поддержка, развивающие коучинговые вопросы для раскрытия потенциала.</p>
           </div>
         </div>
 
-        <div class="wizard-footer-nav">
-          <button type="button" class="hud-btn hud-btn-outline btn-prev-step" data-prev="2">
-            <span class="hud-arrow">←</span> Назад
+        <div class="step-footer-actions">
+          <button type="button" class="btn-midis-outline btn-prev" data-prev="2">
+            <span class="btn-arrow">←</span> Назад
           </button>
-          <button type="button" class="hud-btn hud-btn-primary btn-next-step" data-next="4">
+          <button type="button" class="btn-midis-primary btn-next" data-next="4">
             <span>Далее: Инструменты и хобби</span>
-            <span class="hud-arrow">→</span>
+            <span class="btn-arrow">→</span>
           </button>
         </div>
       </section>
 
-      <!-- STEP 4: TOOLS & HOBBIES -->
-      <section class="wizard-step-pane" id="step-pane-4">
-        <div class="step-banner">
-          <span class="step-badge">ШАГ 4 • СТЕК, ХОББИ И РЕСУРСЫ</span>
-          <h2 class="step-headline">Твой рабочий софт и увлечения</h2>
-          <p class="step-subline">Система автоматически предложила стек под твоё направление. Кликни для выбора или добавь своё.</p>
+      <!-- ===================================================================
+           STEP 4: TOOLS, HOBBIES & INSTITUTIONAL RESOURCES
+           =================================================================== -->
+      <section class="step-section" id="step-pane-4">
+        <div class="section-heading">
+          <span class="section-step-num">ШАГ 4 ИЗ 5</span>
+          <h2 class="section-title">Твой стек, увлечения и экосистема МИДиС</h2>
+          <p class="section-desc">Система автоматически предложила инструменты под выбранное направление. Добавь свои интересы.</p>
         </div>
 
-        <div class="step-form-wrapper">
-          <!-- Stack Chips -->
-          <div class="form-block">
-            <div class="block-header-row">
-              <label class="block-label">Софт, технологии и инструменты (клик для выбора):</label>
-              <span class="selected-counter" id="hud-stack-count">0 выбрано</span>
+        <div class="card-box">
+          <!-- Stack chips -->
+          <div class="box-group">
+            <div class="box-header-row">
+              <label class="group-title">Используемый софт и технологии:</label>
+              <span class="counter-badge" id="stack-count-badge">0 выбрано</span>
             </div>
-            <div class="chips-hud-row" id="hud-stack-chips">
-              <!-- Rendered by JS -->
-            </div>
-            <div class="add-tag-inline">
-              <input type="text" id="hud-custom-stack-input" class="hud-input-tag" placeholder="+ Добавить свой софт / инструмент...">
-              <button type="button" id="hud-btn-add-stack" class="hud-btn hud-btn-sm hud-btn-outline">Добавить</button>
+            <div class="midis-chips-cloud" id="stack-chips-cloud"></div>
+            <div class="add-tag-row">
+              <input type="text" id="input-add-stack" class="midis-input-sm" placeholder="+ Добавить программу или инструмент...">
+              <button type="button" id="btn-add-stack" class="btn-midis-outline btn-sm">Добавить</button>
             </div>
           </div>
 
-          <!-- Hobby Chips -->
-          <div class="form-block">
-            <div class="block-header-row">
-              <label class="block-label">Хобби, личные интересы и сильные стороны:</label>
-              <span class="selected-counter" id="hud-hobby-count">0 выбрано</span>
+          <div class="box-divider"></div>
+
+          <!-- Hobby chips -->
+          <div class="box-group">
+            <div class="box-header-row">
+              <label class="group-title">Хобби, личные интересы и сильные стороны:</label>
+              <span class="counter-badge" id="hobby-count-badge">0 выбрано</span>
             </div>
-            <div class="chips-hud-row" id="hud-hobby-chips">
-              <!-- Rendered by JS -->
-            </div>
-            <div class="add-tag-inline">
-              <input type="text" id="hud-custom-hobby-input" class="hud-input-tag" placeholder="+ Добавить увлечение...">
-              <button type="button" id="hud-btn-add-hobby" class="hud-btn hud-btn-sm hud-btn-outline">Добавить</button>
+            <div class="midis-chips-cloud" id="hobby-chips-cloud"></div>
+            <div class="add-tag-row">
+              <input type="text" id="input-add-hobby" class="midis-input-sm" placeholder="+ Добавить увлечение...">
+              <button type="button" id="btn-add-hobby" class="btn-midis-outline btn-sm">Добавить</button>
             </div>
           </div>
 
-          <!-- MIDIS Resources Smart Activation -->
-          <div class="form-block">
-            <label class="block-label">Институтские ресурсы МИДиС для внедрения в ответ ИИ:</label>
-            <div class="resources-quick-grid">
-              <label class="res-check-item">
-                <input type="checkbox" id="chk-partnerProjects" checked>
-                <span class="res-box"></span>
-                <span class="res-meta">
-                  <span class="res-title">Проектное обучение с бизнесом</span>
-                  <small class="res-desc">Реальные кейсы от партнеров с 1-2 курса</small>
+          <div class="box-divider"></div>
+
+          <!-- MIDIS Resources Checkboxes -->
+          <div class="box-group">
+            <label class="group-title">Ресурсы МИДиС для интеграции в ответ ИИ:</label>
+            <div class="resources-tile-grid">
+              <label class="res-item">
+                <input type="checkbox" id="res-partnerProjects" checked>
+                <span class="res-checkbox"></span>
+                <span class="res-text-block">
+                  <strong class="res-title">Проектное обучение с бизнесом</strong>
+                  <span class="res-sub">Реальные кейсы от компаний-партнеров в FDE Lab</span>
                 </span>
               </label>
-              <label class="res-check-item">
-                <input type="checkbox" id="chk-paidInternships" checked>
-                <span class="res-box"></span>
-                <span class="res-meta">
-                  <span class="res-title">Оплачиваемые стажировки</span>
-                  <small class="res-desc">Практика в профильных компаниях</small>
+
+              <label class="res-item">
+                <input type="checkbox" id="res-paidInternships" checked>
+                <span class="res-checkbox"></span>
+                <span class="res-text-block">
+                  <strong class="res-title">Оплачиваемые стажировки</strong>
+                  <span class="res-sub">Практика в профильных индустриях с 1-2 курса</span>
                 </span>
               </label>
-              <label class="res-check-item">
-                <input type="checkbox" id="chk-oupLeadership" checked>
-                <span class="res-box"></span>
-                <span class="res-meta">
-                  <span class="res-title">Общая управленческая подготовка (ОУП)</span>
-                  <small class="res-desc">Проектно-аналитические сессии и мышление</small>
+
+              <label class="res-item">
+                <input type="checkbox" id="res-oupLeadership" checked>
+                <span class="res-checkbox"></span>
+                <span class="res-text-block">
+                  <strong class="res-title">Общая управленческая подготовка (ОУП)</strong>
+                  <span class="res-sub">Проектно-аналитические сессии и системное мышление</span>
                 </span>
               </label>
-              <label class="res-check-item">
-                <input type="checkbox" id="chk-aiMastery" checked>
-                <span class="res-box"></span>
-                <span class="res-meta">
-                  <span class="res-title">Обучение работе с ИИ</span>
-                  <small class="res-desc">Промпт-инжиниринг и агенты по профилю</small>
+
+              <label class="res-item">
+                <input type="checkbox" id="res-aiMastery" checked>
+                <span class="res-checkbox"></span>
+                <span class="res-text-block">
+                  <strong class="res-title">Обучение работе с ИИ</strong>
+                  <span class="res-sub">Промпт-инжиниринг и агенты как базовый предмет</span>
                 </span>
               </label>
-              <label class="res-check-item">
-                <input type="checkbox" id="chk-newSpecialistWellness" checked>
-                <span class="res-box"></span>
-                <span class="res-meta">
-                  <span class="res-title">Специалист нового типа</span>
-                  <small class="res-desc">Бассейн/спортклуб МИДиС, психология</small>
+
+              <label class="res-item">
+                <input type="checkbox" id="res-newSpecialistWellness" checked>
+                <span class="res-checkbox"></span>
+                <span class="res-text-block">
+                  <strong class="res-title">Специалист нового типа</strong>
+                  <span class="res-sub">Бассейн и спортклуб МИДиС, управление энергией</span>
                 </span>
               </label>
-              <label class="res-check-item">
-                <input type="checkbox" id="chk-hackathonsAndEvents" checked>
-                <span class="res-box"></span>
-                <span class="res-meta">
-                  <span class="res-title">Хакатоны и стартап-питчи</span>
-                  <small class="res-desc">Участие в биеннале, конкурсах и выставках</small>
+
+              <label class="res-item">
+                <input type="checkbox" id="res-hackathonsAndEvents" checked>
+                <span class="res-checkbox"></span>
+                <span class="res-text-block">
+                  <strong class="res-title">Хакатоны и стартап-питчи</strong>
+                  <span class="res-sub">Участие в биеннале, выставках и челленджах</span>
                 </span>
               </label>
             </div>
           </div>
         </div>
 
-        <div class="wizard-footer-nav">
-          <button type="button" class="hud-btn hud-btn-outline btn-prev-step" data-prev="3">
-            <span class="hud-arrow">←</span> Назад
+        <div class="step-footer-actions">
+          <button type="button" class="btn-midis-outline btn-prev" data-prev="3">
+            <span class="btn-arrow">←</span> Назад
           </button>
-          <button type="button" class="hud-btn hud-btn-primary btn-next-step" data-next="5">
-            <span>Далее: Конкретная задача</span>
-            <span class="hud-arrow">→</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- STEP 5: SPECIFIC TASK & CONTEXT -->
-      <section class="wizard-step-pane" id="step-pane-5">
-        <div class="step-banner">
-          <span class="step-badge">ШАГ 5 • СУТЬ ЗАДАЧИ И КОНТЕКСТ</span>
-          <h2 class="step-headline">Опиши текущий фокус своими словами</h2>
-          <p class="step-subline">Кликни готовый шаблон или введи свой запрос. Система откалибрует промпт под детали.</p>
-        </div>
-
-        <div class="step-form-wrapper">
-          <!-- Quick Templates for 1-click text insertion -->
-          <div class="quick-templates-bar" id="quick-templates-bar">
-            <span class="qt-title">Быстрые примеры в 1 клик:</span>
-            <!-- Rendered by JS based on chosen scenario -->
-          </div>
-
-          <div class="form-block">
-            <label class="block-label" for="hud-task-input" id="hud-task-label">Тема, задача или вопрос к нейросети:</label>
-            <textarea id="hud-task-input" class="hud-textarea" rows="3" placeholder="Опиши задачу, тему курсовой, пет-проект или вопрос..."></textarea>
-          </div>
-
-          <div class="form-split-row">
-            <div class="form-block flex-1">
-              <label class="block-label" for="hud-fears-input">Сомнения, страхи или слабые места <span class="label-opt">(необязательно)</span>:</label>
-              <input type="text" id="hud-fears-input" class="hud-input" placeholder="Например: боюсь защиты, плаваю в коде, не уверен в выборе...">
-            </div>
-
-            <div class="form-block flex-1">
-              <label class="block-label" for="hud-deadline-input">Дедлайн / рамки времени <span class="label-opt">(необязательно)</span>:</label>
-              <input type="text" id="hud-deadline-input" class="hud-input" placeholder="Например: 3 недели, до конца семестра...">
-            </div>
-          </div>
-        </div>
-
-        <div class="wizard-footer-nav">
-          <button type="button" class="hud-btn hud-btn-outline btn-prev-step" data-prev="4">
-            <span class="hud-arrow">←</span> Назад
-          </button>
-          <button type="button" class="hud-btn hud-btn-synthesize" id="btn-start-synthesize">
-            <span class="hud-pulse-radar"></span>
-            <span>СИНТЕЗИРОВАТЬ ПРОМПТ</span>
-            <span class="hud-sparkle">⚡</span>
+          <button type="button" class="btn-midis-primary btn-next" data-next="5">
+            <span>Далее: Суть задачи</span>
+            <span class="btn-arrow">→</span>
           </button>
         </div>
       </section>
 
-      <!-- STEP 6: SYNTHESIS & TERMINAL RESULT -->
-      <section class="wizard-step-pane" id="step-pane-6">
-        
-        <!-- JARVIS High-tech loading state -->
-        <div class="synthesis-loader-box" id="synthesis-loader">
-          <div class="radar-scan-circle">
-            <div class="radar-sweep"></div>
-            <div class="radar-core-dot"></div>
-          </div>
-          <div class="synthesis-status-text" id="synthesis-status-text">ИНИЦИАЛИЗАЦИЯ НЕЙРОННЫХ ВЕСОВ...</div>
-          <div class="synthesis-terminal-log" id="synthesis-log-line">[0.12s] Сканирование профиля студента МИДиС...</div>
+      <!-- ===================================================================
+           STEP 5: SPECIFIC TASK & DEADLINE
+           =================================================================== -->
+      <section class="step-section" id="step-pane-5">
+        <div class="section-heading">
+          <span class="section-step-num">ШАГ 5 ИЗ 5</span>
+          <h2 class="section-title">Твоя текущая задача и контекст</h2>
+          <p class="section-desc">Опиши запрос своими словами или нажми на один из готовых шаблонов.</p>
         </div>
 
-        <!-- Final Result Panel (revealed after synthesis animation) -->
-        <div class="terminal-result-panel" id="terminal-result-panel" style="display: none;">
-          
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <span class="term-dot dot-red"></span>
-              <span class="term-dot dot-yellow"></span>
-              <span class="term-dot dot-green"></span>
-            </div>
-            <div class="terminal-title">
-              <span class="term-icon">⚡</span>
-              <span id="term-file-name">MIDIS_PROMPT_OPTIMIZED.PROMPT</span>
-            </div>
-            <div class="terminal-stats">
-              <span id="term-stat-words">0 слов</span>
-              <span class="term-sep">|</span>
-              <span id="term-stat-tokens">~0 токенов</span>
-            </div>
-          </div>
-
-          <!-- Quick Summary Bar of Applied Settings -->
-          <div class="terminal-summary-pill-bar" id="terminal-summary-bar">
+        <div class="card-box">
+          <!-- Quick Templates Bar -->
+          <div class="quick-examples-box" id="step5-examples-box">
+            <span class="examples-label">Быстрые варианты в 1 клик:</span>
             <!-- Rendered by JS -->
           </div>
 
-          <!-- Prompt Text Output Area -->
-          <div class="terminal-body">
-            <pre class="terminal-code" id="terminal-prompt-output"></pre>
+          <div class="form-row-group">
+            <label class="field-label" for="task-textarea" id="task-field-label">Тема, задача или вопрос к нейросети:</label>
+            <textarea id="task-textarea" class="midis-textarea" rows="3" placeholder="Опишите задачу, тему курсовой, пет-проект или вопрос..."></textarea>
           </div>
 
-          <!-- Actions & Direct LLM Launchers -->
-          <div class="terminal-actions">
-            
-            <div class="main-copy-row">
-              <button type="button" class="hud-btn hud-btn-primary hud-btn-xl" id="btn-terminal-copy">
-                <svg class="hud-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="form-columns-2">
+            <div class="form-row-group">
+              <label class="field-label" for="fears-input">Сомнения или страхи <span class="opt-tag">(необязательно)</span>:</label>
+              <input type="text" id="fears-input" class="midis-input" placeholder="Например: боюсь защиты перед комиссией, плаваю в коде...">
+            </div>
+
+            <div class="form-row-group">
+              <label class="field-label" for="deadline-input">Дедлайн или рамки времени <span class="opt-tag">(необязательно)</span>:</label>
+              <input type="text" id="deadline-input" class="midis-input" placeholder="Например: 3 недели, до конца семестра...">
+            </div>
+          </div>
+        </div>
+
+        <div class="step-footer-actions">
+          <button type="button" class="btn-midis-outline btn-prev" data-prev="4">
+            <span class="btn-arrow">←</span> Назад
+          </button>
+          <button type="button" class="btn-midis-generate" id="btn-trigger-generation">
+            <span>Сгенерировать промпт МИДиС</span>
+            <span class="btn-sparkle">✨</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           STEP 6: GENERATED PROMPT RESULT
+           =================================================================== -->
+      <section class="step-section" id="step-pane-6">
+        
+        <!-- Premium Loading State (No sci-fi matrix / radar) -->
+        <div class="generation-loader" id="generation-loader">
+          <div class="loader-spinner"></div>
+          <h3 class="loader-title" id="loader-title">Формирование персонализированного промпта...</h3>
+          <p class="loader-subtitle" id="loader-subtitle">Интеграция профиля студента и методики МИДиС</p>
+        </div>
+
+        <!-- Result Card -->
+        <div class="result-card" id="result-card" style="display: none;">
+          
+          <div class="result-card-header">
+            <div class="result-header-left">
+              <span class="ready-badge">✓ ГОТОВ К ИСПОЛЬЗОВАНИЮ</span>
+              <h3 class="result-title" id="result-spec-title">Промпт для студента МИДиС</h3>
+            </div>
+            <div class="result-header-right">
+              <span class="stats-badge" id="result-words-count">0 слов</span>
+              <span class="stats-badge" id="result-tokens-count">~0 токенов</span>
+            </div>
+          </div>
+
+          <!-- Applied Profile Summary Bar -->
+          <div class="applied-summary-bar" id="applied-summary-bar">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Formatted Prompt Output -->
+          <div class="prompt-text-container">
+            <pre class="prompt-output-pre" id="prompt-output-pre"></pre>
+          </div>
+
+          <!-- Action Buttons Row -->
+          <div class="result-actions-panel">
+            <div class="copy-main-action">
+              <button type="button" class="btn-midis-copy" id="btn-copy-final">
+                <svg class="copy-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
-                <span id="copy-btn-label">СКОПИРОВАТЬ ПРОМПТ В БУФЕР</span>
+                <span id="copy-btn-text">Скопировать промпт</span>
               </button>
             </div>
 
-            <div class="ai-launch-box">
-              <span class="launch-heading">Запустить сгенерированный промпт в 1 клик:</span>
-              <div class="launch-links-grid">
-                <a id="term-link-chatgpt" href="#" target="_blank" rel="noopener" class="ai-platform-btn ai-chatgpt">
-                  <span class="ai-circle">🟢</span>
-                  <div class="ai-meta">
+            <div class="llm-launchers-box">
+              <span class="launchers-label">Открыть напрямую в нейросети:</span>
+              <div class="launchers-row">
+                <a id="link-chatgpt" href="#" target="_blank" rel="noopener" class="llm-btn llm-chatgpt">
+                  <span class="llm-icon">🟢</span>
+                  <div class="llm-info">
                     <strong>ChatGPT</strong>
                     <small>OpenAI</small>
                   </div>
-                  <span class="ai-external-arrow">↗</span>
+                  <span class="llm-arrow">↗</span>
                 </a>
 
-                <a id="term-link-claude" href="#" target="_blank" rel="noopener" class="ai-platform-btn ai-claude">
-                  <span class="ai-circle">🟣</span>
-                  <div class="ai-meta">
+                <a id="link-claude" href="#" target="_blank" rel="noopener" class="llm-btn llm-claude">
+                  <span class="llm-icon">🟣</span>
+                  <div class="llm-info">
                     <strong>Claude</strong>
                     <small>Anthropic</small>
                   </div>
-                  <span class="ai-external-arrow">↗</span>
+                  <span class="llm-arrow">↗</span>
                 </a>
 
-                <a id="term-link-deepseek" href="#" target="_blank" rel="noopener" class="ai-platform-btn ai-deepseek">
-                  <span class="ai-circle">🔵</span>
-                  <div class="ai-meta">
+                <a id="link-deepseek" href="#" target="_blank" rel="noopener" class="llm-btn llm-deepseek">
+                  <span class="llm-icon">🔵</span>
+                  <div class="llm-info">
                     <strong>DeepSeek</strong>
-                    <small>Reasoning R1</small>
+                    <small>Reasoning</small>
                   </div>
-                  <span class="ai-external-arrow">↗</span>
+                  <span class="llm-arrow">↗</span>
                 </a>
               </div>
             </div>
 
-            <!-- Download & Edit actions -->
-            <div class="secondary-actions-bar">
-              <button type="button" class="hud-btn hud-btn-sm hud-btn-ghost" id="btn-term-download">
+            <div class="result-sub-actions">
+              <button type="button" class="btn-sub-action" id="btn-download-markdown">
                 <span>⬇️ Скачать как .md файл</span>
               </button>
-              <button type="button" class="hud-btn hud-btn-sm hud-btn-ghost btn-prev-step" data-prev="5">
-                <span>✏️ Скорректировать задачу</span>
+              <button type="button" class="btn-sub-action btn-prev" data-prev="5">
+                <span>✏️ Изменить задачу</span>
               </button>
-              <button type="button" class="hud-btn hud-btn-sm hud-btn-ghost" id="btn-term-restart">
+              <button type="button" class="btn-sub-action" id="btn-restart-flow">
                 <span>🔄 Начать заново</span>
               </button>
             </div>
-
           </div>
 
         </div>
@@ -552,60 +560,60 @@
     </div>
   </main>
 
-  <!-- Instruction Modal (5 шагов МИДиС) -->
-  <div class="hud-modal-backdrop" id="guide-modal" aria-hidden="true" role="dialog">
-    <div class="hud-modal-card">
-      <div class="hud-modal-top">
-        <div class="modal-status-chip">МЕТОДИКА МИДиС</div>
-        <button type="button" class="hud-modal-close" id="btn-close-modal">✕</button>
+  <!-- Clean MIDIS Instruction Modal -->
+  <div class="modal-backdrop" id="guide-modal" aria-hidden="true" role="dialog">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-badge">МЕТОДИКА МИДиС</div>
+        <button type="button" class="modal-close-btn" id="btn-close-modal">✕</button>
       </div>
-      <h3 class="hud-modal-title">Как получить максимум от нейросети в МИДиС</h3>
+      <h3 class="modal-title">Как получить максимум от нейросети</h3>
       
-      <div class="hud-modal-steps">
-        <div class="m-step">
-          <span class="m-num">01</span>
-          <div>
-            <strong>Скопируйте промпт</strong>
-            <p>Нажмите большую оранжевую кнопку «Скопировать» или кликните по иконке ChatGPT / Claude / DeepSeek.</p>
+      <div class="modal-steps-list">
+        <div class="modal-step-item">
+          <span class="step-circle">1</span>
+          <div class="step-info">
+            <strong>Скопируйте сгенерированный промпт</strong>
+            <p>Нажмите большую оранжевую кнопку «Скопировать промпт» или выберите кнопку прямого перехода в ChatGPT, Claude или DeepSeek.</p>
           </div>
         </div>
 
-        <div class="m-step">
-          <span class="m-num">02</span>
-          <div>
-            <strong>Вставьте в начало нового чата</strong>
-            <p>Всегда отправляйте промпт новым диалогом, чтобы контекст модели был чистым от предыдущих тем.</p>
+        <div class="modal-step-item">
+          <span class="step-circle">2</span>
+          <div class="step-info">
+            <strong>Отправьте его новым диалогом</strong>
+            <p>Всегда создавайте новый чат, чтобы контекст модели не смешивался с предыдущими запросами.</p>
           </div>
         </div>
 
-        <div class="m-step">
-          <span class="m-num">03</span>
-          <div>
-            <strong>Честно отвечайте на вопросы</strong>
-            <p>Нейросеть откалибрована под ваши реальные сомнения и дедлайны. Не стесняйтесь просить её упростить шаг или объяснить иначе.</p>
+        <div class="modal-step-item">
+          <span class="step-circle">3</span>
+          <div class="step-info">
+            <strong>Критически оцените полученный ответ</strong>
+            <p>Нейросеть откалибрована под ваши реальные вводные. Если ответ покажется слишком абстрактным — попросите модель расписать конкретные примеры.</p>
           </div>
         </div>
 
-        <div class="m-step">
-          <span class="m-num">04</span>
-          <div>
-            <strong>Сверяйтесь раз в семестр</strong>
-            <p>Обновляйте свой индивидуальный трек или план портфолио перед каждой сессией.</p>
+        <div class="modal-step-item">
+          <span class="step-circle">4</span>
+          <div class="step-info">
+            <strong>Сверяйтесь перед каждой сессией</strong>
+            <p>Обновляйте свой индивидуальный трек и цели раз в семестр по мере профессионального роста.</p>
           </div>
         </div>
       </div>
 
-      <div class="hud-modal-footer">
-        <div class="author-credits">
-          Разработка сервиса: <strong>Мельников Семён</strong> • Специально для студентов института и колледжа МИДиС (<a href="https://midis.ru" target="_blank" rel="noopener">midis.ru</a>)
+      <div class="modal-footer">
+        <div class="modal-author-note">
+          Разработка: <strong>Мельников Семён</strong> • Международный институт дизайна и сервиса (<a href="https://midis.ru" target="_blank" rel="noopener">midis.ru</a>)
         </div>
-        <button type="button" class="hud-btn hud-btn-primary hud-btn-block" id="btn-modal-ok">Понятно, к конструктору</button>
+        <button type="button" class="btn-midis-primary btn-block" id="btn-modal-close-ok">Понятно, к конструктору</button>
       </div>
     </div>
   </div>
 
-  <!-- Audio-Visual Toast Notifications -->
-  <div class="hud-toast-container" id="hud-toast-box"></div>
+  <!-- Toast Notification Container -->
+  <div class="toast-box" id="toast-box"></div>
 
   <script src="app.js"></script>
 </body>
