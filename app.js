@@ -1359,6 +1359,16 @@ function attachEvents() {
     });
   });
 
+  // Шаг 4: Очистка всех выбранных инструментов
+  const btnClearStack = document.getElementById('btn-clear-stack');
+  if (btnClearStack) {
+    btnClearStack.addEventListener('click', () => {
+      state.selectedSkills = [];
+      renderChips();
+      showToast('Все инструменты очищены');
+    });
+  }
+
   // Шаг 4: Добавление кастомного стека
   const addCustomStack = () => {
     const input = document.getElementById('input-add-stack');
@@ -1376,6 +1386,16 @@ function attachEvents() {
   if (inputAddStack) {
     inputAddStack.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); addCustomStack(); }
+    });
+  }
+
+  // Шаг 4: Очистка всех выбранных хобби
+  const btnClearHobby = document.getElementById('btn-clear-hobby');
+  if (btnClearHobby) {
+    btnClearHobby.addEventListener('click', () => {
+      state.selectedHobbies = [];
+      renderChips();
+      showToast('Все увлечения очищены');
     });
   }
 

@@ -1183,6 +1183,14 @@ body.midis-dark {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.box-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .group-title {
@@ -1193,8 +1201,37 @@ body.midis-dark {
 }
 
 .counter-badge {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
+  color: var(--midis-orange);
+}
+
+.btn-clear-chips {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-clear-chips:hover {
+  background: rgba(252, 76, 0, 0.15);
+  border-color: var(--midis-orange);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-clear-chips svg {
+  width: 12px;
+  height: 12px;
   color: var(--midis-orange);
 }
 
