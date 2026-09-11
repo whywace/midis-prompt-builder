@@ -60,6 +60,14 @@
   padding: 0;
 }
 
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  touch-action: pan-y pinch-zoom;
+}
+
 body.midis-dark {
   background-color: var(--bg-main);
   color: var(--text-primary);
@@ -67,6 +75,8 @@ body.midis-dark {
   font-size: 16px;
   line-height: 1.55;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
   position: relative;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -79,21 +89,30 @@ body.midis-dark {
   padding: 0 24px;
   position: relative;
   z-index: 10;
+  min-width: 0;
 }
 
 .site-main {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   padding-bottom: 96px;
   position: relative;
   z-index: 5;
+  min-width: 0;
 }
 
 /* Background Graphic Accents (from midis.ru hero) */
 .bg-decorations {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  contain: strict;
 }
 
 .midis-circle-arc {
@@ -832,12 +851,17 @@ body.midis-dark {
   gap: 16px;
   margin-bottom: 24px;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .cluster-pills {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .cluster-pill-item {
@@ -1980,6 +2004,38 @@ body.midis-dark {
     padding: 8px 14px;
     flex-shrink: 0;
   }
+
+  .cluster-search-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .cluster-pills {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .cluster-pills::-webkit-scrollbar {
+    display: none;
+  }
+  .cluster-pill-item {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .search-input-wrap {
+    min-width: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -2219,16 +2275,26 @@ body.midis-dark {
 
   /* Search bar & Cluster pills */
   .cluster-search-bar {
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
     margin-bottom: 14px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
   }
   .cluster-pills {
+    display: flex;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     flex-wrap: nowrap;
     padding-bottom: 4px;
     gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     scrollbar-width: none;
   }
   .cluster-pills::-webkit-scrollbar {
@@ -2241,9 +2307,13 @@ body.midis-dark {
     font-size: 12px;
   }
   .search-input-wrap {
-    min-width: 100%;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
   .midis-search-input {
+    width: 100%;
+    max-width: 100%;
     padding: 9px 16px;
     font-size: 13px;
   }
