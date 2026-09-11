@@ -825,12 +825,16 @@ function goToStep(targetStep) {
   // Кнопки шагов в верхней навигации
   document.querySelectorAll('#stepper-buttons .step-btn').forEach(btn => {
     const s = parseInt(btn.dataset.step, 10);
-    btn.classList.toggle('active', s === targetStep);
+    const isActive = s === targetStep;
+    btn.classList.toggle('active', isActive);
     btn.classList.toggle('completed', s < targetStep);
+    if (isActive) {
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
   });
 
   // Плавный скролл к началу контента
-  window.scrollTo({ top: 40, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   // Если открыли Шаг 5 — обновляем быстрые подсказки под выбранный сценарий
   if (targetStep === 5) {
