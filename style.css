@@ -65,7 +65,6 @@ html {
   max-width: 100%;
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
-  touch-action: pan-y pinch-zoom;
 }
 
 body.midis-dark {
@@ -2017,6 +2016,8 @@ body.midis-dark {
     display: flex;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
     flex-wrap: nowrap;
     width: 100%;
     max-width: 100%;
@@ -2030,6 +2031,7 @@ body.midis-dark {
   .cluster-pill-item {
     white-space: nowrap;
     flex-shrink: 0;
+    touch-action: pan-x;
   }
   .search-input-wrap {
     min-width: 100%;
@@ -2283,14 +2285,15 @@ body.midis-dark {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    overflow: hidden;
   }
   .cluster-pills {
     display: flex;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
     flex-wrap: nowrap;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
     gap: 6px;
     width: 100%;
     max-width: 100%;
@@ -2303,8 +2306,9 @@ body.midis-dark {
   .cluster-pill-item {
     white-space: nowrap;
     flex-shrink: 0;
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 7px 13px;
+    font-size: 12.5px;
+    touch-action: pan-x;
   }
   .search-input-wrap {
     min-width: 0;

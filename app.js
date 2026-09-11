@@ -905,6 +905,7 @@ function renderClusterPills() {
       btn.classList.add('active');
       state.activeCluster = cl.id;
       renderMajorsGrid();
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     });
 
     bar.appendChild(btn);
@@ -1899,6 +1900,16 @@ function showToast(msg) {
 // 9. ИНИЦИАЛИЗАЦИЯ
 // ==========================================================================
 
+function enableRibbonWheelScroll(el) {
+  if (!el) return;
+  el.addEventListener('wheel', (e) => {
+    if (e.deltaY !== 0 && el.scrollWidth > el.clientWidth) {
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    }
+  }, { passive: false });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderScenarios('all');
   renderClusterPills();
@@ -1906,4 +1917,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderChips();
   attachEvents();
   goToStep(1);
+
+  // Плавный скролл колесом мыши для горизонтальных лент
+  enableRibbonWheelScroll(document.getElementById('cluster-pills-bar'));
+  enableRibbonWheelScroll(document.getElementById('scenario-filter-row'));
+  enableRibbonWheelScroll(document.querySelector('.stepper-nav-container'));
 });
