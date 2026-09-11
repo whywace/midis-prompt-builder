@@ -1900,8 +1900,46 @@ function showToast(msg) {
 // 9. ИНИЦИАЛИЗАЦИЯ
 // ==========================================================================
 
-function enableRibbonWheelScroll(el) {
+function enableRibbonScrollAndDrag(el) {
   if (!el) return;
+  let isDown = false;
+  let startX = 0;
+  let scrollLeft = 0;
+  let isDragging = false;
+
+  el.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    isDown = true;
+    isDragging = false;
+    startX = e.pageX - el.offsetLeft;
+    scrollLeft = el.scrollLeft;
+    el.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDown) return;
+    isDown = false;
+    el.style.cursor = 'grab';
+    setTimeout(() => { isDragging = false; }, 50);
+  });
+
+  el.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startX) * 1.4;
+    if (Math.abs(walk) > 4) {
+      isDragging = true;
+    }
+    el.scrollLeft = scrollLeft - walk;
+  });
+
+  el.addEventListener('click', (e) => {
+    if (isDragging) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+
   el.addEventListener('wheel', (e) => {
     if (e.deltaY !== 0 && el.scrollWidth > el.clientWidth) {
       e.preventDefault();
@@ -1918,8 +1956,8 @@ document.addEventListener('DOMContentLoaded', () => {
   attachEvents();
   goToStep(1);
 
-  // Плавный скролл колесом мыши для горизонтальных лент
-  enableRibbonWheelScroll(document.getElementById('cluster-pills-bar'));
-  enableRibbonWheelScroll(document.getElementById('scenario-filter-row'));
-  enableRibbonWheelScroll(document.querySelector('.stepper-nav-container'));
+  // Свободный скролл и перетаскивание мышью/пальцем для всех горизонтальных лент
+  enableRibbonScrollAndDrag(document.getElementById('cluster-pills-bar'));
+  enableRibbonScrollAndDrag(document.getElementById('scenario-filter-row'));
+  enableRibbonScrollAndDrag(document.querySelector('.stepper-nav-container'));
 });

@@ -845,11 +845,9 @@ body.midis-dark {
 /* Cluster & Search Row */
 .cluster-search-bar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  flex-direction: column;
+  gap: 14px;
   margin-bottom: 24px;
-  flex-wrap: wrap;
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -857,10 +855,26 @@ body.midis-dark {
 
 .cluster-pills {
   display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  flex-wrap: nowrap;
   gap: 8px;
-  flex-wrap: wrap;
+  padding-bottom: 6px;
+  width: 100%;
   max-width: 100%;
   min-width: 0;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.cluster-pills:active {
+  cursor: grabbing;
+}
+
+.cluster-pills::-webkit-scrollbar {
+  display: none;
 }
 
 .cluster-pill-item {
@@ -874,6 +888,11 @@ body.midis-dark {
   padding: 8px 16px;
   cursor: pointer;
   transition: all var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+  touch-action: pan-x;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .cluster-pill-item:hover {
@@ -888,7 +907,9 @@ body.midis-dark {
 }
 
 .search-input-wrap {
-  min-width: 280px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .midis-search-input {
