@@ -2338,6 +2338,212 @@ function resetAppState() {
 }
 
 // ==========================================================================
+// 6.5. ГЕНЕРАТОР MICROSOFT WORD (.DOCX) БЕЗ ВНЕШНИХ БИБЛИОТЕК
+// ==========================================================================
+
+const docxCrcTable = new Uint32Array(256);
+for (let i = 0; i < 256; i++) {
+  let c = i;
+  for (let k = 0; k < 8; k++) {
+    c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+  }
+  docxCrcTable[i] = c;
+}
+
+function calculateDocxCrc32(bytes) {
+  let crc = 0 ^ (-1);
+  for (let i = 0; i < bytes.length; i++) {
+    crc = (crc >>> 8) ^ docxCrcTable[(crc ^ bytes[i]) & 0xFF];
+  }
+  return (crc ^ (-1)) >>> 0;
+}
+
+function generateZipBlobParts(files) {
+  const encoder = new TextEncoder();
+  const fileEntries = [];
+  let currentOffset = 0;
+
+  for (const file of files) {
+    const nameBytes = encoder.encode(file.name);
+    const dataBytes = typeof file.data === 'string' ? encoder.encode(file.data) : file.data;
+    const fileCrc = calculateDocxCrc32(dataBytes);
+
+    const localHeader = new Uint8Array(30);
+    const view = new DataView(localHeader.buffer);
+    view.setUint32(0, 0x04034b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint16(6, 0, true);
+    view.setUint16(8, 0, true);
+    view.setUint16(10, 0, true);
+    view.setUint16(12, 0, true);
+    view.setUint32(14, fileCrc, true);
+    view.setUint32(18, dataBytes.length, true);
+    view.setUint32(22, dataBytes.length, true);
+    view.setUint16(26, nameBytes.length, true);
+    view.setUint16(28, 0, true);
+
+    fileEntries.push({
+      localHeader,
+      nameBytes,
+      dataBytes,
+      crc: fileCrc,
+      size: dataBytes.length,
+      offset: currentOffset
+    });
+
+    currentOffset += 30 + nameBytes.length + dataBytes.length;
+  }
+
+  const centralDirEntries = [];
+  let centralDirSize = 0;
+  const centralDirOffset = currentOffset;
+
+  for (const entry of fileEntries) {
+    const cdHeader = new Uint8Array(46);
+    const view = new DataView(cdHeader.buffer);
+    view.setUint32(0, 0x02014b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint16(6, 20, true);
+    view.setUint16(8, 0, true);
+    view.setUint16(10, 0, true);
+    view.setUint16(12, 0, true);
+    view.setUint16(14, 0, true);
+    view.setUint32(16, entry.crc, true);
+    view.setUint32(20, entry.size, true);
+    view.setUint32(24, entry.size, true);
+    view.setUint16(28, entry.nameBytes.length, true);
+    view.setUint16(30, 0, true);
+    view.setUint16(32, 0, true);
+    view.setUint16(34, 0, true);
+    view.setUint16(36, 0, true);
+    view.setUint32(38, 0, true);
+    view.setUint32(42, entry.offset, true);
+
+    centralDirEntries.push(cdHeader, entry.nameBytes);
+    centralDirSize += 46 + entry.nameBytes.length;
+  }
+
+  const eocd = new Uint8Array(22);
+  const view = new DataView(eocd.buffer);
+  view.setUint32(0, 0x06054b50, true);
+  view.setUint16(4, 0, true);
+  view.setUint16(6, 0, true);
+  view.setUint16(8, fileEntries.length, true);
+  view.setUint16(10, fileEntries.length, true);
+  view.setUint32(12, centralDirSize, true);
+  view.setUint32(16, centralDirOffset, true);
+  view.setUint16(20, 0, true);
+
+  const parts = [];
+  for (const entry of fileEntries) {
+    parts.push(entry.localHeader, entry.nameBytes, entry.dataBytes);
+  }
+  for (const cdPart of centralDirEntries) {
+    parts.push(cdPart);
+  }
+  parts.push(eocd);
+
+  return parts;
+}
+
+function escapeDocxXml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function formatWordRuns(text) {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map(part => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+      const bold = escapeDocxXml(part.slice(2, -2));
+      return `<w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:sz w:val="22"/><w:color w:val="0F172A"/></w:rPr><w:t xml:space="preserve">${bold}</w:t></w:r>`;
+    }
+    const regular = escapeDocxXml(part);
+    return `<w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:sz w:val="22"/><w:color w:val="334155"/></w:rPr><w:t xml:space="preserve">${regular}</w:t></w:r>`;
+  }).join('');
+}
+
+function createMidisDocxBlob(markdownText) {
+  const contentTypes = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+    '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+    '<Default Extension="xml" ContentType="application/xml"/>' +
+    '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>' +
+    '</Types>';
+
+  const rootRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+    '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>' +
+    '</Relationships>';
+
+  const lines = (markdownText || '').split(/\r?\n/);
+  const paragraphs = [];
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      paragraphs.push('<w:p><w:pPr><w:spacing w:after="80"/></w:pPr></w:p>');
+      continue;
+    }
+
+    if (trimmed.startsWith('# ')) {
+      const t = escapeDocxXml(trimmed.replace(/^#\s*/, ''));
+      paragraphs.push('<w:p><w:pPr><w:spacing w:before="240" w:after="120"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:sz w:val="32"/><w:color w:val="FC4C02"/></w:rPr><w:t>' + t + '</w:t></w:r></w:p>');
+    } else if (trimmed.startsWith('## ')) {
+      const h2 = escapeDocxXml(trimmed.replace(/^##\s*/, ''));
+      paragraphs.push('<w:p><w:pPr><w:spacing w:before="180" w:after="80"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:sz w:val="26"/><w:color w:val="1E293B"/></w:rPr><w:t>' + h2 + '</w:t></w:r></w:p>');
+    } else if (trimmed.startsWith('### ')) {
+      const h3 = escapeDocxXml(trimmed.replace(/^###\s*/, ''));
+      paragraphs.push('<w:p><w:pPr><w:spacing w:before="120" w:after="60"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:sz w:val="23"/><w:color w:val="475569"/></w:rPr><w:t>' + h3 + '</w:t></w:r></w:p>');
+    } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+      const bulletText = trimmed.replace(/^[-*]\s*/, '');
+      paragraphs.push('<w:p><w:pPr><w:ind w:left="400"/><w:spacing w:after="60"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:color w:val="FC4C02"/></w:rPr><w:t xml:space="preserve">•  </w:t></w:r>' + formatWordRuns(bulletText) + '</w:p>');
+    } else if (/^\d+\.\s/.test(trimmed)) {
+      const numMatch = trimmed.match(/^(\d+\.)\s*(.*)$/);
+      const num = escapeDocxXml(numMatch[1]);
+      const itemText = numMatch[2];
+      paragraphs.push('<w:p><w:pPr><w:ind w:left="400"/><w:spacing w:after="60"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:color w:val="FC4C02"/></w:rPr><w:t xml:space="preserve">' + num + '  </w:t></w:r>' + formatWordRuns(itemText) + '</w:p>');
+    } else {
+      paragraphs.push('<w:p><w:pPr><w:spacing w:after="80"/><w:jc w:val="left"/></w:pPr>' + formatWordRuns(trimmed) + '</w:p>');
+    }
+  }
+
+  const documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">' +
+    '<w:body>' +
+    paragraphs.join('') +
+    '<w:sectPr>' +
+    '<w:pgSz w:w="11906" w:h="16838"/>' +
+    '<w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440"/>' +
+    '</w:sectPr>' +
+    '</w:body>' +
+    '</w:document>';
+
+  const zipParts = generateZipBlobParts([
+    { name: '[Content_Types].xml', data: contentTypes },
+    { name: '_rels/.rels', data: rootRels },
+    { name: 'word/document.xml', data: documentXml }
+  ]);
+
+  return new Blob(zipParts, { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+}
+
+function triggerFileDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ==========================================================================
 // 7. НАВЕШИВАНИЕ СОБЫТИЙ (EVENT LISTENERS)
 // ==========================================================================
 
@@ -2616,21 +2822,70 @@ function attachEvents() {
     });
   }
 
-  // Шаг 5: Скачивание как .md файл
-  const btnDownload = document.getElementById('btn-download-markdown');
-  if (btnDownload) {
-    btnDownload.addEventListener('click', () => {
-      const content = document.getElementById('prompt-output-pre').textContent;
-      const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `midis_prompt_${state.scenarioId}.md`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      showToast('Файл .md сохранен на устройство');
+  // Шаг 5: Микро-меню скачивания запроса (.txt / .md / .docx)
+  const downloadWrap = document.getElementById('download-dropdown-wrap');
+  const btnDownloadTrigger = document.getElementById('btn-download-trigger');
+  const formatOptionBtns = document.querySelectorAll('.format-option-item');
+
+  if (btnDownloadTrigger && downloadWrap) {
+    btnDownloadTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = downloadWrap.classList.toggle('is-open');
+      btnDownloadTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!downloadWrap.contains(e.target) && downloadWrap.classList.contains('is-open')) {
+        downloadWrap.classList.remove('is-open');
+        btnDownloadTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && downloadWrap.classList.contains('is-open')) {
+        downloadWrap.classList.remove('is-open');
+        btnDownloadTrigger.setAttribute('aria-expanded', 'false');
+        btnDownloadTrigger.focus();
+      }
+    });
+  }
+
+  if (formatOptionBtns.length > 0) {
+    formatOptionBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const format = btn.getAttribute('data-format');
+        const content = document.getElementById('prompt-output-pre')?.textContent || '';
+        const scenarioId = state.scenarioId || 'custom';
+
+        if (!content.trim()) {
+          showToast('Сначала сформируйте запрос');
+          return;
+        }
+
+        if (downloadWrap && btnDownloadTrigger) {
+          downloadWrap.classList.remove('is-open');
+          btnDownloadTrigger.setAttribute('aria-expanded', 'false');
+        }
+
+        if (format === 'txt') {
+          const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+          triggerFileDownload(blob, `midis_prompt_${scenarioId}.txt`);
+          showToast('Текстовый файл (.txt) сохранён');
+        } else if (format === 'md') {
+          const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
+          triggerFileDownload(blob, `midis_prompt_${scenarioId}.md`);
+          showToast('Файл разметки (.md) сохранён');
+        } else if (format === 'docx') {
+          try {
+            const blob = createMidisDocxBlob(content);
+            triggerFileDownload(blob, `midis_prompt_${scenarioId}.docx`);
+            showToast('Документ Word (.docx) сохранён');
+          } catch (err) {
+            console.error('DOCX generation error:', err);
+            showToast('Ошибка при формировании Word файла');
+          }
+        }
+      });
     });
   }
 
@@ -3237,6 +3492,7 @@ if (typeof module !== 'undefined' && module.exports) {
     compileMidisPrompt,
     getCourseStageContext,
     resolveSkillLevelDescription,
+    createMidisDocxBlob,
     MIDIS_DATA,
     state
   };

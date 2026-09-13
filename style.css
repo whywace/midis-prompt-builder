@@ -2822,6 +2822,156 @@ body.midis-dark .prompt-text-container {
   color: var(--text-pure);
 }
 
+body.midis-light .btn-sub-action:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-pure);
+}
+
+/* ==========================================================================
+   DOWNLOAD MICRO-MENU DROPDOWN (.txt / .md / .docx)
+   ========================================================================== */
+.download-dropdown-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.btn-download-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-chevron {
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.download-dropdown-wrap.is-open .dropdown-chevron {
+  transform: rotate(180deg);
+  color: var(--midis-orange);
+}
+
+.download-formats-menu {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  width: 270px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 120;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms cubic-bezier(0.16, 1, 0.3, 1), visibility 200ms;
+}
+
+body.midis-dark .download-formats-menu {
+  background: #18202c;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.download-dropdown-wrap.is-open .download-formats-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.format-option-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 150ms ease, transform 150ms ease;
+  width: 100%;
+}
+
+.format-option-item:hover {
+  background: var(--midis-orange-soft);
+  transform: translateX(2px);
+}
+
+body.midis-dark .format-option-item:hover {
+  background: rgba(252, 76, 2, 0.16);
+}
+
+.format-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 7px;
+  border-radius: 5px;
+  min-width: 44px;
+  text-align: center;
+  flex-shrink: 0;
+  letter-spacing: -0.01em;
+}
+
+.format-txt {
+  background: rgba(100, 116, 139, 0.12);
+  color: #475569;
+}
+
+body.midis-dark .format-txt {
+  background: rgba(148, 163, 184, 0.18);
+  color: #94a3b8;
+}
+
+.format-md {
+  background: rgba(252, 76, 2, 0.12);
+  color: var(--midis-orange);
+}
+
+body.midis-dark .format-md {
+  background: rgba(252, 76, 2, 0.22);
+  color: #ff7537;
+}
+
+.format-docx {
+  background: rgba(37, 99, 235, 0.12);
+  color: #2563eb;
+}
+
+body.midis-dark .format-docx {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.format-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.format-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-pure);
+  line-height: 1.25;
+}
+
+.format-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.25;
+  margin-top: 1px;
+}
+
 /* ==========================================================================
    MODAL INSTRUCTION & CATALOG (Clean, No-clipping, Centered with auto-margin)
    ========================================================================== */
@@ -3729,6 +3879,14 @@ body.midis-dark .toast-msg {
     justify-content: center;
     width: 100%;
     padding: 10px;
+  }
+  .download-dropdown-wrap {
+    width: 100%;
+  }
+  .download-formats-menu {
+    left: 0;
+    right: 0;
+    width: 100%;
   }
 
   /* 12. Footer Navigation Actions (Next / Back) */

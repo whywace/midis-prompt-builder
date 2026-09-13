@@ -530,10 +530,37 @@
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
                 <span>Начать заново</span>
               </button>
-              <button type="button" class="btn-sub-action" id="btn-download-markdown">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                <span>Скачать .md файл</span>
-              </button>
+              <!-- Download Formats Dropdown -->
+              <div class="download-dropdown-wrap" id="download-dropdown-wrap">
+                <button type="button" class="btn-sub-action btn-download-trigger" id="btn-download-trigger" aria-haspopup="true" aria-expanded="false" title="Скачать запрос в удобном формате">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  <span>Скачать</span>
+                  <svg class="dropdown-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="download-formats-menu" id="download-formats-menu" role="menu" aria-label="Форматы для скачивания">
+                  <button type="button" class="format-option-item" data-format="txt" role="menuitem">
+                    <span class="format-badge format-txt">.txt</span>
+                    <span class="format-details">
+                      <span class="format-name">Текстовый файл</span>
+                      <span class="format-hint">Простой блокнот</span>
+                    </span>
+                  </button>
+                  <button type="button" class="format-option-item" data-format="md" role="menuitem">
+                    <span class="format-badge format-md">.md</span>
+                    <span class="format-details">
+                      <span class="format-name">Markdown</span>
+                      <span class="format-hint">Для Notion, Obsidian, GitHub</span>
+                    </span>
+                  </button>
+                  <button type="button" class="format-option-item" data-format="docx" role="menuitem">
+                    <span class="format-badge format-docx">.docx</span>
+                    <span class="format-details">
+                      <span class="format-name">Microsoft Word</span>
+                      <span class="format-hint">С разметкой и стилями</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
