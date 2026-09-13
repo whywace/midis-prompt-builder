@@ -1205,6 +1205,13 @@ body.midis-dark .current-selection-banner {
   justify-content: flex-end;
 }
 
+.step-top-actions-bar .btn-midis-generate {
+  padding: 8px 20px;
+  font-size: 13.5px;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(252, 76, 2, 0.3);
+}
+
 .step-top-hint {
   font-family: var(--font-body);
   font-size: 13.5px;
@@ -3353,6 +3360,12 @@ body.midis-dark .toast-msg {
   .header-right {
     gap: 8px;
   }
+  #theme-toggle-text {
+    display: none;
+  }
+  #btn-theme-toggle {
+    padding: 6px 10px;
+  }
   .pill-btn-outline {
     padding: 6px 12px;
     font-size: 12.5px;
@@ -3443,12 +3456,49 @@ body.midis-dark .toast-msg {
   }
 
 
-  /* 4. Stepper Navigation: Hide bulky desktop bar, show sleek compact mobile stepper */
+  /* 4. Stepper Navigation: Hide bulky desktop bar, show sleek centered compact mobile stepper (Option 1) */
   .stepper-nav-container {
     display: none !important;
   }
   .mobile-compact-stepper {
     display: block !important;
+    padding: 10px 14px 12px;
+    margin-bottom: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+  .mobile-stepper-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+  .mobile-stepper-back {
+    display: none !important;
+  }
+  .mobile-stepper-title {
+    text-align: center;
+    width: 100%;
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--text-pure);
+    letter-spacing: -0.01em;
+  }
+  .mobile-stepper-track {
+    width: 100%;
+    height: 4px;
+    background: var(--border-subtle);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+  .mobile-stepper-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--midis-orange) 0%, #ff6826 100%);
+    border-radius: var(--radius-full);
+    transition: width 350ms ease;
   }
 
   /* Step 2 Mobile Compact Meta */
@@ -3509,18 +3559,17 @@ body.midis-dark .toast-msg {
     font-size: 11.5px;
   }
 
-  /* 5. Headings */
+  /* 5. Headings (Option 1: Hide duplicate badge, keep clean question title) */
   .section-heading {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
   .section-step-num {
-    font-size: 11px;
-    margin-bottom: 6px;
+    display: none !important;
   }
   .section-title {
     font-size: 19px;
     line-height: 1.25;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .section-desc {
     font-size: 13.5px;
@@ -3936,9 +3985,45 @@ body.midis-dark .toast-msg {
     overflow: hidden;
   }
   .step-top-actions-bar {
-    padding: 8px 12px;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 10px;
     margin-bottom: 14px;
     gap: 8px;
+    border-radius: var(--radius-md);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .step-top-actions-bar .btn-sm {
+    flex: 1;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .step-top-actions-bar .btn-midis-generate {
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    gap: 6px;
+    box-shadow: 0 2px 10px rgba(252, 76, 2, 0.3);
+  }
+  .nav-btn-sub {
+    display: none;
+  }
+  #step-pane-1 .step-top-actions-bar {
+    justify-content: flex-end;
+  }
+  #step-pane-1 .step-top-actions-bar .btn-sm {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding: 8px 16px;
   }
   .step-top-hint {
     display: none;

@@ -2616,7 +2616,8 @@ function attachEvents() {
   }
 
   const savedTheme = localStorage.getItem('midis-theme');
-  const isDarkInitial = savedTheme === 'midis-dark';
+  const urlTheme = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('theme') : null;
+  const isDarkInitial = urlTheme === 'dark' || (!urlTheme && savedTheme === 'midis-dark');
   updateThemeUI(isDarkInitial);
 
   if (themeToggleBtn) {
@@ -3478,7 +3479,9 @@ if (typeof document !== 'undefined') {
     initLiveDotsBackground();
     initAnimatedFavicon();
     initHeroRotatingPhrases();
-    goToStep(1, true);
+    const urlParams = new URLSearchParams(window.location.search);
+    const startStep = Math.max(1, Math.min(5, parseInt(urlParams.get('step') || '1', 10)));
+    goToStep(startStep, true);
 
     // Свободный скролл и перетаскивание мышью/пальцем для горизонтальных лент
     enableRibbonScrollAndDrag(document.getElementById('cluster-pills-bar'));
