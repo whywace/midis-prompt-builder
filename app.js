@@ -2947,7 +2947,7 @@ function initLiveDotsBackground() {
 function initHeroRotatingPhrases() {
   const phraseEl = document.getElementById('hero-rotating-phrase');
   const badgeEl = document.getElementById('hero-rotator-badge');
-  if (!phraseEl) return;
+  if (!phraseEl || !badgeEl) return;
 
   const phrases = [
     'идеальный запрос для нейросети',
@@ -2967,31 +2967,74 @@ function initHeroRotatingPhrases() {
   let isTransitioning = false;
   let intervalId = null;
 
+  // Невидимый замерщик естественной ширины каждой фразы
+  const measureSpan = document.createElement('span');
+  measureSpan.style.cssText = 'position:fixed;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;pointer-events:none;font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;';
+  badgeEl.appendChild(measureSpan);
+
+  function getBadgeWidthForPhrase(text) {
+    if (window.innerWidth <= 600) return null;
+    measureSpan.textContent = text;
+    const textWidth = measureSpan.getBoundingClientRect().width;
+    // 44px (padding 22*2) + 3px (рамка 1.5*2) + 6px (комфортный запас)
+    return Math.ceil(textWidth + 44 + 3 + 6);
+  }
+
+  function applyBadgeWidth(text) {
+    const targetW = getBadgeWidthForPhrase(text);
+    if (targetW) {
+      badgeEl.style.width = targetW + 'px';
+    } else {
+      badgeEl.style.width = '';
+    }
+  }
+
+  // Задаем ширину под первую фразу сразу и после подтверждения шрифтов
+  applyBadgeWidth(phrases[0]);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => applyBadgeWidth(phrases[currentIndex]));
+  }
+
+  window.addEventListener('resize', () => {
+    if (!isTransitioning) {
+      applyBadgeWidth(phrases[currentIndex]);
+    }
+  }, { passive: true });
+
   function switchPhrase(nextIdx) {
     if (isTransitioning) return;
     isTransitioning = true;
 
-    // Плавное затухание со смещением вверх и легким размытием
+    const nextIndex = nextIdx !== undefined ? nextIdx : (currentIndex + 1) % phrases.length;
+    const nextText = phrases[nextIndex];
+
+    // 1. Рамка плавно начинает скользить (анимировать ширину) под новый текст
+    badgeEl.classList.add('is-morphing');
+    applyBadgeWidth(nextText);
+
+    // 2. Текущий текст плавно уходит вверх с легким размытием
     phraseEl.classList.remove('phrase-fade-in');
     phraseEl.classList.add('phrase-fade-out');
 
+    // 3. На середине анимации скольжения рамки подставляем новый текст и плавно вкатываем его снизу
     setTimeout(() => {
-      currentIndex = nextIdx !== undefined ? nextIdx : (currentIndex + 1) % phrases.length;
-      phraseEl.textContent = phrases[currentIndex];
+      currentIndex = nextIndex;
+      phraseEl.textContent = nextText;
 
-      // Подготовка к появлению снизу
       phraseEl.classList.remove('phrase-fade-out');
       phraseEl.classList.add('phrase-fade-in');
 
-      // Форсируем перерисовку и плавно возвращаем в исходное состояние
+      // Форсируем перерисовку кадра
       void phraseEl.offsetWidth;
+
       requestAnimationFrame(() => {
         phraseEl.classList.remove('phrase-fade-in');
         setTimeout(() => {
+          badgeEl.classList.remove('is-morphing');
           isTransitioning = false;
         }, 360);
       });
-    }, 360);
+    }, 220);
   }
 
   function startRotation() {
