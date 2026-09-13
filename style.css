@@ -1606,6 +1606,14 @@ body.midis-dark .bg-step-card {
 }
 
 /* Modal Catalog for 24 Scenarios */
+.modal-window-wide .modal-header,
+.modal-window-wide .modal-title,
+.modal-window-wide .modal-subtitle,
+.modal-window-wide .modal-search-row,
+.modal-window-wide .modal-filter-pills-row {
+  flex-shrink: 0;
+}
+
 .modal-subtitle {
   font-size: 14px;
   color: var(--text-secondary);
@@ -1615,15 +1623,17 @@ body.midis-dark .bg-step-card {
 
 .modal-search-row {
   margin-bottom: 14px;
+  flex-shrink: 0;
 }
 
 .modal-filter-pills-row {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 8px;
-  margin-bottom: 16px;
+  padding: 4px 2px 10px 2px;
+  margin-bottom: 12px;
   scrollbar-width: none;
+  flex-shrink: 0;
 }
 
 .modal-filter-pills-row::-webkit-scrollbar {
@@ -1632,21 +1642,22 @@ body.midis-dark .bg-step-card {
 
 .modal-pill-btn {
   background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  border: 1.5px solid var(--border-card);
   border-radius: var(--radius-full);
   color: var(--text-secondary);
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 600;
-  padding: 6px 14px;
+  padding: 7px 15px;
   white-space: nowrap;
   cursor: pointer;
   transition: all var(--transition);
   flex-shrink: 0;
+  line-height: 1.25;
 }
 
 .modal-pill-btn:hover {
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(252, 76, 2, 0.4);
   color: var(--text-pure);
 }
 
@@ -1662,10 +1673,10 @@ body.midis-dark .bg-step-card {
   gap: 14px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 6px 8px 12px 6px;
+  padding: 6px 8px 16px 6px;
   flex: 1 1 auto;
   min-height: 0;
-  max-height: 56vh;
+  max-height: none;
   overscroll-behavior: contain;
 }
 
@@ -3748,6 +3759,9 @@ body.midis-dark .toast-msg {
     padding: 20px 14px;
     margin: auto;
     max-height: calc(100vh - 28px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
   .step-top-actions-bar {
     padding: 8px 12px;
