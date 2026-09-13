@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MIDIS Prompt Builder — Интеллектуальный конструктор промптов МИДиС</title>
   <meta name="description" content="Официальный сервис генерации персонализированных AI-промптов для студентов института и колледжа МИДиС.">
-  <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=Unbounded:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" id="dynamic-favicon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="midis-dark">
-  <!-- Subtle MIDIS Graphic Background Accents -->
+<body class="midis-light">
+  <!-- Live Animated Dots Canvas & Ambient Glow Background (Dots Only) -->
   <div class="bg-decorations" aria-hidden="true">
-    <div class="midis-circle-arc"></div>
-    <div class="midis-dots-grid"></div>
-    <div class="midis-ambient-glow"></div>
+    <canvas id="live-dots-canvas" class="live-dots-canvas"></canvas>
+    <div class="midis-ambient-glow glow-1"></div>
+    <div class="midis-ambient-glow glow-2"></div>
   </div>
 
-  <!-- Header: Faithful to midis.ru structure, adapted to Dark Theme -->
+  <!-- Header: Clean MIDIS Institutional Style -->
   <header class="site-header">
     <div class="container header-container">
       <div class="header-left">
@@ -28,12 +28,20 @@
         </a>
         <div class="header-sep"></div>
         <div class="header-subtext">
-          <span class="subtext-title">Международный Институт Дизайна и Сервиса</span>
-          <span class="subtext-badge">AI Prompt Builder</span>
+          <div class="subtext-badge-wrap">
+            <span class="subtext-badge">PROMPT BUILDER</span>
+            <span class="header-beta-badge">beta</span>
+          </div>
         </div>
       </div>
 
       <div class="header-right">
+        <!-- Light / Dark Theme Switcher Button -->
+        <button type="button" id="btn-theme-toggle" class="pill-btn-outline theme-toggle-btn" title="Переключить тему (светлая/тёмная)">
+          <span class="pill-icon" id="theme-toggle-icon">🌙</span>
+          <span id="theme-toggle-text">Тёмная тема</span>
+        </button>
+
         <button type="button" id="btn-open-guide" class="pill-btn-outline">
           <span class="pill-icon">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -43,11 +51,6 @@
           </span>
           <span>Инструкция</span>
         </button>
-
-        <div class="header-author-pill">
-          <span class="author-dot"></span>
-          <span class="author-text"><span class="author-text-prefix">Разработка: </span><strong>Мельников Семён</strong></span>
-        </div>
       </div>
     </div>
   </header>
@@ -56,36 +59,46 @@
   <main class="site-main">
     <div class="container">
 
-      <!-- Hero Header Card -->
+      <!-- Hero Header Card: Clean & Institutional -->
       <section class="hero-card">
         <div class="hero-content">
-          <div class="hero-tag">ОБРАЗОВАТЕЛЬНЫЙ AI-КОНСТРУКТОР</div>
+          <div class="hero-tag">МИДиС • УМНЫЙ ПОМОЩНИК СТУДЕНТА</div>
           <h1 class="hero-title">
-            МИДиС: генератор промптов <br>
-            для <span class="text-orange">студентов института и колледжа</span>
+            Помощник для учёбы в МИДиС: <br>
+            <span class="hero-rotator-badge" id="hero-rotator-badge" title="Кликните, чтобы переключить цель">
+              <span class="hero-rotator-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+                </svg>
+              </span>
+              <span id="hero-rotating-phrase" class="hero-rotating-phrase">идеальный запрос для нейросети</span>
+            </span>
           </h1>
           <p class="hero-subtitle">
-            Персонализированная настройка нейросетей под твою специальность, проектное обучение в FDE Lab, курсовые и стажировки.
+            Поможет составить индивидуальный план обучения, разобраться в сложной теме, подготовить резюме или решить задачу по учебе.
           </p>
         </div>
 
-        <div class="hero-stats-row">
-          <div class="hero-stat-item">
-            <span class="stat-num">24</span>
-            <span class="stat-label">целевых сценария</span>
+        <!-- 3-step simple guide banner -->
+        <div class="hero-quick-steps-bar">
+          <div class="quick-step-badge">
+            <span class="q-num">1</span>
+            <span class="q-text">Выбери задачу</span>
           </div>
-          <div class="hero-stat-item">
-            <span class="stat-num">24+</span>
-            <span class="stat-label">направления МИДиС</span>
+          <span class="q-arrow">→</span>
+          <div class="quick-step-badge">
+            <span class="q-num">2</span>
+            <span class="q-text">Твоя специальность</span>
           </div>
-          <div class="hero-stat-item">
-            <span class="stat-num">1 клик</span>
-            <span class="stat-label">экспорт в ChatGPT/Claude/DeepSeek</span>
+          <span class="q-arrow">→</span>
+          <div class="quick-step-badge">
+            <span class="q-num">3</span>
+            <span class="q-text">Готовый запрос для ИИ</span>
           </div>
         </div>
       </section>
 
-      <!-- Stepper Progress Pill Navigation -->
+      <!-- Desktop Stepper Progress Pill Navigation (5 Clean Steps) -->
       <nav class="stepper-nav-container" aria-label="Шаги конструктора">
         <div class="stepper-track">
           <div class="stepper-bar-fill" id="stepper-bar-fill"></div>
@@ -93,7 +106,7 @@
         <div class="stepper-buttons" id="stepper-buttons">
           <button type="button" class="step-btn active" data-step="1">
             <span class="step-num">01</span>
-            <span class="step-name">Цель</span>
+            <span class="step-name">Задача</span>
           </button>
           <button type="button" class="step-btn" data-step="2">
             <span class="step-num">02</span>
@@ -105,116 +118,111 @@
           </button>
           <button type="button" class="step-btn" data-step="4">
             <span class="step-num">04</span>
-            <span class="step-name">Инструменты</span>
+            <span class="step-name">Твой вопрос</span>
           </button>
           <button type="button" class="step-btn" data-step="5">
             <span class="step-num">05</span>
-            <span class="step-name">Задача</span>
-          </button>
-          <button type="button" class="step-btn" data-step="6">
-            <span class="step-num">06</span>
-            <span class="step-name">Промпт</span>
+            <span class="step-name">Результат</span>
           </button>
         </div>
       </nav>
 
+      <!-- Mobile Compact Stepper Bar (visible on <= 640px) -->
+      <div class="mobile-compact-stepper" id="mobile-compact-stepper">
+        <div class="mobile-stepper-head">
+          <button type="button" class="mobile-stepper-back" id="mobile-stepper-btn-prev" title="Вернуться на шаг назад">
+            <span class="m-arrow">←</span>
+            <span>Назад</span>
+          </button>
+          <span class="mobile-stepper-title" id="mobile-stepper-title">Шаг 1 из 5: Выбор задачи</span>
+        </div>
+        <div class="mobile-stepper-track">
+          <div class="mobile-stepper-fill" id="mobile-stepper-fill"></div>
+        </div>
+      </div>
+
       <!-- ===================================================================
-           STEP 1: 24 TARGET SCENARIOS
+           STEP 1: 6 POPULAR STUDENT GOALS + MODAL CATALOG FOR ALL 24
            =================================================================== -->
       <section class="step-section active" id="step-pane-1">
         <div class="section-heading">
-          <span class="section-step-num">ШАГ 1 ИЗ 5 • ВЫБОР ЦЕЛИ</span>
+          <span class="section-step-num">ШАГ 1 ИЗ 5 • ВЫБОР ЗАДАЧИ</span>
           <h2 class="section-title">Какую задачу нужно решить?</h2>
-          <p class="section-desc">Выберите подходящую цель. Промпт автоматически перестроит системную роль и требования к ответу.</p>
         </div>
 
-        <!-- Filter tabs -->
-        <div class="filter-pills-row" id="scenario-filter-row">
-          <button type="button" class="pill-filter-btn active" data-cat="all">Все сценарии (24)</button>
-          <button type="button" class="pill-filter-btn" data-cat="study">Учёба и Сессия</button>
-          <button type="button" class="pill-filter-btn" data-cat="career">Карьера и Стажировка</button>
-          <button type="button" class="pill-filter-btn" data-cat="creation">Проекты и Портфолио</button>
-          <button type="button" class="pill-filter-btn" data-cat="skills">Hard & Soft Skills</button>
-        </div>
-
-        <!-- Scenarios Grid -->
-        <div class="midis-cards-grid" id="scenarios-container">
-          <!-- Populated by JS with clean custom SVG icons -->
-        </div>
-
-        <div class="step-footer-actions">
-          <div class="actions-hint">Выберите карточку цели и переходите к следующему шагу</div>
-          <button type="button" class="btn-midis-primary btn-next" data-next="2">
+        <!-- Top Navigation Bar (No scrolling needed!) -->
+        <div class="step-top-actions-bar">
+          <button type="button" class="btn-midis-primary btn-next btn-sm" data-next="2">
             <span>Выбрать специальность</span>
             <span class="btn-arrow">→</span>
+          </button>
+        </div>
+
+        <!-- 6 Main Popular Scenarios Grid (IOT Roadmap is #1) -->
+        <div class="midis-cards-grid primary-goals-grid" id="scenarios-container">
+          <!-- Populated by JS with 6 top student goals -->
+        </div>
+
+        <!-- Button to open modal catalog with live search for remaining 18 scenarios -->
+        <div class="all-scenarios-trigger-box">
+          <button type="button" class="btn-open-all-scenarios" id="btn-open-all-scenarios">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              <line x1="12" y1="11" x2="12" y2="17"></line>
+              <line x1="9" y1="14" x2="15" y2="14"></line>
+            </svg>
+            <span>Показать все 24 специальных сценария (диплом, хакатон, смета...)</span>
           </button>
         </div>
       </section>
 
       <!-- ===================================================================
-           STEP 2: ALL MIDIS MAJORS & SUB-PROFILES (Redesigned like Screenshot 2)
+           STEP 2: MIDIS MAJORS & PROFILES (Clean, College first, Course on top, Auto-advance)
            =================================================================== -->
       <section class="step-section" id="step-pane-2">
         <div class="section-heading">
           <span class="section-step-num">ШАГ 2 ИЗ 5 • СПЕЦИАЛЬНОСТЬ</span>
-          <h2 class="section-title">Специальности института и колледжа МИДиС</h2>
-          <p class="section-desc">Все направления, кафедры и суб-профили с официального сайта midis.ru.</p>
+          <h2 class="section-title">Где ты учишься в МИДиС?</h2>
         </div>
 
-        <!-- Level Selector: СПО (Колледж) vs Бакалавриат vs Магистратура -->
-        <div class="midis-level-switch-box">
-          <button type="button" class="level-switch-btn active" data-level="bachelor">
-            <span class="lvl-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-              </svg>
-            </span>
-            <span class="lvl-title">Бакалавриат</span>
-            <span class="lvl-badge">Высшее образование</span>
+        <!-- Top Navigation Bar (No scrolling needed!) -->
+        <div class="step-top-actions-bar">
+          <button type="button" class="btn-midis-outline btn-prev btn-sm" data-prev="1">
+            <span class="btn-arrow">←</span> Назад: Выбор задачи
           </button>
-          <button type="button" class="level-switch-btn" data-level="college">
+          <button type="button" class="btn-midis-primary btn-next btn-sm" data-next="3">
+            <span>Далее: Стиль ответа</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+
+        <!-- Level Selector: 1. Колледж (СПО) -> 2. Институт (Бакалавриат) -->
+        <div class="midis-level-switch-box">
+          <button type="button" class="level-switch-btn active" data-level="college">
             <span class="lvl-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
               </svg>
             </span>
             <span class="lvl-title">Колледж МИДиС (СПО)</span>
             <span class="lvl-badge">База 9 и 11 классов</span>
           </button>
-          <button type="button" class="level-switch-btn" data-level="master">
+          <button type="button" class="level-switch-btn" data-level="bachelor">
             <span class="lvl-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
               </svg>
             </span>
-            <span class="lvl-title">Магистратура</span>
-            <span class="lvl-badge">R&D и Управление</span>
+            <span class="lvl-title">Институт (Бакалавриат)</span>
+            <span class="lvl-badge">Высшее образование</span>
           </button>
         </div>
 
-        <!-- Cluster & Search Bar -->
-        <div class="cluster-search-bar">
-          <div class="cluster-pills" id="cluster-pills-bar">
-            <!-- Populated by JS -->
-          </div>
-          <div class="search-input-wrap">
-            <input type="text" id="input-spec-search" class="midis-search-input" placeholder="🔍 Найти специальность (3D, веб, отель, банк)...">
-          </div>
-        </div>
-
-        <!-- Big Majors & Profiles Grid (Redesigned interactive cards) -->
-        <div class="midis-majors-grid" id="majors-cards-container">
-          <!-- Populated by JS with official codes and sub-directions -->
-        </div>
-
-        <!-- Course, Form & Skill Level -->
-        <div class="meta-selectors-card">
-          <div class="meta-col">
-            <label class="meta-label">Курс:</label>
+        <!-- Top Compact Meta Row: Course & Form (Horizontally aligned, perfectly centered) -->
+        <div class="step2-compact-meta" id="step2-compact-meta">
+          <div class="meta-inline-group">
+            <span class="meta-inline-label">Курс:</span>
             <div class="segmented-pill-group" id="course-selector">
               <button type="button" class="seg-pill active" data-val="1">1 курс</button>
               <button type="button" class="seg-pill" data-val="2">2 курс</button>
@@ -223,334 +231,294 @@
             </div>
           </div>
 
-          <div class="meta-col">
-            <label class="meta-label">Форма обучения:</label>
+          <div class="meta-inline-group">
+            <span class="meta-inline-label">Форма:</span>
             <div class="segmented-pill-group" id="form-selector">
               <button type="button" class="seg-pill active" data-val="full-time">Очная</button>
               <button type="button" class="seg-pill" data-val="part-time">Очно-заочная</button>
               <button type="button" class="seg-pill" data-val="extramural">Заочная</button>
             </div>
           </div>
-
-          <div class="meta-col">
-            <label class="meta-label">Уровень подготовки:</label>
-            <div class="segmented-pill-group" id="skill-selector">
-              <button type="button" class="seg-pill active" data-val="beginner">Новичок</button>
-              <button type="button" class="seg-pill" data-val="junior">Junior</button>
-              <button type="button" class="seg-pill" data-val="junior-plus">Pre-Middle</button>
-              <button type="button" class="seg-pill" data-val="freelancer">Практик</button>
-            </div>
-          </div>
         </div>
 
-        <div class="step-footer-actions">
-          <button type="button" class="btn-midis-outline btn-prev" data-prev="1">
-            <span class="btn-arrow">←</span> Назад
-          </button>
-          <button type="button" class="btn-midis-primary btn-next" data-next="3">
-            <span>Далее: Стиль ответа</span>
-            <span class="btn-arrow">→</span>
-          </button>
+        <!-- Search Bar -->
+        <div class="search-input-wrap search-standalone">
+          <input type="text" id="input-spec-search" class="midis-search-input" placeholder="Найти специальность (3D, веб, отель, банк, дизайн)...">
+        </div>
+
+        <!-- Big Majors & Profiles Grid -->
+        <div class="midis-majors-grid" id="majors-cards-container">
+          <!-- Populated by JS with official codes and sub-directions -->
         </div>
       </section>
 
       <!-- ===================================================================
-           STEP 3: FORMAT OF PERCEPTION (With Custom SVG Icons)
+           STEP 3: FORMAT OF RESPONSE (8 Popular Styles on Screen + Modal for all 14)
            =================================================================== -->
       <section class="step-section" id="step-pane-3">
         <div class="section-heading">
           <span class="section-step-num">ШАГ 3 ИЗ 5 • СТИЛЬ ОТВЕТА</span>
-          <h2 class="section-title">Формат восприятия информации</h2>
-          <p class="section-desc">В каком виде нейросеть должна формулировать свои рекомендации?</p>
+          <h2 class="section-title">В каком виде оформить ответ?</h2>
         </div>
 
-        <div class="format-cards-grid" id="format-cards-container">
-          <div class="format-tile active" data-format="structured-lists">
-            <div class="format-tile-header">
-              <span class="format-tile-icon">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M11 6h9M11 12h9M11 18h9M4 6h1v4H4M4 10h2M3.5 14h2.5L4 18h2"></path>
-                </svg>
-              </span>
-              <span class="format-tile-badge">БЕЗ ВОДЫ</span>
-            </div>
-            <h3 class="format-tile-title">Чек-листы и структура</h3>
-            <p class="format-tile-desc">Короткие ёмкие буллеты, готовые к внедрению. Без долгих предисловий и лишнего текста.</p>
-          </div>
-
-          <div class="format-tile" data-format="step-by-step">
-            <div class="format-tile-header">
-              <span class="format-tile-icon">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="6" height="6" rx="1.5"></rect>
-                  <rect x="15" y="9" width="6" height="6" rx="1.5"></rect>
-                  <rect x="9" y="15" width="6" height="6" rx="1.5"></rect>
-                  <path d="M9 6h3a3 3 0 0 1 3 3v0M15 15v-3"></path>
-                </svg>
-              </span>
-              <span class="format-tile-badge">АЛГОРИТМ</span>
-            </div>
-            <h3 class="format-tile-title">Пошаговый гайд (1-2-3)</h3>
-            <p class="format-tile-desc">Чёткая пошаговая инструкция с контрольными точками и критериями завершения каждого этапа.</p>
-          </div>
-
-          <div class="format-tile" data-format="analogies">
-            <div class="format-tile-header">
-              <span class="format-tile-icon">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                </svg>
-              </span>
-              <span class="format-tile-badge">НАГЛЯДНО</span>
-            </div>
-            <h3 class="format-tile-title">Яркие аналогии</h3>
-            <p class="format-tile-desc">Объяснение через видеоигры, кино, сериалы или бытовые параллели для моментального понимания.</p>
-          </div>
-
-          <div class="format-tile" data-format="strict-code">
-            <div class="format-tile-header">
-              <span class="format-tile-icon">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="16 18 22 12 16 6"></polyline>
-                  <polyline points="8 6 2 12 8 18"></polyline>
-                </svg>
-              </span>
-              <span class="format-tile-badge">ПРОФИ</span>
-            </div>
-            <h3 class="format-tile-title">Инженерный стиль</h3>
-            <p class="format-tile-desc">Отраслевые стандарты, паттерны проектирования, чистые термины индустрии и строгий код.</p>
-          </div>
-
-          <div class="format-tile" data-format="mentor-dialogue">
-            <div class="format-tile-header">
-              <span class="format-tile-icon">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  <path d="M8 10h.01M12 10h.01M16 10h.01"></path>
-                </svg>
-              </span>
-              <span class="format-tile-badge">ЭМПАТИЯ</span>
-            </div>
-            <h3 class="format-tile-title">Заботливый наставник</h3>
-            <p class="format-tile-desc">Диалог на равных, поддержка, развивающие коучинговые вопросы для раскрытия потенциала.</p>
-          </div>
-        </div>
-
-        <div class="step-footer-actions">
-          <button type="button" class="btn-midis-outline btn-prev" data-prev="2">
-            <span class="btn-arrow">←</span> Назад
+        <!-- Top Navigation Bar (No scrolling needed!) -->
+        <div class="step-top-actions-bar">
+          <button type="button" class="btn-midis-outline btn-prev btn-sm" data-prev="2">
+            <span class="btn-arrow">←</span> Назад: Специальность
           </button>
-          <button type="button" class="btn-midis-primary btn-next" data-next="4">
-            <span>Далее: Инструменты и хобби</span>
+          <button type="button" class="btn-midis-primary btn-next btn-sm" data-next="4">
+            <span>Далее: Твой вопрос</span>
             <span class="btn-arrow">→</span>
           </button>
+        </div>
+
+        <!-- 10 Response Formats Direct Grid -->
+        <div class="format-cards-grid format-cards-grid-10" id="format-cards-container">
+          <!-- Populated by JS with exactly 10 direct styles -->
         </div>
       </section>
 
       <!-- ===================================================================
-           STEP 4: TOOLS, HOBBIES & INSTITUTIONAL RESOURCES
+           STEP 4: TASK, QUESTION & OPTIONAL ACCORDION (Clear Visual Hierarchy)
            =================================================================== -->
       <section class="step-section" id="step-pane-4">
         <div class="section-heading">
-          <span class="section-step-num">ШАГ 4 ИЗ 5 • СТЕК И ХОББИ</span>
-          <h2 class="section-title">Твой стек, увлечения и экосистема МИДиС</h2>
-          <p class="section-desc">Система автоматически предложила инструменты под выбранное направление. Добавь свои интересы.</p>
+          <span class="section-step-num">ШАГ 4 ИЗ 5 • ТВОЙ ВОПРОС</span>
+          <h2 class="section-title">Опиши задачу или нажми готовый вариант</h2>
         </div>
 
-        <div class="card-box">
-          <!-- Stack chips -->
-          <div class="box-group">
-            <div class="box-header-row">
-              <label class="group-title">Используемый софт и технологии:</label>
-              <div class="box-header-actions">
-                <span class="counter-badge" id="stack-count-badge">0 выбрано</span>
-                <button type="button" id="btn-clear-stack" class="btn-clear-chips" title="Снять выбор со всех инструментов">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                  <span>Очистить всё</span>
-                </button>
-              </div>
-            </div>
-            <div class="midis-chips-cloud" id="stack-chips-cloud"></div>
-            <div class="add-tag-row">
-              <input type="text" id="input-add-stack" class="midis-input-sm" placeholder="+ Добавить программу или инструмент...">
-              <button type="button" id="btn-add-stack" class="btn-midis-outline btn-sm">Добавить</button>
-            </div>
-          </div>
-
-          <div class="box-divider"></div>
-
-          <!-- Hobby chips -->
-          <div class="box-group">
-            <div class="box-header-row">
-              <label class="group-title">Хобби, личные интересы и сильные стороны:</label>
-              <div class="box-header-actions">
-                <span class="counter-badge" id="hobby-count-badge">0 выбрано</span>
-                <button type="button" id="btn-clear-hobby" class="btn-clear-chips" title="Снять выбор со всех хобби">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                  <span>Очистить всё</span>
-                </button>
-              </div>
-            </div>
-            <div class="midis-chips-cloud" id="hobby-chips-cloud"></div>
-            <div class="add-tag-row">
-              <input type="text" id="input-add-hobby" class="midis-input-sm" placeholder="+ Добавить увлечение...">
-              <button type="button" id="btn-add-hobby" class="btn-midis-outline btn-sm">Добавить</button>
-            </div>
-          </div>
-
-          <div class="box-divider"></div>
-
-          <!-- MIDIS Resources Checkboxes -->
-          <div class="box-group">
-            <label class="group-title">Ресурсы МИДиС для интеграции в ответ ИИ:</label>
-            <div class="resources-tile-grid">
-              <label class="res-item">
-                <input type="checkbox" id="res-partnerProjects" checked>
-                <span class="res-checkbox"></span>
-                <span class="res-text-block">
-                  <strong class="res-title">Проектное обучение с бизнесом</strong>
-                  <span class="res-sub">Реальные кейсы от компаний-партнеров в FDE Lab</span>
-                </span>
-              </label>
-
-              <label class="res-item">
-                <input type="checkbox" id="res-paidInternships" checked>
-                <span class="res-checkbox"></span>
-                <span class="res-text-block">
-                  <strong class="res-title">Оплачиваемые стажировки</strong>
-                  <span class="res-sub">Практика в профильных индустриях с 1-2 курса</span>
-                </span>
-              </label>
-
-              <label class="res-item">
-                <input type="checkbox" id="res-oupLeadership" checked>
-                <span class="res-checkbox"></span>
-                <span class="res-text-block">
-                  <strong class="res-title">Общая управленческая подготовка (ОУП)</strong>
-                  <span class="res-sub">Проектно-аналитические сессии и системное мышление</span>
-                </span>
-              </label>
-
-              <label class="res-item">
-                <input type="checkbox" id="res-aiMastery" checked>
-                <span class="res-checkbox"></span>
-                <span class="res-text-block">
-                  <strong class="res-title">Обучение работе с ИИ</strong>
-                  <span class="res-sub">Промпт-инжиниринг и агенты как базовый предмет</span>
-                </span>
-              </label>
-
-              <label class="res-item">
-                <input type="checkbox" id="res-newSpecialistWellness" checked>
-                <span class="res-checkbox"></span>
-                <span class="res-text-block">
-                  <strong class="res-title">Специалист нового типа</strong>
-                  <span class="res-sub">Бассейн и спортклуб МИДиС, управление энергией</span>
-                </span>
-              </label>
-
-              <label class="res-item">
-                <input type="checkbox" id="res-hackathonsAndEvents" checked>
-                <span class="res-checkbox"></span>
-                <span class="res-text-block">
-                  <strong class="res-title">Хакатоны и стартап-питчи</strong>
-                  <span class="res-sub">Участие в биеннале, выставках и челленджах</span>
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="step-footer-actions">
-          <button type="button" class="btn-midis-outline btn-prev" data-prev="3">
-            <span class="btn-arrow">←</span> Назад
+        <!-- Top Navigation Bar (No scrolling needed!) -->
+        <div class="step-top-actions-bar">
+          <button type="button" class="btn-midis-outline btn-prev btn-sm" data-prev="3">
+            <span class="btn-arrow">←</span> Назад: Стиль ответа
           </button>
-          <button type="button" class="btn-midis-primary btn-next" data-next="5">
-            <span>Далее: Суть задачи</span>
-            <span class="btn-arrow">→</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- ===================================================================
-           STEP 5: SPECIFIC TASK & DEADLINE
-           =================================================================== -->
-      <section class="step-section" id="step-pane-5">
-        <div class="section-heading">
-          <span class="section-step-num">ШАГ 5 ИЗ 5 • ЗАДАЧА И ДЕДЛАЙН</span>
-          <h2 class="section-title">Твоя текущая задача и контекст</h2>
-          <p class="section-desc">Опиши запрос своими словами или нажми на один из готовых шаблонов.</p>
-        </div>
-
-        <div class="card-box">
-          <!-- Quick Templates Bar -->
-          <div class="quick-examples-box" id="step5-examples-box">
-            <span class="examples-label">Быстрые варианты в 1 клик:</span>
-            <!-- Rendered by JS -->
-          </div>
-
-          <div class="form-row-group">
-            <label class="field-label" for="task-textarea" id="task-field-label">Тема, задача или вопрос к нейросети:</label>
-            <textarea id="task-textarea" class="midis-textarea" rows="3" placeholder="Опишите задачу, тему курсовой, пет-проект или вопрос..."></textarea>
-          </div>
-
-          <div class="form-columns-2">
-            <div class="form-row-group">
-              <label class="field-label" for="fears-input">Сомнения или страхи <span class="opt-tag">(необязательно)</span>:</label>
-              <input type="text" id="fears-input" class="midis-input" placeholder="Например: боюсь защиты перед комиссией, плаваю в коде...">
-            </div>
-
-            <div class="form-row-group">
-              <label class="field-label" for="deadline-input">Дедлайн или рамки времени <span class="opt-tag">(необязательно)</span>:</label>
-              <input type="text" id="deadline-input" class="midis-input" placeholder="Например: 3 недели, до конца семестра...">
-            </div>
-          </div>
-        </div>
-
-        <div class="step-footer-actions">
-          <button type="button" class="btn-midis-outline btn-prev" data-prev="4">
-            <span class="btn-arrow">←</span> Назад
-          </button>
-          <button type="button" class="btn-midis-generate" id="btn-trigger-generation">
-            <span>Сгенерировать промпт МИДиС</span>
+          <button type="button" class="btn-midis-generate btn-sm" id="btn-trigger-generation">
+            <span>Получить готовый запрос</span>
             <span class="btn-sparkle">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </span>
           </button>
         </div>
+
+        <div class="card-box task-unified-box">
+          <!-- Visual Priority #1: Quick 1-click Templates (Top & Prominent) -->
+          <div class="quick-examples-section">
+            <span class="examples-label">Быстрые варианты в 1 клик (нажми, чтобы вставить):</span>
+            <div class="quick-examples-box" id="step4-examples-box">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Visual Priority #2: Main Textarea with Dynamic Safe Placeholder & Clear Button -->
+          <div class="form-row-group task-textarea-group">
+            <div class="field-label-row">
+              <label class="field-label" for="task-textarea" id="task-field-label">Твои текущие приоритеты, сомнения или цели на учебный год:</label>
+              <button type="button" id="btn-clear-task" class="btn-clear-field" title="Очистить поле ввода">
+                <span>✕ Очистить</span>
+              </button>
+            </div>
+            <textarea id="task-textarea" class="midis-textarea" rows="3" placeholder="Например: План развития с 1 курса в сфере 3D-моделирования, с чего начать и какие проекты положить в портфолио..."></textarea>
+            <div class="field-hint-bar">
+              <span class="field-hint-text">Совет: можно выбрать вариант выше или сформулировать тему своими словами</span>
+            </div>
+          </div>
+
+          <!-- Visual Priority #3: Collapsed Accordion for Optional Extra Parameters (Default collapsed) -->
+          <details class="extra-settings-accordion" id="accordion-extra-settings">
+            <summary class="accordion-summary">
+              <span class="acc-summary-left">
+                <span class="acc-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </span>
+                <span class="acc-title">Дополнительно: софт, увлечения, дедлайн (по желанию)</span>
+              </span>
+              <span class="acc-chevron">▼</span>
+            </summary>
+
+            <div class="accordion-inner-body">
+              <!-- Deadline & Fears row -->
+              <div class="form-columns-2">
+                <div class="form-row-group">
+                  <label class="field-label" for="deadline-input">Дедлайн или срок сдачи <span class="opt-tag">(необязательно)</span>:</label>
+                  <input type="text" id="deadline-input" class="midis-input" placeholder="Например: 2 недели, к пятнице, до конца семестра...">
+                </div>
+
+                <div class="form-row-group">
+                  <label class="field-label" for="fears-input">Сложности или сомнения <span class="opt-tag">(необязательно)</span>:</label>
+                  <input type="text" id="fears-input" class="midis-input" placeholder="Например: боюсь вопросов комиссии, плаваю в коде...">
+                </div>
+              </div>
+
+              <div class="box-divider"></div>
+
+              <!-- Stack chips -->
+              <div class="box-group">
+                <div class="box-header-row">
+                  <label class="group-title">Используемые программы и софт (выбери нужное):</label>
+                  <div class="box-header-actions">
+                    <span class="counter-badge" id="stack-count-badge">0 выбрано</span>
+                    <button type="button" id="btn-clear-stack" class="btn-clear-chips" title="Снять выбор со всех инструментов">
+                      <span>Сбросить</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="midis-chips-cloud" id="stack-chips-cloud"></div>
+                <div class="add-tag-row">
+                  <input type="text" id="input-add-stack" class="midis-input-sm" placeholder="+ Добавить программу или навык...">
+                  <button type="button" id="btn-add-stack" class="btn-midis-outline btn-sm">Добавить</button>
+                </div>
+              </div>
+
+              <div class="box-divider"></div>
+
+              <!-- Hobby chips -->
+              <div class="box-group">
+                <div class="box-header-row">
+                  <label class="group-title">Личные интересы и сильные стороны (для ярких проектов):</label>
+                  <div class="box-header-actions">
+                    <span class="counter-badge" id="hobby-count-badge">0 выбрано</span>
+                    <button type="button" id="btn-clear-hobby" class="btn-clear-chips" title="Снять выбор со всех хобби">
+                      <span>Сбросить</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="midis-chips-cloud" id="hobby-chips-cloud"></div>
+                <div class="add-tag-row">
+                  <input type="text" id="input-add-hobby" class="midis-input-sm" placeholder="+ Добавить интерес...">
+                  <button type="button" id="btn-add-hobby" class="btn-midis-outline btn-sm">Добавить</button>
+                </div>
+              </div>
+
+              <div class="box-divider"></div>
+
+              <!-- MIDIS Resources Checkboxes -->
+              <div class="box-group">
+                <label class="group-title">Особенности методики МИДиС (включены в промпт):</label>
+                <div class="resources-tile-grid">
+                  <label class="res-item is-checked">
+                    <input type="checkbox" id="res-partnerProjects" checked>
+                    <span class="res-checkbox"></span>
+                    <span class="res-text-block">
+                      <strong class="res-title">Проектное обучение с бизнесом</strong>
+                      <span class="res-sub">Реальные кейсы от компаний-партнеров в FDE Lab</span>
+                    </span>
+                  </label>
+
+                  <label class="res-item is-checked">
+                    <input type="checkbox" id="res-paidInternships" checked>
+                    <span class="res-checkbox"></span>
+                    <span class="res-text-block">
+                      <strong class="res-title">Оплачиваемые стажировки</strong>
+                      <span class="res-sub">Практика в профильных индустриях с 1-2 курса</span>
+                    </span>
+                  </label>
+
+                  <label class="res-item is-checked">
+                    <input type="checkbox" id="res-oupLeadership" checked>
+                    <span class="res-checkbox"></span>
+                    <span class="res-text-block">
+                      <strong class="res-title">Общая управленческая подготовка (ОУП)</strong>
+                      <span class="res-sub">Проектно-аналитические сессии и системное мышление</span>
+                    </span>
+                  </label>
+
+                  <label class="res-item is-checked">
+                    <input type="checkbox" id="res-aiMastery" checked>
+                    <span class="res-checkbox"></span>
+                    <span class="res-text-block">
+                      <strong class="res-title">Обучение работе с ИИ</strong>
+                      <span class="res-sub">Промпт-инжиниринг и агенты как базовый предмет</span>
+                    </span>
+                  </label>
+
+                  <label class="res-item is-checked">
+                    <input type="checkbox" id="res-newSpecialistWellness" checked>
+                    <span class="res-checkbox"></span>
+                    <span class="res-text-block">
+                      <strong class="res-title">Специалист нового типа</strong>
+                      <span class="res-sub">Бассейн и спортклуб МИДиС, баланс энергии</span>
+                    </span>
+                  </label>
+
+                  <label class="res-item is-checked">
+                    <input type="checkbox" id="res-hackathonsAndEvents" checked>
+                    <span class="res-checkbox"></span>
+                    <span class="res-text-block">
+                      <strong class="res-title">Хакатоны и стартап-питчи</strong>
+                      <span class="res-sub">Участие в биеннале, выставках и челленджах</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </details>
+        </div>
       </section>
 
       <!-- ===================================================================
-           STEP 6: GENERATED PROMPT RESULT
+           STEP 5: GENERATED PROMPT RESULT & 3-STEP BEGINNER GUIDE
            =================================================================== -->
-      <section class="step-section" id="step-pane-6">
+      <section class="step-section" id="step-pane-5">
         
-        <!-- Premium Loading State (No sci-fi matrix / radar) -->
+        <!-- Loading State -->
         <div class="generation-loader" id="generation-loader">
           <div class="loader-spinner"></div>
-          <h3 class="loader-title" id="loader-title">Формирование персонализированного промпта...</h3>
-          <p class="loader-subtitle" id="loader-subtitle">Интеграция профиля студента и методики МИДиС</p>
+          <h3 class="loader-title" id="loader-title">Сверяем специальность и дисциплину...</h3>
+          <p class="loader-subtitle" id="loader-subtitle">Калибровка под профиль студента и методику МИДиС</p>
         </div>
 
         <!-- Result Card -->
         <div class="result-card" id="result-card" style="display: none;">
           
+          <!-- Beginner-Friendly 3-Action Explainer Banner -->
+          <div class="beginner-guide-banner">
+            <div class="bg-guide-head">
+              <span class="bg-guide-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6L9 17l-5-5"></path>
+                </svg>
+              </span>
+              <strong class="bg-guide-title">Как этим пользоваться (всего 3 простых шага):</strong>
+            </div>
+            <div class="bg-guide-steps">
+              <div class="bg-step-card">
+                <span class="bg-num">1</span>
+                <div class="bg-text">
+                  <strong>Скопируй запрос</strong>
+                  <p>Нажми оранжевую кнопку «Скопировать готовый запрос» ниже</p>
+                </div>
+              </div>
+              <div class="bg-step-card">
+                <span class="bg-num">2</span>
+                <div class="bg-text">
+                  <strong>Открой нейросеть</strong>
+                  <p>ChatGPT, DeepSeek, Claude или любую удобную нейросеть</p>
+                </div>
+              </div>
+              <div class="bg-step-card">
+                <span class="bg-num">3</span>
+                <div class="bg-text">
+                  <strong>Вставь и отправь</strong>
+                  <p>Нажми Ctrl+V в окне чата и получи готовый профессиональный ответ</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="result-card-header">
             <div class="result-header-left">
-              <span class="ready-badge">✓ ГОТОВ К ИСПОЛЬЗОВАНИЮ</span>
-              <h3 class="result-title" id="result-spec-title">Промпт для студента МИДиС</h3>
+              <span class="ready-badge">✓ ГОТОВ К ОТПРАВКЕ В ЧАТ</span>
+              <h3 class="result-title" id="result-spec-title">Запрос для нейросети студента МИДиС</h3>
             </div>
             <div class="result-header-right">
               <span class="stats-badge" id="result-words-count">0 слов</span>
-              <span class="stats-badge" id="result-tokens-count">~0 токенов</span>
             </div>
           </div>
 
@@ -572,68 +540,22 @@
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
-                <span id="copy-btn-text">Скопировать промпт</span>
+                <span id="copy-btn-text">Скопировать готовый запрос</span>
               </button>
-            </div>
-
-            <div class="llm-launchers-box">
-              <span class="launchers-label">Открыть напрямую в нейросети:</span>
-              <div class="launchers-row">
-                <a id="link-chatgpt" href="#" target="_blank" rel="noopener" class="llm-btn llm-chatgpt">
-                  <span class="llm-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10a37f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10a10 10 0 0 1-10-10A10 10 0 0 1 12 2z"></path>
-                      <path d="m9 12 2 2 4-4"></path>
-                    </svg>
-                  </span>
-                  <div class="llm-info">
-                    <strong>ChatGPT</strong>
-                    <small>OpenAI</small>
-                  </div>
-                  <span class="llm-arrow">↗</span>
-                </a>
-
-                <a id="link-claude" href="#" target="_blank" rel="noopener" class="llm-btn llm-claude">
-                  <span class="llm-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
-                  </span>
-                  <div class="llm-info">
-                    <strong>Claude</strong>
-                    <small>Anthropic</small>
-                  </div>
-                  <span class="llm-arrow">↗</span>
-                </a>
-
-                <a id="link-deepseek" href="#" target="_blank" rel="noopener" class="llm-btn llm-deepseek">
-                  <span class="llm-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polygon points="12 8 8 12 12 16 16 12 12 8"></polygon>
-                    </svg>
-                  </span>
-                  <div class="llm-info">
-                    <strong>DeepSeek</strong>
-                    <small>Reasoning</small>
-                  </div>
-                  <span class="llm-arrow">↗</span>
-                </a>
-              </div>
             </div>
 
             <div class="result-sub-actions">
-              <button type="button" class="btn-sub-action" id="btn-download-markdown">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                <span>Скачать .md файл</span>
-              </button>
-              <button type="button" class="btn-sub-action btn-prev" data-prev="5">
+              <button type="button" class="btn-sub-action btn-prev" data-prev="4">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                <span>Изменить задачу</span>
+                <span>Изменить вопрос</span>
               </button>
               <button type="button" class="btn-sub-action" id="btn-restart-flow">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
                 <span>Начать заново</span>
+              </button>
+              <button type="button" class="btn-sub-action" id="btn-download-markdown">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Скачать .md файл</span>
               </button>
             </div>
           </div>
@@ -652,19 +574,46 @@
         <a href="https://midis.ru" target="_blank" rel="noopener" class="footer-logo-link">
           <img src="logo.svg" alt="МИДиС" width="120" height="26" class="footer-logo">
         </a>
-        <p class="footer-desc">Официальный образовательный AI-конструктор промптов для студентов института и колледжа МИДиС.</p>
       </div>
       <div class="footer-right">
-        <div class="footer-author-badge">
+        <a href="https://t.me/simonway" target="_blank" rel="noopener" class="footer-author-badge author-link" title="Телеграм-канал автора @simonway">
           <span class="author-dot"></span>
-          <span>Разработка: <strong>Мельников Семён</strong></span>
-        </div>
-        <div class="footer-links">
-          <a href="https://midis.ru" target="_blank" rel="noopener">Официальный сайт института midis.ru ↗</a>
-        </div>
+          <span>Разработка: <strong>Мельников Семён ↗</strong></span>
+        </a>
       </div>
     </div>
   </footer>
+
+  <!-- Modal Catalog: All 24 Scenarios with Live Search (As-You-Type) -->
+  <div class="modal-backdrop" id="all-scenarios-modal" aria-hidden="true" role="dialog">
+    <div class="modal-window modal-window-wide">
+      <div class="modal-header">
+        <div class="modal-badge">КАТАЛОГ ЗАДАЧ МИДиС</div>
+        <button type="button" class="modal-close-btn" id="btn-close-all-scenarios-modal">✕</button>
+      </div>
+      <h3 class="modal-title">Все специальные сценарии и задачи</h3>
+      <p class="modal-subtitle">Нажми на нужный сценарий — система выберет его и перейдет к твоей специальности.</p>
+      
+      <!-- Live Search Bar -->
+      <div class="modal-search-row">
+        <input type="text" id="input-modal-scenario-search" class="midis-search-input" placeholder="Быстрый поиск задачи (диплом, код, хакатон, резюме, сессия, смета)...">
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="modal-filter-pills-row" id="modal-scenario-filter-row">
+        <button type="button" class="modal-pill-btn active" data-cat="all">Все задачи (24)</button>
+        <button type="button" class="modal-pill-btn" data-cat="study">Учёба и Сессия</button>
+        <button type="button" class="modal-pill-btn" data-cat="career">Карьера и Стажировка</button>
+        <button type="button" class="modal-pill-btn" data-cat="creation">Проекты и Портфолио</button>
+        <button type="button" class="modal-pill-btn" data-cat="skills">Hard & Soft Skills</button>
+      </div>
+
+      <!-- Scenarios Grid Inside Modal -->
+      <div class="modal-scenarios-grid" id="modal-scenarios-container">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
 
   <!-- Clean MIDIS Instruction Modal -->
   <div class="modal-backdrop" id="guide-modal" aria-hidden="true" role="dialog">
@@ -711,7 +660,7 @@
 
       <div class="modal-footer">
         <div class="modal-author-note">
-          Разработка: <strong>Мельников Семён</strong> • Международный институт дизайна и сервиса (<a href="https://midis.ru" target="_blank" rel="noopener">midis.ru</a>)
+          Разработка: <a href="https://t.me/simonway" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;"><strong>Мельников Семён ↗</strong></a> • МИДиС (<a href="https://midis.ru" target="_blank" rel="noopener">midis.ru</a>)
         </div>
         <button type="button" class="btn-midis-primary btn-block" id="btn-modal-close-ok">Понятно, к конструктору</button>
       </div>

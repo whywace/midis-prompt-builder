@@ -1,0 +1,26 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="midisGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FC4C02" />
+      <stop offset="100%" stop-color="#FF722E" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="#0E121A" />
+  <rect x="3.5" y="3.5" width="57" height="57" rx="13.5" fill="none" stroke="url(#midisGrad)" stroke-width="3">
+    <animate attributeName="stroke-opacity" values="0.45;1;0.45" dur="2.4s" repeatCount="indefinite" />
+  </rect>
+  <path d="M21 44V20h5.2l5.8 9.2 5.8-9.2H43v24h-4.8V26.8l-5.1 8h-2.2l-5.1-8V44H21Z" fill="#FFFFFF">
+    <animate attributeName="fill" values="#FFFFFF;#FFE5DB;#FFFFFF" dur="3s" repeatCount="indefinite" />
+  </path>
+  <g transform="translate(48, 15)">
+    <path d="M0 -5 Q0 0 5 0 Q0 0 0 5 Q0 0 -5 0 Q0 0 0 -5 Z" fill="#FC4C02" filter="url(#glow)">
+      <animateTransform attributeName="transform" type="scale" values="0.75;1.3;0.75" dur="1.8s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="1.8s" repeatCount="indefinite" />
+    </path>
+    <circle cx="0" cy="0" r="1.5" fill="#FFFFFF" />
+  </g>
+</svg>
