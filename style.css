@@ -665,61 +665,7 @@ body.midis-dark .hero-rotator-badge:hover {
   color: var(--text-secondary);
   max-width: 720px;
   line-height: 1.55;
-  margin-bottom: 26px;
-}
-
-/* 3-Step Simple Guide Banner in Hero */
-.hero-quick-steps-bar {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 22px;
-  flex-wrap: wrap;
-}
-
-.quick-step-badge {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-card);
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-primary);
-  transition: all var(--transition);
-}
-
-.quick-step-badge:hover {
-  background: var(--midis-orange-soft);
-  border-color: var(--midis-orange-border);
-}
-
-.q-num {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--midis-orange);
-  color: #ffffff;
-  font-family: var(--font-heading);
-  font-size: 11px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.q-text {
-  letter-spacing: -0.01em;
-}
-
-.q-arrow {
-  color: var(--text-muted);
-  font-size: 16px;
-  font-weight: 700;
-  user-select: none;
+  margin-bottom: 0;
 }
 
 /* ==========================================================================
@@ -3321,24 +3267,6 @@ body.midis-dark .toast-msg {
     border-top: 1px solid var(--border-subtle);
   }
 
-  /* 3b. Mobile Hero Quick Steps Bar */
-  .hero-quick-steps-bar {
-    gap: 6px;
-    padding-top: 12px;
-  }
-  .quick-step-badge {
-    padding: 5px 10px;
-    font-size: 11.5px;
-    gap: 6px;
-  }
-  .q-num {
-    width: 18px;
-    height: 18px;
-    font-size: 9.5px;
-  }
-  .q-arrow {
-    font-size: 12px;
-  }
 
   /* 4. Stepper Navigation: Hide bulky desktop bar, show sleek compact mobile stepper */
   .stepper-nav-container {
